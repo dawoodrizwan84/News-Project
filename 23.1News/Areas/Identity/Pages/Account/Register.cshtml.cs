@@ -12,14 +12,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using _23._1News.Models.Db;
+using _23._1News.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using System.ComponentModel;
 
 namespace _23._1News.Areas.Identity.Pages.Account
 {
@@ -76,15 +75,16 @@ namespace _23._1News.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-
+            /// 
             [Required]
-            [DisplayName("First Name")]
+            
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
-            [DisplayName("Last Name")]
+            
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]

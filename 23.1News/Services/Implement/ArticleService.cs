@@ -1,5 +1,5 @@
-﻿using _23._1News.Data;
-using _23._1News.Models;
+﻿using _23._1News.Models;
+using _23._1News.Models.Data;
 using _23._1News.Services.Abstract;
 
 namespace _23._1News.Services.Implement
