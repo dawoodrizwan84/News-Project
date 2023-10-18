@@ -5,8 +5,8 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using _23._1News.Models.Db;
 using Microsoft.AspNetCore.Authorization;
+using _23._1News.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
