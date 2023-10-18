@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using _23._1News.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace _23._1News.Data
@@ -9,5 +10,6 @@ namespace _23._1News.Data
             : base(options)
         {
         }
+        public DbSet<Article> Articles { get; set; }
     }
 }
