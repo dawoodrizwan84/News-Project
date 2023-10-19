@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace _23._1News.Models
+namespace _23._1News.Models.Db
 {
     public class User : IdentityUser
     {

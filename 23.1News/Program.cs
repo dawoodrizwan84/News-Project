@@ -1,5 +1,5 @@
-using _23._1News.Models;
-using _23._1News.Models.Data;
+using _23._1News.Data;
+using _23._1News.Models.Db;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

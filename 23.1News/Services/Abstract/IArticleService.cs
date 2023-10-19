@@ -1,4 +1,4 @@
-﻿using _23._1News.Models;
+﻿using _23._1News.Models.Db;
 
 namespace _23._1News.Services.Abstract
 {
@@ -11,7 +11,6 @@ namespace _23._1News.Services.Abstract
 
         Article GetArticleById(int id);
         bool DeleteArticle(int id);
-
 
 
     }
