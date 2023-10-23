@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.header-top {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-content: flex-start;
+}
