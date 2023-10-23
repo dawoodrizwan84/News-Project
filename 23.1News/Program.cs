@@ -1,5 +1,7 @@
 using _23._1News.Data;
 using _23._1News.Models.Db;
+using _23._1News.Services.Abstract;
+using _23._1News.Services.Implement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,7 @@ namespace _23._1News
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -55,6 +57,7 @@ namespace _23._1News
                 options.SlidingExpiration = true;
             });
 
+            builder.Services.AddScoped<IArticleService, ArticleService>();
 
             var app = builder.Build();
 
