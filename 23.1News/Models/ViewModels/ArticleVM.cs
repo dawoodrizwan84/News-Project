@@ -1,13 +1,17 @@
-﻿using _23._1News.Models.View_Models;
+﻿using _23._1News.Models.Db;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Build.Graph;
-using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 
-namespace _23._1News.Models.Db
+namespace _23._1News.Models.View_Models
 {
-    public class Article
+    public class ArticleVM
     {
+
+        public ArticleVM()
+        {
+            Categories = new List<SelectListItem>();
+        }
+
 
         public int Id { get; set; }
 
@@ -36,9 +40,13 @@ namespace _23._1News.Models.Db
 
         public string ImageLink { get; set; }
 
-        public int CategoryId { get; set; }
-        //public virtual Category Category { get; set; }
-       
-    }
 
+       
+        public Category Category { get; set; } = new Category();
+
+
+        public List<SelectListItem> Categories { get; set; }
+        public string ChosenCategory { get; set; }
+        public string FileName { get; set; }
+    }
 }
