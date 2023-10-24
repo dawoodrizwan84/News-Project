@@ -63,6 +63,21 @@ namespace _23._1News.Services.Implement
         {
             return _db.Articles.Find(id);
         }
+        public List <Article> SearchArticle(string searchTerm)
+        {
+            
+            var Articles = _db.Articles.ToList();
+            var searchResults  = Articles
+                              .Where(article => article.Headline.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                              article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                              article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                              )
+                              .ToList();
+
+            return searchResults;
+        }
+
+
 
 
         public bool DeleteArticle(int id) 
