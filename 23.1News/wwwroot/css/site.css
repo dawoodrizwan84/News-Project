@@ -25,6 +25,22 @@ body {
     align-content: flex-start;
 }
 
+#left {
+    position: absolute;
+    margin-top: 150px;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+#right {
+    margin-top: 50px;
+    margin-left: 200px;
+    height: 100%;
+    font-size: large;
+}
+}
+
 a:link {
 
     text-decoration: none;
