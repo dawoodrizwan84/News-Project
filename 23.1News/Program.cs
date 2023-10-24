@@ -58,6 +58,8 @@ namespace _23._1News
             });
 
             builder.Services.AddScoped<IArticleService, ArticleService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
+
 
             var app = builder.Build();
 
@@ -77,7 +79,7 @@ namespace _23._1News
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseSession();
+          
 
             app.UseAuthentication();
             app.UseAuthorization();
