@@ -24,3 +24,14 @@ body {
     justify-content: space-between;
     align-content: flex-start;
 }
+
+a:link {
+
+    text-decoration: none;
+}
+
+.card-text {
+
+    color: black;
+}
+
