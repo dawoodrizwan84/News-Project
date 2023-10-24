@@ -1,8 +1,9 @@
-﻿@{
+﻿@model IEnumerable<_23._1News.Models.Db.Article>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome To 23 News</h1>
     <p>
         <em>
@@ -12,4 +13,28 @@
             Stay tuned for breaking news alerts, in-depth analysis, and exclusive interviews with some of the most influential people in the world. Thank you for choosing us as your go-to source for news!
         </em>
     </p>
+</div>*@
+
+<div class="text-center">
+    <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
+
+</div>
+
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card col-md-12">
+            <img src="~/images/@item.ImageLink" class="card-img-top" alt="...">
+            <div class="card-body">
+                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                    @*<h5 class="card-title">@item.LinkText</h5>*@
+                    <h5 class="card-title">@item.Headline</h5>
+                    <p class="card-text">@item.ContentSummary</p>
+                    <p class="card-text">@item.Content</p>
+                </a>
+            </div>
+
+        </div>
+    }
 </div>

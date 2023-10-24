@@ -2,20 +2,29 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+using _23._1News.Services;
+using _23._1News.Services.Abstract;
+
 namespace _23._1News.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IArticleService _articleService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+          IArticleService articleService
+          )
         {
             _logger = logger;
+            _articleService = articleService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var articleList = _articleService.GetArticles();
+
+            return View(articleList);
         }
 
         public IActionResult Privacy()
