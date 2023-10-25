@@ -4,6 +4,7 @@ using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,17 +19,19 @@ namespace _23._1News.Controllers
         private readonly IArticleService _articleService;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ArticleController> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public ArticleController(ILogger<ArticleController> logger,
                 IArticleService articleService,
                 ApplicationDbContext applicationDbContext,
-                UserManager<User> userManager)
+                UserManager<User> userManager,
+                IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _articleService = articleService;
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
-
+            _webHostEnvironment = webHostEnvironment;
         }
         [Route("Ai")]
         public IActionResult Index()
@@ -49,23 +52,49 @@ namespace _23._1News.Controllers
             {
                 addArticle.Categories.Add(new SelectListItem
                 {
-                    Value = category.CategoryId.ToString(), // Assuming Id is the property for the category's value
+                    Value = category.CategoryId.ToString(), 
                     Text = category.Name
                 });
             }
             return View(addArticle);
         }
 
+
+
+
         [Route("cr")]
         [HttpPost]
         [Authorize(Roles = "Editor")]
         public IActionResult Create(ArticleVM articleVM)
         {
+
+            if (articleVM.File != null && articleVM.File.Length > 0)
+            {
+                
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "image");
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    articleVM.File.CopyTo(fileStream);
+                }
+
+                
+                articleVM.ImageLink = "/image/" + uniqueFileName;
+            }
+
+
+
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
 
             return RedirectToAction("Index");
         }
+
+
+
+
+
 
         public IActionResult Edit(int id)
         {
