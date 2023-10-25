@@ -2,6 +2,9 @@
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Text.RegularExpressions;
 
 namespace _23._1News.Services.Implement
 {
@@ -62,6 +65,32 @@ namespace _23._1News.Services.Implement
         {
             return _db.Articles.Find(id);
         }
+        public List<Article> SearchArticle(string searchTerm)
+        {
+            DateTime? datestamp = null;
+            string datePattern = @"^\d{4}-\d{2}-\d{2}$";
+
+            if (Regex.IsMatch(searchTerm, datePattern))
+            {
+                datestamp = DateTime.Parse(searchTerm).Date;
+            }
+
+            var Articles = _db.Articles.ToList();
+            var searchResults = Articles
+                .Where(article =>
+                    article.Headline.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    (datestamp != null && article.DateStamp.Date == datestamp)
+                )
+                .ToList();
+
+            return searchResults;
+        }
+
+
+
 
 
         public bool DeleteArticle(int id)

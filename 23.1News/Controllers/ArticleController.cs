@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using System.Web;
 
 namespace _23._1News.Controllers
 {
@@ -86,16 +87,11 @@ namespace _23._1News.Controllers
             }
 
 
-
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
 
             return RedirectToAction("Index");
         }
-
-
-
-
 
 
         public IActionResult Edit(int id)
@@ -137,7 +133,19 @@ namespace _23._1News.Controllers
             return View(det);
         }
 
-      
+              
+        public IActionResult Search()
+        {
+            string Headline = Request.Query["search"];
+            var SearchArticles = _articleService.SearchArticle(Headline);
+
+            if (SearchArticles == null)
+            {
+                return NotFound();
+            }
+
+            return View(SearchArticles);
+        }
 
     }
 }
