@@ -92,6 +92,7 @@ namespace _23._1News.Controllers
             {
                 return NotFound();
             }
+
             return View(SearchArticles);
         }
     }
