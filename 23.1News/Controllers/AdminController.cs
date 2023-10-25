@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace _23._1News.Controllers
 {
-    public class AdminController
+    public class AdminController : Controller
     {
 
         private readonly ILogger<AdminController> _logger;
@@ -18,6 +18,10 @@ namespace _23._1News.Controllers
 
         }
 
+        public IActionResult Index() 
+        {
+            return View();
+        }
 
         
     }
