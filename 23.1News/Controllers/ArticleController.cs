@@ -33,6 +33,8 @@ namespace _23._1News.Controllers
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
         }
+
+
         [Route("Ai")]
         public IActionResult Index()
         {
