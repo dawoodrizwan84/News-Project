@@ -1,71 +1,30 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Article>
-
 @{
     ViewData["Title"] = "Search";
 }
 
-<h1>Search</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateStamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Headline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContentSummary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Headline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentSummary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="text-center">
+    <h1 class="display-4"><strong>Search results</strong></h1>
+
+</div>
+
+<br/>
+<div class="row"
+    @foreach (var item in Model)
+    {
+        <div class="card col-md-12">
+            <img src="/images/@item.ImageLink" class="card-img-top" alt="...">
+            <div class="card-body">
+                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                    @*<h5 class="card-title">@item.LinkText</h5>*@
+                    <h5 class="card-title">@item.Headline</h5>
+                    <p class="card-text">@item.ContentSummary</p>
+                    <p class="card-text">@item.Content</p>
+                </a>
+            </div>
+
+        </div>
+    }
+</div>
