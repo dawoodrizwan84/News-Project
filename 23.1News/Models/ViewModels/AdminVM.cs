@@ -2,5 +2,6 @@
 {
     public class AdminVM
     {
+        public int MyProperty { get; set; }
     }
 }

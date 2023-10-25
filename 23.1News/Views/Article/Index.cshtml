@@ -11,7 +11,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover table-light">
     <thead>
         <tr>
             <th>
@@ -32,7 +32,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageLink)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -58,7 +60,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ImageLink)
                 </td>
-               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

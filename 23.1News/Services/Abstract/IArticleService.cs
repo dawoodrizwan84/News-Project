@@ -14,6 +14,6 @@ namespace _23._1News.Services.Abstract
         bool DeleteArticle(int id);
 
         List<Category> GetCategories();
-    
+
     }
 }

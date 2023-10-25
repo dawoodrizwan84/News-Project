@@ -24,7 +24,7 @@ namespace _23._1News.Services.Implement
 
         public void CreateArticle(ArticleVM articleVM, string userId)
         {
-           //_db.Add(articleVM);
+            //_db.Add(articleVM);
 
             Article dbArt = new Article()
             {
@@ -32,22 +32,21 @@ namespace _23._1News.Services.Implement
                 Content = articleVM.Content,
                 ContentSummary = articleVM.ContentSummary,
                 LinkText = articleVM.LinkText,
-                //Category = _db.Categories
-                        //.Where(c => c.Name == articleVM.ChosenCategory)
-                        //.FirstOrDefault()!,
+                Category = _db.Categories
+                                .FirstOrDefault(c => c.Name == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
-                ImageLink = articleVM.ImageLink,
+                ImageLink = articleVM.ImageLink
             };
-            
-            //dbArt.Author = _db.Users.Find(userId);
+
+            dbArt.Author = _db.Users.Find(userId);
             _db.Articles.Add(dbArt);
             _db.SaveChanges();
-                     
+
 
 
         }
 
-        public bool UpdateArticle(ArticleVM articleVM) 
+        public bool UpdateArticle(ArticleVM articleVM)
         {
             try
             {
@@ -62,7 +61,7 @@ namespace _23._1News.Services.Implement
             }
         }
 
-        public Article GetArticleById(int id) 
+        public Article GetArticleById(int id)
         {
             return _db.Articles.Find(id);
         }
@@ -94,7 +93,7 @@ namespace _23._1News.Services.Implement
 
 
 
-        public bool DeleteArticle(int id) 
+        public bool DeleteArticle(int id)
         {
             try
             {
@@ -114,10 +113,12 @@ namespace _23._1News.Services.Implement
             }
         }
 
-        public List<Category> GetCategories() 
+        public List<Category> GetCategories()
         {
-           return _db.Categories.ToList();
+            return _db.Categories.ToList();
         }
+
+       
 
     }
 }

@@ -13,7 +13,7 @@ namespace _23._1News.Models.View_Models
         }
 
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Display(Name = "Date")]
 
@@ -21,7 +21,7 @@ namespace _23._1News.Models.View_Models
 
         [Display(Name = "Text To Link")]
 
-        public string LinkText { get; set; }
+        public string LinkText { get; set; } = string.Empty;
 
 
         [Display(Name = "Headline")]
@@ -40,13 +40,13 @@ namespace _23._1News.Models.View_Models
 
         public string ImageLink { get; set; }
 
-
        
-        public Category Category { get; set; } = new Category();
 
-
-        public List<SelectListItem> Categories { get; set; }
+        public Category Category { get; set; }
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public string ChosenCategory { get; set; }
-        public string FileName { get; set; }
+        public IFormFile File { get; set; }
+
+
     }
 }
