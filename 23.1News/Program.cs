@@ -59,6 +59,7 @@ namespace _23._1News
 
             builder.Services.AddScoped<IArticleService, ArticleService>();
 
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
