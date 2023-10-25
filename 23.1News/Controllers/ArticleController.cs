@@ -19,8 +19,8 @@ namespace _23._1News.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ArticleController> _logger;
 
-        public ArticleController(ILogger<ArticleController> logger, 
-                IArticleService articleService, 
+        public ArticleController(ILogger<ArticleController> logger,
+                IArticleService articleService,
                 ApplicationDbContext applicationDbContext,
                 UserManager<User> userManager)
         {
@@ -37,11 +37,23 @@ namespace _23._1News.Controllers
             return View(articleList);
         }
 
+
         [Route("cr")]
         [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
-            return View();
+            ArticleVM addArticle = new ArticleVM();
+            var categories = _articleService.GetCategories();
+
+            foreach (var category in categories)
+            {
+                addArticle.Categories.Add(new SelectListItem
+                {
+                    Value = category.CategoryId.ToString(), // Assuming Id is the property for the category's value
+                    Text = category.Name
+                });
+            }
+            return View(addArticle);
         }
 
         [Route("cr")]
@@ -93,6 +105,8 @@ namespace _23._1News.Controllers
             }
             return View(det);
         }
+
+      
 
     }
 }

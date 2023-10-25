@@ -13,7 +13,7 @@ namespace _23._1News.Models.View_Models
         }
 
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Display(Name = "Date")]
 
@@ -43,7 +43,7 @@ namespace _23._1News.Models.View_Models
        
 
         public Category Category { get; set; }
-        public List<SelectListItem> Categories { get; set; }
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public string ChosenCategory { get; set; }
         public string FileName { get; set; }
     }

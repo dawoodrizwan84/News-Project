@@ -89,5 +89,7 @@ namespace _23._1News.Services.Implement
             return _db.Categories.ToList();
         }
 
+       
+
     }
 }
