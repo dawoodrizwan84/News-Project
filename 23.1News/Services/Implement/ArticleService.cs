@@ -3,6 +3,7 @@ using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Text.RegularExpressions;
 
@@ -117,7 +118,10 @@ namespace _23._1News.Services.Implement
         {
             return _db.Categories.ToList();
         }
-
+        public List<Article>GetArticles(int id)
+        {
+            return _db.Articles.Where(Article => Article.Id == id).ToList();
+        }
        
 
     }
