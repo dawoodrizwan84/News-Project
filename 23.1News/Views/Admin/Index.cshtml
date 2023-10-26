@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     ViewData["Title"] = "Admin Page";
     Layout = "_AdminLayout";
 }
@@ -8,7 +10,7 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;display:inline">
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                
                 <strong>Adimin</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
@@ -107,9 +109,9 @@
                     <td>Several missing after ships collide in North Sea - officials</td>
                     <td>2023.10.24 12:00</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                        <a asp-controller="Article" asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-controller="Article" asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-controller="Article" asp-action="Delete" asp-route-id="">Delete</a>
                     </td>
                 </tr>
                 <tr>

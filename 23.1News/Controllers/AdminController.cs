@@ -11,23 +11,30 @@ namespace _23._1News.Controllers
     {
 
         private readonly ILogger<AdminController> _logger;
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly IAdminService _adminService;
         private readonly IArticleService _articleService;
-        
-        public AdminController(ILogger<AdminController> logger, IArticleService articleService, IAdminService adminService)
+
+        public AdminController(ILogger<AdminController> logger,
+            IArticleService articleService, IAdminService adminService,
+            ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
             _adminService = adminService;
+            _applicationDbContext = applicationDbContext;
             _articleService = articleService;
-            
+
 
         }
+
 
         public IActionResult Index()
         {
 
             return View();
+
         }
+
 
 
 
