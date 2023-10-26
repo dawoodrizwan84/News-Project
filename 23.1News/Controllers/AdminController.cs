@@ -13,19 +13,21 @@ namespace _23._1News.Controllers
         private readonly ILogger<AdminController> _logger;
         private readonly IAdminService _adminService;
         private readonly IArticleService _articleService;
+        
         public AdminController(ILogger<AdminController> logger, IArticleService articleService, IAdminService adminService)
         {
             _logger = logger;
             _adminService = adminService;
             _articleService = articleService;
+            
 
         }
 
-       public IActionResult Index()
-  {
-      var articleList = _articleService.GetArticles();
-      return View(articleList);
-  }
+        public IActionResult Index()
+        {
+
+            return View();
+        }
 
 
 
