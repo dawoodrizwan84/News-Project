@@ -143,10 +143,10 @@ namespace _23._1News.Services.Implement
 
         }
 
-
+        // Search for category articles
         public List<Article>GetArticles(int id)
         {
-            return _db.Articles.Where(Article => Article.Id == id).ToList();
+            return _db.Articles.Where(Article => Article.CategoryId == id).ToList();
         }
        
 

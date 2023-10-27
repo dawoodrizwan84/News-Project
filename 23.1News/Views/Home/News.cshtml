@@ -1,3 +1,23 @@
-﻿
+﻿@model IEnumerable<_23._1News.Models.Db.Article>
 @{
+    ViewData["Title"] = "Search";
 }
+
+
+<div class="row"
+@foreach (var item in Model)
+{
+            <div class="card col-md-12">
+                <img src="/images/@item.ImageLink" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                @*<h5 class="card-title">@item.LinkText</h5>*@
+                        <h5 class="card-title">@item.Headline</h5>
+                        <p class="card-text">@item.ContentSummary</p>
+                        <p class="card-text">@item.Content</p>
+                    </a>
+                </div>
+
+            </div>
+}
+</div>
