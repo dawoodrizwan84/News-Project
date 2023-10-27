@@ -6,6 +6,7 @@ namespace _23._1News.Services.Abstract
     public interface IArticleService
     {
         List<Article> GetArticles();
+        List<Article> GetArticles(int id);
         List<Article> SearchArticle(string Headline);
         void CreateArticle(ArticleVM articleVM, string userId);
         bool UpdateArticle(ArticleVM articleVM);

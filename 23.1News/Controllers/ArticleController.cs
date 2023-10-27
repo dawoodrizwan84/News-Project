@@ -48,7 +48,8 @@ namespace _23._1News.Controllers
 
 
         [Route("cr")]
-        [Authorize(Roles = "Editor , Admin")]
+        [Authorize(Roles = "Editor, Admin")]
+
         public IActionResult Create()
         {
             ArticleVM addArticle = new ArticleVM();
@@ -71,6 +72,7 @@ namespace _23._1News.Controllers
         [Route("cr")]
         [HttpPost]
         [Authorize(Roles = "Editor , Admin")]
+       
         public IActionResult Create(ArticleVM articleVM)
         {
 

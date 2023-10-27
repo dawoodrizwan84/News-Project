@@ -4,16 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]-23.1News</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="~/lib/bootstrap/dist/bootstrap.css" rel="stylesheet" />
+    <link rel="icon" href="~/23_favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="~/css/bootswatchtheme.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link href="~/css/fontawesome-5.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/_23._1News.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <div class="header-top">
+        <div class="header-top1" style="align-content:start;">
             <div>
                 <img src="~/image/logo.png" href="Home/Index.html" alt="23.1" />
+            </div>
+            <div>
+                <h4 id="clock" style="text-align:center;padding:5px;margin-left:450px;margin-top:9px;"></h4>
             </div>
         </div>
 
@@ -21,32 +25,25 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav me-auto d-flex justify-content-start">
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        &nbsp;&nbsp; &nbsp;&nbsp;
+
+                        <img src="~/image/images.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Local">Local</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Sweden">Sweden</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="World">World</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Economy">Economy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Sports">Sports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                            <partial name="_AdminLoginPartial" />
+                        </li> 
                     </ul>
+                  
+                   
+                   
                     <form class="d-flex justify-content-center">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
+                    
                 </div>
             </div>
         </nav>
@@ -68,6 +65,34 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function displayTime() {
+            var d = new Date();
+            var hour = d.getHours();
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            var min = d.getMinutes();
+            if (min < 10) {
+                min = "0" + min;
+            }
+            var sec = d.getSeconds();
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+            document.getElementById("clock").innerText = "Time:" + hour + ":" + min + ":" + sec;
+
+        }
+        setInterval(displayTime, 1000);
+
+        const d = new Date();
+        var date = (d.getDate());
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDay();
+
+        document.getElementById("demo").innerText = year + ":" + month + ":" + date;
+    </script>
 </body>
 </html>
 

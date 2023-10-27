@@ -5,6 +5,8 @@ using _23._1News.Services.Abstract;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 using System;
 using System.Text.RegularExpressions;
 
@@ -140,6 +142,13 @@ namespace _23._1News.Services.Implement
             }
 
         }
+
+
+        public List<Article>GetArticles(int id)
+        {
+            return _db.Articles.Where(Article => Article.Id == id).ToList();
+        }
+       
 
 
     }

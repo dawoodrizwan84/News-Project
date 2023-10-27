@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿
+@inject _23._1News.Services.Abstract.IArticleService _articleService
+@{
+    var categories = _articleService.GetCategories();
+}
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,7 +25,9 @@
                 <div>
                     <img src="~/images/logo.png" href="Home/Index.html"alt="23.1"/>
                 </div>
-
+            <div>
+                <h4 id="clock" style="text-align:center;padding:5px;margin-left:50px;margin-top:9px;"></h4>
+            </div>
                 <div style="margin-right:20px;">
                 <button type="button" class="btn btn-primary btn-lg">Subscribe</button>
                     
@@ -31,21 +42,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Local">Local</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Sweden">Sweden</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="World">World</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Economy">Economy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Sports">Sports</a>
-                        </li>
+                        @foreach(var category in categories)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                            </li>
+                        }
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -55,6 +58,8 @@
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
+
+                    &nbsp;&nbsp; &nbsp;&nbsp;
                     <partial name="_LoginPartial"/>
                 </div>
             </div>
@@ -78,7 +83,34 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function displayTime() {
+            var d = new Date();
+            var hour = d.getHours();
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            var min = d.getMinutes();
+            if (min < 10) {
+                min = "0" + min;
+            }
+            var sec = d.getSeconds();
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+            document.getElementById("clock").innerText = "Time:" + hour + ":" + min + ":" + sec;
 
+        }
+        setInterval(displayTime, 1000);
+
+        const d = new Date();
+        var date = (d.getDate());
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDay();
+
+        document.getElementById("demo").innerText = year + ":" + month + ":" + date;
+    </script>
 
 
     

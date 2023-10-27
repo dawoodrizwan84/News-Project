@@ -31,11 +31,17 @@ namespace _23._1News.Controllers
         public IActionResult Index()
         {
 
-            return View();
+
+            var articleList = _articleService.GetArticles();
+            return View(articleList);
 
         }
 
-
+        public IActionResult Edit(int id)
+        {
+            var record = _articleService.GetArticleById(id);
+            return View(record);
+        }
 
 
     }
