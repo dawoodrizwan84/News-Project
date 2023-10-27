@@ -1,71 +1,78 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using _23._1News.Models.Db;
+@model IEnumerable<_23._1News.Models.Db.Article>
+
+@{
     ViewData["Title"] = "Admin Page";
     Layout = "_AdminLayout";
 }
 
 
-<div id="left">
+<div class="row">
+<div id="left" class="col-md-3">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;display:inline">
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>Adimin</strong>
+                <img src="~/image/images.jpg"  alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>@User.Identity?.Name</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li class="dropdown-item
+">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a asp-controller="Article" asp-action="Index" class="nav-link active" aria-current="page">
+            <li class="nav-item001">
+                    <a asp-controller="Article" asp-action="Index" class="nav-link link-dark" aria-current="page">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     NewsList
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a asp-controller="Article" asp-action="Create" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Add News
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a asp-controller="Article" asp-action="Edit" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                     Edit News
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                     Search News
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Add Category
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Edit Category
                 </a>
             </li>
-            <li>
+                <li class="nav-item001">
                 <a href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Subscription
                 </a>
             </li>
-
-
-            <li>
+                <li class="nav-item001">
                 <a href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Customer detail
@@ -76,113 +83,82 @@
 </div>
 
 
-<div id="right">
+    <div id="right" class=" col-md-9">
     <h1 style="text-align:center">News List</h1>
+    <hr />
     <div class="table-responsive small">
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.ImageLink)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Headline)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Category)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.DateStamp)</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Local</td>
-                    <td>Mohamed Muizzu: The Maldives' new president wants India out</td>
-                    <td>2023.10.23 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sweden</td>
-                    <td>Several missing after ships collide in North Sea - officials</td>
-                    <td>2023.10.24 12:00</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="">Edit</a> |
-                        <a asp-action="Details" asp-route-id="">Details</a> |
-                        <a asp-action="Details" asp-route-id="">Deleat</a>
-                    </td>
-                </tr>
 
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ImageLink)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Headline)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateStamp)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
+        <div>
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&laquo;</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">5</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">&raquo;</a>
+                </li>
+            </ul>
+        </div>
 </div>
+</div>
+
+
+
+
+
 
 
 
