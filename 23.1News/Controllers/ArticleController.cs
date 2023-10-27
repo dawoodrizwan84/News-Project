@@ -1,5 +1,6 @@
 
 using _23._1News.Data;
+using _23._1News.Data.Migrations;
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Web;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace _23._1News.Controllers
 {
@@ -40,12 +43,13 @@ namespace _23._1News.Controllers
         public IActionResult Index()
         {
             var articleList = _articleService.GetArticles();
-            return View(articleList);
+             return View(articleList);
         }
 
 
         [Route("cr")]
         [Authorize(Roles = "Editor, Admin")]
+
         public IActionResult Create()
         {
             ArticleVM addArticle = new ArticleVM();
@@ -55,7 +59,7 @@ namespace _23._1News.Controllers
             {
                 addArticle.Categories.Add(new SelectListItem
                 {
-                    Value = category.CategoryId.ToString(), 
+                    Value = category.CategoryId.ToString(),
                     Text = category.Name
                 });
             }
@@ -67,25 +71,27 @@ namespace _23._1News.Controllers
 
         [Route("cr")]
         [HttpPost]
-        [Authorize(Roles = "Editor, Admin")]
+        [Authorize(Roles = "Editor , Admin")]
+       
         public IActionResult Create(ArticleVM articleVM)
         {
 
-            if (articleVM.File != null && articleVM.File.Length > 0)
-            {
-                
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "image");
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    articleVM.File.CopyTo(fileStream);
-                }
+            //if (articleVM.File != null && articleVM.File.Length > 0)
+            //{
 
-                
-                articleVM.ImageLink = "/image/" + uniqueFileName;
-            }
+            //    string uniqueFileName = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
+            //    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "image");
+            //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //    {
+            //        articleVM.File.CopyTo(fileStream);
+            //    }
 
+
+            //    articleVM.ImageLink = "/image/" + uniqueFileName;
+            //}
+
+            _articleService.UploadImageFile(articleVM.File);
 
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
@@ -112,7 +118,7 @@ namespace _23._1News.Controllers
             {
                 return RedirectToAction("Index");
             }
-            TempData["msg"] = "Error has occurred on the server side.";
+         
             return View(newArticle);
         }
 
@@ -133,7 +139,7 @@ namespace _23._1News.Controllers
             return View(det);
         }
 
-              
+
         public IActionResult Search()
         {
             string Headline = Request.Query["search"];

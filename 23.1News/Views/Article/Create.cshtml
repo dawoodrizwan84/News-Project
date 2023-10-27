@@ -65,7 +65,7 @@
                 <span asp-validation-for="File"></span>
             </dd>
         </dl>
-        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload" />
+        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload" onclick="typevalfunc()" />
 
    </div>
         
@@ -81,7 +81,19 @@
 </div>
 
 
+<script>
+    function typevalfunc()
+    {
+        document.getElementById("File").click();
+    }
+    // function givevalue() {
 
+    //     var fileName = document.getElementById("File").value;
+    //     document.getElementById("FileName").value = fileName.substring(12);
+
+    }
+
+</script>
 
 
 @section Scripts {
@@ -91,16 +103,3 @@
 }
 
 
-<script>
-    "use strict";
-
-    function AJAXSubmit(oFormElement) {
-        var oReq = new XMLHttpRequest();
-        oReq.onload = function (e) {
-            oFormElement.elements.namedItem("result").value =
-                'Result: ' + this.status + ' ' + this.statusText;
-        };
-        oReq.open("post", oFormElement.action);
-        oReq.send(new FormData(oFormElement));
-    }
-</script>

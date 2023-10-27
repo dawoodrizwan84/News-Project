@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @using _23._1News.Models.Db;
 @model IEnumerable<_23._1News.Models.Db.Article>
+
 
 @{
     ViewData["Title"] = "Admin Page";
@@ -13,8 +14,13 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;display:inline">
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+
+                
+                <strong>Adimin</strong>
+
                 <img src="~/image/images.jpg"  alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>@User.Identity?.Name</strong>
+
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -98,6 +104,97 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-controller="Article" asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-controller="Article" asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-controller="Article" asp-action="Delete" asp-route-id="">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Local</td>
+                    <td>Mohamed Muizzu: The Maldives' new president wants India out</td>
+                    <td>2023.10.23 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sweden</td>
+                    <td>Several missing after ships collide in North Sea - officials</td>
+                    <td>2023.10.24 12:00</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="">Edit</a> |
+                        <a asp-action="Details" asp-route-id="">Details</a> |
+                        <a asp-action="Details" asp-route-id="">Deleat</a>
+                    </td>
+                </tr>
+
 
             <tbody>
                 @foreach (var item in Model)
