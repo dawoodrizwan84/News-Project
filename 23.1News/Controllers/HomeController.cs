@@ -37,5 +37,21 @@ namespace _23._1News.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Local()
+        {
+            return View();
+        }
+        public IActionResult News(int id)
+        {
+            var articles=_articleService.GetArticles(id);
+            return View(articles);
+        }
+
+
+        public IActionResult World()
+        {
+            return View();
+        }
     }
 }
