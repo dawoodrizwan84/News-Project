@@ -44,6 +44,7 @@ namespace _23._1News.Models.Db
 
         public User Author { get; set; }
 
+        
 
 
 

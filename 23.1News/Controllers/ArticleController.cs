@@ -116,7 +116,7 @@ namespace _23._1News.Controllers
             {
                 return RedirectToAction("Index");
             }
-            TempData["msg"] = "Error has occurred on the server side.";
+         
             return View(newArticle);
         }
 

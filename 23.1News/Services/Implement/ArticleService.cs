@@ -23,8 +23,8 @@ namespace _23._1News.Services.Implement
         public List<Article> GetArticles()
         {
             _db.Articles
-            .Include(a => a.Category)
-            .ThenInclude(Category => Category.Name);
+            .Include(a => a.Category);
+            //.ThenInclude(Category => Category.Name);
 
             return _db.Articles.ToList();
         }
@@ -55,6 +55,7 @@ namespace _23._1News.Services.Implement
 
         public bool UpdateArticle(ArticleVM articleVM)
         {
+
             try
             {
                 _db.Update(articleVM);
@@ -132,12 +133,12 @@ namespace _23._1News.Services.Implement
                 _configuration["AzureWebJobsStorage"]);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newscontainer");
             BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
-           
-            using (var stream = file.OpenReadStream()) 
+
+            using (var stream = file.OpenReadStream())
             {
                 blobClient.Upload(stream);
             }
-              
+
         }
 
 
