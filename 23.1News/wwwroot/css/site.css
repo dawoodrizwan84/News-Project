@@ -25,17 +25,25 @@ body {
     align-content: flex-start;
 }
 
+.header-top1 {
+    margin-top: 20px;
+    display: flex;
+
+    
+}
+
 #left {
     position: absolute;
-    margin-top: 150px;
+    margin-top: 155px;
     top: 0;
-    left: 0;
+    left: 20px;
     height: 100%;
 }
 
 #right {
-    margin-top: 50px;
-    margin-left: 200px;
+    margin-top: 20px;
+    margin-left:250px;
+    width:85%;
     height: 100%;
     font-size: large;
 }
@@ -49,5 +57,13 @@ a:link {
 .card-text {
 
     color: black;
+}
+
+
+
+.nav-item001:hover {
+    background-color: #2fa4e7;
+    color:white;
+    font-size: large;
 }
 
