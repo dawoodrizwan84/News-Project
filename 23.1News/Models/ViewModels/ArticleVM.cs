@@ -40,8 +40,7 @@ namespace _23._1News.Models.View_Models
 
         public string ImageLink { get; set; }
 
-       
-
+        
         public Category Category { get; set; }
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public string ChosenCategory { get; set; }

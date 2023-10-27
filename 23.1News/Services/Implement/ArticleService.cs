@@ -2,7 +2,9 @@
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Text.RegularExpressions;
 
@@ -11,14 +13,19 @@ namespace _23._1News.Services.Implement
     public class ArticleService : IArticleService
     {
         private readonly ApplicationDbContext _db;
-
-        public ArticleService(ApplicationDbContext db)
+        private readonly IConfiguration _configuration;
+        public ArticleService(ApplicationDbContext db, IConfiguration configuration)
         {
             _db = db;
+            _configuration = configuration;
         }
 
         public List<Article> GetArticles()
         {
+            _db.Articles
+            .Include(a => a.Category)
+            .ThenInclude(Category => Category.Name);
+
             return _db.Articles.ToList();
         }
 
@@ -118,7 +125,21 @@ namespace _23._1News.Services.Implement
             return _db.Categories.ToList();
         }
 
-       
+
+        public void UploadImageFile(IFormFile file)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(
+                _configuration["AzureWebJobsStorage"]);
+            BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newscontainer");
+            BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+           
+            using (var stream = file.OpenReadStream()) 
+            {
+                blobClient.Upload(stream);
+            }
+              
+        }
+
 
     }
 }

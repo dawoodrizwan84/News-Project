@@ -15,5 +15,7 @@ namespace _23._1News.Services.Abstract
 
         List<Category> GetCategories();
 
+        void UploadImageFile(IFormFile file);
+
     }
 }
