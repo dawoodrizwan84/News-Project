@@ -41,11 +41,11 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Category.Name" class="control-label">Category</label>
-        <select name="ChosenCategory" asp-for="Category.Name" asp-items="Model.Categories" class="form-control">
+        <label asp-for="ChosenCategory" class="control-label">Category</label>
+        <select asp-for="ChosenCategory" asp-items="Model.Categories" class="form-control">
             <option value="">Select a category</option>
         </select>
-        <span asp-validation-for="Category.Name" class="text-danger"></span>
+        <span asp-validation-for="ChosenCategory" class="text-danger"></span>
     </div>
 
 

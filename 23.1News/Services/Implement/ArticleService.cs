@@ -4,6 +4,7 @@ using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -24,9 +25,10 @@ namespace _23._1News.Services.Implement
 
         public List<Article> GetArticles()
         {
-            _db.Articles
-            .Include(a => a.Category);
-            //.ThenInclude(Category => Category.Name);
+            var articles = _db.Articles.Include(a => a.Category).ToList();
+            //.OrderByDescending(a => a.DateStamp)
+
+            //_db.Categories.ToList();
 
             return _db.Articles.ToList();
         }
@@ -42,7 +44,7 @@ namespace _23._1News.Services.Implement
                 ContentSummary = articleVM.ContentSummary,
                 LinkText = articleVM.LinkText,
                 Category = _db.Categories
-                                .FirstOrDefault(c => c.Name == articleVM.ChosenCategory)!,
+                                .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
                 ImageLink = articleVM.ImageLink
             };
@@ -141,15 +143,15 @@ namespace _23._1News.Services.Implement
             {
                 blobClient.Upload(stream);
             }
-
+          
         }
 
         // Search for category articles
-        public List<Article>GetArticles(int id)
+        public List<Article> GetArticles(int id)
         {
             return _db.Articles.Where(Article => Article.CategoryId == id).ToList();
         }
-       
+
 
 
     }
