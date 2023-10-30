@@ -75,6 +75,7 @@ namespace _23._1News.Services.Implement
         {
             return _db.Articles.Find(id);
         }
+
         public List<Article> SearchArticle(string searchTerm)
         {
             DateTime? datestamp = null;
@@ -146,7 +147,7 @@ namespace _23._1News.Services.Implement
 
         public List<Article>GetArticles(int id)
         {
-            return _db.Articles.Where(Article => Article.Id == id).ToList();
+            return _db.Articles.Where(Article => Article.CategoryId == id).ToList();
         }
        
 
