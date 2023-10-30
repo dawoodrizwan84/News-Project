@@ -47,32 +47,36 @@
         </select>
         <span asp-validation-for="Category.Name" class="text-danger"></span>
     </div>
-  
+
 
     <div class="form-group">
         <label asp-for="ImageLink" class="control-label">Image Link</label>
         <input asp-for="ImageLink" class="form-control" />
-        <span asp-validation-for="ImageLink" class="text-danger"></span>
+        <span asp-validation-for="ImageLink" class="text-danger" ></span>
     </div>
 
-   <div class="form-group">
+
+    <div class="form-group">
         <dl>
             <dt>
                 <label asp-for="File"></label>
             </dt>
             <dd>
                 <input asp-for="File" type="file">
+                <img src="@Model.File" alt="Image Preview" height="100" width="100" />
                 <span asp-validation-for="File"></span>
+
             </dd>
         </dl>
         <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload" onclick="typevalfunc()" />
 
-   </div>
-        
-    
-    <div class="form-group mt-3">
-        <input type="submit" value="Create" class="btn btn-primary" />
+
     </div>
+
+
+    @*  <div class="form-group mt-3">
+    <input type="submit" value="Create" class="btn btn-primary" />
+    </div> *@
 </form>
 
 
@@ -82,16 +86,15 @@
 
 
 <script>
-    function typevalfunc()
-    {
+    function typevalfunc() {
         document.getElementById("File").click();
     }
-    // function givevalue() {
+        // function givevalue() {
 
-    //     var fileName = document.getElementById("File").value;
-    //     document.getElementById("FileName").value = fileName.substring(12);
+        //     var fileName = document.getElementById("File").value;
+        //     document.getElementById("FileName").value = fileName.substring(12);
 
-    }
+        }
 
 </script>
 

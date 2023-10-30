@@ -43,7 +43,7 @@ namespace _23._1News.Controllers
         public IActionResult Index()
         {
             var articleList = _articleService.GetArticles();
-             return View(articleList);
+            return View(articleList);
         }
 
 
@@ -53,6 +53,7 @@ namespace _23._1News.Controllers
         public IActionResult Create()
         {
             ArticleVM addArticle = new ArticleVM();
+
             var categories = _articleService.GetCategories();
 
             foreach (var category in categories)
@@ -72,7 +73,7 @@ namespace _23._1News.Controllers
         [Route("cr")]
         [HttpPost]
         [Authorize(Roles = "Editor , Admin")]
-       
+
         public IActionResult Create(ArticleVM articleVM)
         {
 
@@ -95,7 +96,6 @@ namespace _23._1News.Controllers
 
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
-
             return RedirectToAction("Index");
         }
 
@@ -118,7 +118,7 @@ namespace _23._1News.Controllers
             {
                 return RedirectToAction("Index");
             }
-         
+
             return View(newArticle);
         }
 
