@@ -132,8 +132,9 @@ namespace _23._1News.Services.Implement
         }
 
 
-        public void UploadImageFile(IFormFile file)
+        public string UploadImageFile(IFormFile file)
         {
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newscontainer");
@@ -143,7 +144,7 @@ namespace _23._1News.Services.Implement
             {
                 blobClient.Upload(stream);
             }
-          
+            return blobClient.Uri.AbsoluteUri;
         }
 
         // Search for category articles
