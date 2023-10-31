@@ -25,7 +25,7 @@ namespace _23._1News.Services.Implement
 
         public List<Article> GetArticles()
         {
-            var articles = _db.Articles.Include(a => a.Category).ToList();
+            var articles =_db.Articles.Include(a => a.Category).ToList();
             //.OrderByDescending(a => a.DateStamp)
 
             //_db.Categories.ToList();
