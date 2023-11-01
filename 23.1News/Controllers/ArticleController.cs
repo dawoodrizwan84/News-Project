@@ -48,7 +48,7 @@ namespace _23._1News.Controllers
 
 
         [Route("cr")]
-        [Authorize(Roles = "Editor, Admin")]
+        //[Authorize(Roles = "Editor, Admin")]
 
         public IActionResult Create()
         {
@@ -72,7 +72,7 @@ namespace _23._1News.Controllers
 
         [Route("cr")]
         [HttpPost]
-        [Authorize(Roles = "Editor , Admin")]
+        //[Authorize(Roles = "Editor , Admin")]
 
         public IActionResult Create(ArticleVM articleVM)
         {
@@ -92,7 +92,7 @@ namespace _23._1News.Controllers
             //    articleVM.ImageLink = "/image/" + uniqueFileName;
             //}
 
-            _articleService.UploadImageFile(articleVM.File);
+            articleVM.ImageLink = _articleService.UploadImageFile(articleVM.File);
 
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
