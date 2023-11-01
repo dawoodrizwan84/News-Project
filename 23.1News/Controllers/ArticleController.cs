@@ -40,6 +40,7 @@ namespace _23._1News.Controllers
 
 
         [Route("Ai")]
+        [Authorize(Roles = "Editor, Admin")]
         public IActionResult Index()
         {
             var articleList = _articleService.GetArticles();
@@ -92,20 +93,20 @@ namespace _23._1News.Controllers
             //    articleVM.ImageLink = "/image/" + uniqueFileName;
             //}
 
-            _articleService.UploadImageFile(articleVM.File);
+            articleVM.ImageLink=_articleService.UploadImageFile(articleVM.File);
 
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "Editor, Admin")]
         public IActionResult Edit(int id)
         {
             var record = _articleService.GetArticleById(id);
             return View(record);
         }
-
+        [Authorize(Roles = "Editor, Admin")]
         [HttpPost]
         public IActionResult Edit(ArticleVM newArticle)
         {
@@ -127,7 +128,7 @@ namespace _23._1News.Controllers
             var del = _articleService.DeleteArticle(id);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Editor, Admin")]
         public IActionResult Details(int id)
         {
             var det = _articleService.GetArticleById(id);

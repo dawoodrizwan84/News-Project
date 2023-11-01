@@ -138,7 +138,7 @@ namespace _23._1News.Services.Implement
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newscontainer");
-            BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+            BlobClient blobClient = blobContainerClient.GetBlobClient(uniqueFileName);
 
             using (var stream = file.OpenReadStream())
             {

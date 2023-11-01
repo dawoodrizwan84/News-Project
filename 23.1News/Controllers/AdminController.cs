@@ -2,8 +2,10 @@
 using _23._1News.Models;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace _23._1News.Controllers
 {
@@ -36,7 +38,7 @@ namespace _23._1News.Controllers
             return View(articleList);
 
         }
-
+       
         public IActionResult Edit(int id)
         {
             var record = _articleService.GetArticleById(id);
