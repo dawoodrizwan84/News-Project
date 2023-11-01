@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App 231News20231101111309
 on:
   push:
     branches:
-    - Dawood/New-Task-today
+    - Development
 env:
   AZURE_WEBAPP_NAME: 231News20231101111309
   AZURE_WEBAPP_PACKAGE_PATH: .\published
