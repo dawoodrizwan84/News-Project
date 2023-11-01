@@ -8,11 +8,8 @@
 @foreach (var item in Model)
 {
             <div class="card col-md-12">
-                <img src="@item.ImageLink" class="card-img-top" alt="..." 
-               @*  style="width: 435px;
-                       height: 300px
-                       object-fit:contain;" *@
-                >
+                <img src="@item.ImageLink" class="card-img-top" alt="...">
+
                 <div class="card-body">
                     <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
                 @*<h5 class="card-title">@item.LinkText</h5>*@

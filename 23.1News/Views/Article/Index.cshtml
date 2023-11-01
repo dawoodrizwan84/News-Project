@@ -5,11 +5,13 @@
 }
 
 <h1>Index</h1>
+@if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+ {
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
+ }
 <div>
     <table id="myTable" class="table table-bordered table-striped table-hover table-sm">
     <thead>
@@ -39,36 +41,52 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Headline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentSummary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateStamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Headline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContentSummary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageLink)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+
+                    
+                   
+                    @if (User.IsInRole("Editor"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+ 
+                    }
+                    @if (User.IsInRole("Editor"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+ 
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 </div>
