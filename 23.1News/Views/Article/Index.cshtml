@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-
-
 <h1>Index</h1>
 @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
  {
@@ -14,7 +12,8 @@
     <a asp-action="Create">Create New</a>
 </p>
  }
-<table class="table table-bordered table-hover table-light">
+<div>
+    <table id="myTable" class="table table-bordered table-striped table-hover table-sm">
     <thead>
         <tr>
             <th>
@@ -35,7 +34,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageLink)
             </th>
-          
             <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
@@ -89,7 +87,6 @@
                 </td>
             </tr>
         }
-
-
     </tbody>
 </table>
+</div>
