@@ -29,7 +29,7 @@ namespace _23._1News.Controllers
 
         }
 
-
+        [Authorize(Roles = "Editor, Admin")]
         public IActionResult Index()
         {
 
