@@ -1,178 +1,130 @@
-﻿@{
+﻿@model IEnumerable<_23._1News.Models.Db.Subscription>
+
+@{
     ViewData["Title"] = "Index";
 }
 
+<h1>List</h1>
 
 
-<div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top:40px;">
-    <h1 class="display-4 fw-normal text-body-emphasis">Start Subscribing Today</h1>
-    <p class="fs-5 text-body-secondary">Be the first to get exclusive offers and the latest news.</p>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<div class="row">
+    <div id="left" class="col-md-3">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;display:inline">
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+
+
+                    <strong>Adimin</strong>
+
+                    <img src="~/image/images.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>@User.Identity?.Name</strong>
+
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="dropdown-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item001">
+                    <a asp-controller="Article" asp-action="Index" class="nav-link link-dark" aria-current="page">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        NewsList
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a asp-controller="Article" asp-action="Create" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Add News
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a asp-controller="Article" asp-action="Edit" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Edit News
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a href="#" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Search News
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                        Add Category
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                        Edit Category
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a asp-controller="Subscription" asp-action="Index" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Subscription
+                    </a>
+                </li>
+                <li class="nav-item001">
+                    <a href="#" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Customer detail
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div> 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentComplete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentComplete)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 </div>
-
-<main style="margin-top:20px;">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Free</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Free Membership</li>
-                        <li>Weekly Print edition</li>
-                        <li>Free Economist notebook</li>
-                    </ul>
-                    <br />
-                    <br />
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Pro</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Free Membership</li>
-                        <li>Weekly Print edition</li>
-                        <li>Free Economist notebook</li>
-                        <li>Packers News app</li>
-                    </ul>
-                    <br />
-                    <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                <div class="card-header py-3 text-bg-primary border-primary">
-                    <h4 class="my-0 fw-normal" style="color:white;">Enterprise</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Free Membership</li>
-                        <li>Weekly Print edition</li>
-                        <li>Free Economist notebook</li>
-                        <li>Packers News app</li>
-                        <li>The Economist app FOR IOS</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="display-6 text-center mb-4" style="margin-top:20px;">Compare plans</h2>
-
-    <div class="table-responsive">
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th style="width: 34%;"></th>
-                    <th style="width: 22%;">Free</th>
-                    <th style="width: 22%;">Pro</th>
-                    <th style="width: 22%;">Enterprise</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row" class="text-start">Free Membership</th>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-start">Weekly Print edition</th>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-            </tbody>
-
-            <tbody>
-                <tr>
-                    <th scope="row" class="text-start">Free Economist notebook</th>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-start">Packers News app</th>
-                    <td></td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-start">The Economist app FOR IOS</th>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-start">Extra Service</th>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</main>
-

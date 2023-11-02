@@ -60,7 +60,11 @@ namespace _23._1News
             //Services:
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
+
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
 
 
 
