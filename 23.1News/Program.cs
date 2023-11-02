@@ -57,8 +57,10 @@ namespace _23._1News
                 options.SlidingExpiration = true;
             });
 
+            //Services:
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 
