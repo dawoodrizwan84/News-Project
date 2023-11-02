@@ -5,8 +5,14 @@ namespace _23._1News.Services.Abstract
 {
     public interface ISubscriptionService
     {
-        List<Subscription> GetAllSubscription();
+        List<Subscription> GetAllSubs();
 
-        void CreateSubs(Subscription newsubscription);
+        void CreateSubs(Subscription newSubs);
+
+        bool UpdateSubs(Subscription newSubs);
+
+        bool DeleteSubs(int id);
+
+        Subscription GetSubsById(int id);
     }
 }
