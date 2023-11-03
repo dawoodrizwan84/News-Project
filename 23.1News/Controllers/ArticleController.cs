@@ -130,7 +130,7 @@ namespace _23._1News.Controllers
             var del = _articleService.DeleteArticle(id);
             return RedirectToAction("Index");
         }
-        //[Authorize(Roles = "Editor, Admin")]
+
         public IActionResult Details(int id)
         {
             var det = _articleService.GetArticleById(id);
