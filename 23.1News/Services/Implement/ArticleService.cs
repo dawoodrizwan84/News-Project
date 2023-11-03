@@ -131,6 +131,12 @@ namespace _23._1News.Services.Implement
             return _db.Categories.ToList();
         }
 
+        public async Task<IEnumerable<Article>> GetLatestArticles(int count)
+        {
+
+            var latest = await _db.Articles.Include(a => a.Category).OrderByDescending(a => a.DateStamp).Take(count).ToListAsync();
+            return latest;
+        }
 
         public string UploadImageFile(IFormFile file)
         {

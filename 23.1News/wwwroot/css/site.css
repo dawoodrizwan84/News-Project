@@ -59,7 +59,11 @@ a:link {
     color: black;
 }
 
-
+#sidebar {
+    width: 250px;
+    float: right;
+    margin-top: 40px;
+}
 
 .nav-item001:hover {
     background-color: #2fa4e7;
