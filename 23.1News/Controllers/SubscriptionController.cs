@@ -38,7 +38,10 @@ namespace _23._1News.Controllers
             return View(subsList);
         }
 
-
+        public IActionResult Info()
+        {
+            return View();
+        }
 
 
         [Route("sub")]

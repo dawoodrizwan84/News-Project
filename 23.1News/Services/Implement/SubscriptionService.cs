@@ -15,7 +15,8 @@ namespace _23._1News.Services.Implement
            
         }
 
-
+        
+        
         public List<Subscription> GetAllSubs()
         {
             return _db.Subscriptions.ToList();
