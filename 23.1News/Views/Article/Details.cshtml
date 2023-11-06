@@ -3,22 +3,50 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div id="sidebar">
 
-
-<br />
-<div class="row">
- 
-        <div class="card col-md-12">
-            <img src="~/images/@Model.ImageLink" class="card-img-top" alt="...">
-            <div class="card-body">
-                <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
-                    @*<h5 class="card-title">mitem.LinkText</h5>*@
-                    <h5 class="card-title">@Model.Headline</h5>
-                    <p class="card-text">@Model.ContentSummary</p>
-                    <p class="card-text">@Model.Content</p>
-                </a>
+    <div class="row">
+        @*<div class="col-md- text-md-center">*@
+        <div class="col-md-12 text-md-center">
+            <div class="text-md-center mb-5 bg-light">
+                <h4 class="bg-primary text-white">Latest News</h4>
+                <vc:latest-news></vc:latest-news>
             </div>
+            @*<div class="col-md-12 text-md-center">
+            <div class="text-md-center mb-5 bg-light">
+            <h4 class="bg-primary text-white">Editors Choice</h4>
+            <vc:editors-choice></vc:editors-choice>
+            </div>
+            </div>*@
 
         </div>
-   
+
+        @*</div>*@
+    </div>
+
+
 </div>
+
+<div id="main">
+
+<br /><br />
+
+<div class="row">
+
+    <div class="card col-md-11">
+        <img src="@Model.ImageLink" class="card-img-top" alt="...">
+        <div class="card-body">
+            <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
+                @*<h5 class="card-title">mitem.LinkText</h5>*@
+                <h5 class="card-title">@Model.Headline</h5>
+                <p class="card-text">@Model.ContentSummary</p>
+                <p class="card-text">@Model.Content</p>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+

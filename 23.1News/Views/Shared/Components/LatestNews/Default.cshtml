@@ -1,0 +1,12 @@
+﻿@model IEnumerable<_23._1News.Models.Db.Article>
+
+@foreach (var item in Model)
+{
+    <div>
+
+        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><h6>@item.DateStamp.ToString("hh:mm") &nbsp;@item.LinkText</h6></a>
+
+    </div>
+
+
+}

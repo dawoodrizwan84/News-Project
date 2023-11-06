@@ -5,6 +5,8 @@ using System.Diagnostics;
 using _23._1News.Services;
 using _23._1News.Services.Abstract;
 using _23._1News.Services.Implement;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace _23._1News.Controllers
 {
@@ -23,11 +25,11 @@ namespace _23._1News.Controllers
             _articleService = articleService;
             _weatherService = weatherService;
         }
-
+       
         public IActionResult Index()
         {
             var articleList = _articleService.GetArticles();
-
+            articleList.Reverse();
             return View(articleList);
         }
 

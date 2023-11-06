@@ -17,28 +17,54 @@
     </p>
 </div>*@
 
-<div class="text-center">
-    <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
+<div id="sidebar"
 
-</div>
-
-<br />
 <div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="card col-md-12">
-            <img src="~/images/@item.ImageLink" class="card-img-top" alt="...">
-            <div class="card-body">
-                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
-                    @*<h5 class="card-title">@item.LinkText</h5>*@
-                    <h5 class="card-title">@item.Headline</h5>
-                    <p class="card-text">@item.ContentSummary</p>
-                    <p class="card-text">@item.Content</p>
-                </a>
+        @*<div class="col-md- text-md-center">*@
+        <div class="col-md-12 text-md-center">
+            <div class="text-md-center mb-5 bg-light">
+                <h4 class="bg-primary text-white">Latest News</h4>
+                <vc:latest-news></vc:latest-news>
+
             </div>
+            @*<div class="col-md-12 text-md-center">
+            <div class="text-md-center mb-5 bg-light">
+                <h4 class="bg-primary text-white">Editors Choice</h4>
+                <vc:latest-news></vc:latest-news>
+            </div>
+         </div>*@
 
         </div>
-    }
+</div>
+</div>
+
+
+<div id="main>"
+
+    <div class="text-center">
+        <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
+
+    </div>
+
+<br />
+    <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="card col-md-11">
+                    <img src="@item.ImageLink" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                            @*<h5 class="card-title">@item.LinkText</h5>*@
+                            <h4 class="card-title mt-2">@item.Headline</h4>
+                            <p class="card-text mb-2">@item.ContentSummary</p>
+                            @*<p class="card-text">@item.Content</p>*@
+                        </a>
+                    </div>
+
+                </div>
+            }
+    </div>
+
 </div>
 
 

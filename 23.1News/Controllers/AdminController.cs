@@ -1,9 +1,13 @@
 ﻿using _23._1News.Data;
 using _23._1News.Models;
+using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace _23._1News.Controllers
 {
@@ -14,6 +18,7 @@ namespace _23._1News.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IAdminService _adminService;
         private readonly IArticleService _articleService;
+       
 
         public AdminController(ILogger<AdminController> logger,
             IArticleService articleService, IAdminService adminService,
@@ -23,15 +28,13 @@ namespace _23._1News.Controllers
             _adminService = adminService;
             _applicationDbContext = applicationDbContext;
             _articleService = articleService;
-
+           
 
         }
 
-
+        [Authorize(Roles = "Editor, Admin")]
         public IActionResult Index()
         {
-
-
             var articleList = _articleService.GetArticles();
             return View(articleList);
 
@@ -43,6 +46,27 @@ namespace _23._1News.Controllers
             return View(record);
         }
 
+        
+        public IActionResult UserList() 
+        {
+           var users = _adminService.GetAllUsers();
+            return View(users);
+        }
+
+        public IActionResult DelUser(string id) 
+        {
+            var delete = _adminService.DeleteUser(id);
+
+            if (delete)
+            {
+
+                return RedirectToAction("UserList");
+            }
+            else
+            {
+                return View("ErrorView");
+            }
+        }
 
     }
 }

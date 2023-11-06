@@ -44,7 +44,14 @@ namespace _23._1News.Models.Db
 
         public User Author { get; set; }
 
+        public bool EdChoice { get; set; }
+
+        public bool Archived { get; set; }
+
         
+
+
+
 
 
 

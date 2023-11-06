@@ -59,11 +59,26 @@ a:link {
     color: black;
 }
 
-
+#sidebar {
+    width: 250px;
+    float: right;
+    margin-top: 40px;
+}
 
 .nav-item001:hover {
     background-color: #2fa4e7;
     color:white;
     font-size: large;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    height: 50px;
+    background-color: #f5f5f5;
+    text-align: center;
+    justify-content: center;
 }
 

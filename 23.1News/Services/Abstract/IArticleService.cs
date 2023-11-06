@@ -9,6 +9,9 @@ namespace _23._1News.Services.Abstract
         List<Article> GetArticles(int id);
         List<Article> SearchArticle(string Headline);
         void CreateArticle(ArticleVM articleVM, string userId);
+
+        Task<IEnumerable<Article>> GetLatestArticles(int count);
+
         bool UpdateArticle(ArticleVM articleVM);
 
         Article GetArticleById(int id);
