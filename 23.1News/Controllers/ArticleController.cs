@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Web;
 using Microsoft.EntityFrameworkCore;
+using _23._1News.Services.Implement;
 
 
 namespace _23._1News.Controllers
@@ -24,9 +25,11 @@ namespace _23._1News.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ArticleController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWeatherService _weatherService;
 
         public ArticleController(ILogger<ArticleController> logger,
                 IArticleService articleService,
+                IWeatherService weatherService,
                 ApplicationDbContext applicationDbContext,
                 UserManager<User> userManager,
                 IWebHostEnvironment webHostEnvironment)
@@ -36,6 +39,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _weatherService = weatherService;
         }
 
 
@@ -155,6 +159,12 @@ namespace _23._1News.Controllers
 
             return View(SearchArticles);
         }
+        public IActionResult GetWeatherForecast()
+        {
+            //var weatherForecast = _weatherService.GetWeatherForecast("linköping").Result;
+            var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
 
+            return View(weatherForecast);
+        }
     }
 }
