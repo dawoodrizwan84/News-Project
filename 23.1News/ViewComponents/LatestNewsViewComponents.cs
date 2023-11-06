@@ -11,7 +11,6 @@ namespace _23._1News.ViewComponents
         {
             _articleService = articleService;
         }
-
-       
+      
     }
 }

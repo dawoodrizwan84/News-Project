@@ -59,8 +59,14 @@ namespace _23._1News
 
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
 
-
+            builder.Services.AddHttpClient("weatherForecast", config => 
+            {
+                
+                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
+            
+            });
 
             var app = builder.Build();
 

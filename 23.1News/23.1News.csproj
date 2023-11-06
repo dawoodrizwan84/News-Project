@@ -33,6 +33,8 @@
 
     <Folder Include="Views\Components\LatestNews\" />
 
+    <Folder Include="Views\WeatherForecast\" />
+
     <Folder Include="wwwroot\images\" />
 
   </ItemGroup>
