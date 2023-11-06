@@ -11,6 +11,6 @@ namespace _23._1News.Services.Abstract
 
         bool DeleteUser(string userId);
 
-
+        List<IdentityRole> GetAllRoles();
     }
 }

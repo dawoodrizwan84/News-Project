@@ -68,5 +68,11 @@ namespace _23._1News.Controllers
             }
         }
 
+        [Route("role")]
+        public IActionResult RoleList() 
+        {
+            var roles = _adminService.GetAllRoles();
+            return View(roles);
+        }
     }
 }

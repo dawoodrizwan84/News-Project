@@ -8,10 +8,12 @@ namespace _23._1News.Services.Implement
     public class AdminService : IAdminService
     {
         private readonly ApplicationDbContext _db;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminService(ApplicationDbContext db)
+        public AdminService(ApplicationDbContext db, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
+            _roleManager = roleManager;
         }
         public List<Article> GetAllArticles() 
         {
@@ -33,6 +35,11 @@ namespace _23._1News.Services.Implement
                 return true;
             }
             return false;
+        }
+
+        public List<IdentityRole> GetAllRoles() 
+        {
+            return _roleManager.Roles.ToList();
         }
     }
 }
