@@ -26,7 +26,6 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _articleService = articleService;
 
-
         }
 
         [Authorize(Roles = "Editor, Admin")]
