@@ -10,8 +10,8 @@ namespace _23._1News.Models.Db
 
         public int DOB { get; set; }
 
-        public string Employee { get; set; }
+        //public string Employee { get; set; }
 
-        public virtual ICollection<Article> Articles { get; set; }
+        //public virtual ICollection<Article> Articles { get; set; }
     }
 }

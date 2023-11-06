@@ -48,7 +48,7 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("cr")]
+      
         //[Authorize(Roles = "Editor, Admin")]
 
         public IActionResult Create()
@@ -71,7 +71,7 @@ namespace _23._1News.Controllers
 
 
 
-        [Route("cr")]
+     
         [HttpPost]
         //[Authorize(Roles = "Editor , Admin")]
 

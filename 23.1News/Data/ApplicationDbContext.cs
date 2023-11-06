@@ -1,4 +1,5 @@
 ﻿using _23._1News.Models.Db;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace _23._1News.Data
 
         public DbSet<Category> Categories { get; set; }
 
-
+        
 
     }
 }
