@@ -1,4 +1,4 @@
-﻿@* @model _23._1News.Models.Db.WeatherForecast
+﻿@model _23._1News.Models.Db.WeatherForecast
 
 @{
     ViewData["Title"] = "Weather";
@@ -66,31 +66,3 @@
     </dl>
 
 </div>
- *@
-
-
-
-
-
-
-
-
-
-
-@* @{
-    Layout = "_Layout";
-}
-
-
-
-<h1 class="centered-heading">Weather News</h1>
-
-<div class="weather">
-    <h3>@Model.City Weather Forecast</h3>
-    <p>@Model.Summary</p>
-    <p>Temperature: @Model.TemperatureCelsius °C / @Model.TemperatureFahrenheit °F</p>
-    <p>Humidity: @Model.Humidity %</p>
-    <p>Wind Speed: @Model.WindSpeed mph</p>
-    <p>Date and Time: @Model.DateAndTime.ToString("dddd, dd MMMM yyyy HH:mm:ss")</p>
-    <img src="@Model.Icon.Url" alt="@Model.Icon.Code" />
-</div> *@
