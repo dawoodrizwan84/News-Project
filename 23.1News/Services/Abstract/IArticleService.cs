@@ -21,5 +21,8 @@ namespace _23._1News.Services.Abstract
 
         string UploadImageFile(IFormFile file);
 
+       
+
+        
     }
 }

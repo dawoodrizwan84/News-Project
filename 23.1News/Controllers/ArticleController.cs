@@ -22,12 +22,14 @@ namespace _23._1News.Controllers
 
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IArticleService _articleService;
+        private readonly IWeatherService _weatherService;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ArticleController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IWeatherService _weatherService;
 
         public ArticleController(ILogger<ArticleController> logger,
+
                 IArticleService articleService,
                 IWeatherService weatherService,
                 ApplicationDbContext applicationDbContext,
@@ -36,6 +38,7 @@ namespace _23._1News.Controllers
         {
             _logger = logger;
             _articleService = articleService;
+            _weatherService = weatherService;
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
@@ -161,8 +164,12 @@ namespace _23._1News.Controllers
         }
         public IActionResult GetWeatherForecast()
         {
-            //var weatherForecast = _weatherService.GetWeatherForecast("linköping").Result;
-            var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
+            //var weatherForecast = _weatherService.GetWeatherForecast("linkÃ¶ping").Result;
+            var weatherForecast = _weatherService.GetWeatherForecast("LinkÃ¶ping").Result;
+
+        public IActionResult GetWeatherForecast()
+        {
+            var weatherForecast = _weatherService.GetWeatherForecast("linkÃ¶ping").Result;
 
             return View(weatherForecast);
         }
