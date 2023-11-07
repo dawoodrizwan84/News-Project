@@ -92,37 +92,6 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     
-    <script>
-        function displayTime() {
-            var d = new Date();
-            var hour = d.getHours();
-            if (hour < 10) {
-                hour = "0" + hour;
-            }
-            var min = d.getMinutes();
-            if (min < 10) {
-                min = "0" + min;
-            }
-            var sec = d.getSeconds();
-            if (sec < 10) {
-                sec = "0" + sec;
-            }
-            document.getElementById("clock").innerText = "Time:" + hour + ":" + min + ":" + sec;
-
-        }
-        setInterval(displayTime, 1000);
-
-        const d = new Date();
-        var date = (d.getDate());
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var day = d.getDay();
-
-        document.getElementById("demo").innerText = year + ":" + month + ":" + date;
-    </script>
-
-
-    
 </body>
 </html>
 
