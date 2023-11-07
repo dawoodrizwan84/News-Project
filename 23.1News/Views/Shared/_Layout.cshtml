@@ -55,15 +55,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+
                     <span class="h5 m-1">@dateTime </span>
                     <span class="h5 m-1">@weatherForecast.City </span> <span class="h5 m-1">@weatherForecast.TemperatureCelsius </span><span class="h5">&#176;</span>
                     <img src="@weatherForecast.Icon.Url" height="50" />
+
 
                     <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
-
+                    
                     &nbsp;&nbsp; &nbsp;&nbsp;
                     <partial name="_LoginPartial" />
                 </div>

@@ -1,5 +1,7 @@
-﻿using _23._1News.Models.Db;
-using Newtonsoft.Json;
+
+﻿using _23._1News.Controllers;
+using _23._1News.Models.Db;
+>
 
 namespace _23._1News.Services.Abstract
 {
@@ -7,5 +9,6 @@ namespace _23._1News.Services.Abstract
     {
         Task<WeatherForecast> GetWeatherForecast(string city);
         //List<string> GetCities();
+
     }
 }
