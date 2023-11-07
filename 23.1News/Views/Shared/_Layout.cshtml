@@ -1,7 +1,10 @@
-﻿
-@inject _23._1News.Services.Abstract.IArticleService _articleService
+﻿@inject _23._1News.Services.Abstract.IArticleService _articleService
+@inject _23._1News.Services.Abstract.IWeatherService _weatherService
 @{
     var categories = _articleService.GetCategories();
+    var weatherForecast = _weatherService.GetWeatherForecast("Motala").Result;
+    DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+    var dateTime = unixStart.AddSeconds(weatherForecast.UnixTime).ToLocalTime().ToShortTimeString();
 }
 
 <!DOCTYPE html>
@@ -52,12 +55,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-
+                    <a class="nav-link text-dark" asp-controller="Article" asp-action="GetWeatherForecast">
+                    <span class="h5 m-1">@dateTime </span>
+                    <span class="h5 m-1">@weatherForecast.City </span> <span class="h5 m-1">@weatherForecast.TemperatureCelsius </span><span class="h5">&#176;</span>
+                    <img src="@weatherForecast.Icon.Url" height="50" />
+                    </a>
                     <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
-
+                    
                     &nbsp;&nbsp; &nbsp;&nbsp;
                     <partial name="_LoginPartial"/>
                 </div>
