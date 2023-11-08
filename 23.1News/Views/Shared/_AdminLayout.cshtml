@@ -64,9 +64,12 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    *@
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/b-2.4.2/fc-4.3.0/sc-2.2.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script>
+   @*  <script>
         function displayTime() {
             var d = new Date();
             var hour = d.getHours();
@@ -93,7 +96,7 @@
         var day = d.getDay();
 
         document.getElementById("demo").innerText = year + ":" + month + ":" + date;
-    </script>
+    </script> *@
 </body>
 </html>
 

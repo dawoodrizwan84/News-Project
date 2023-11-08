@@ -1,7 +1,10 @@
-﻿
-@inject _23._1News.Services.Abstract.IArticleService _articleService
+﻿@inject _23._1News.Services.Abstract.IArticleService _articleService
+@inject _23._1News.Services.Abstract.IWeatherService _weatherService
 @{
     var categories = _articleService.GetCategories();
+    var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
+    DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+    var dateTime = unixStart.AddSeconds(weatherForecast.UnixTime).ToLocalTime().ToShortTimeString();
 }
 
 <!DOCTYPE html>
@@ -10,7 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]-23.1News</title>
-    <link rel="icon" href="~/23_favicon.ico" type="image/x-icon" /> 
+    <link rel="icon" href="~/23_favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="~/css/bootswatchtheme.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/css/fontawesome-5.css" rel="stylesheet" />
@@ -21,51 +24,55 @@
 </head>
 <body>
     <header>
-        <div class="header-top">
-                <div>
-                    <img src="~/images/logo.png" href="Home/Index.html"alt="23.1"/>
-                </div>
+
+        <div class="header-top d-flex justify-content-between align-items-center p-2">
+            <div>
+                <img src="~/images/logo.png" href="Home/Index.html" alt="23.1" class="img-fluid" />
+            </div>
             <div>
                 <h4 id="clock" style="text-align:center;padding:5px;margin-left:50px;margin-top:9px;"></h4>
             </div>
-                <div style="margin-right:20px;">
-                <a asp-controller="Subscription" asp-action="Info" class="btn btn-primary m-2">Subscribe</a> 
-                </div>
-            
+            <div style="margin-right:20px;">
+                <a asp-controller="Subscription" asp-action="Index" class="btn btn-primary m-2">Subscribe</a>
+            </div>
         </div>
-        
-        <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+
+        <nav class="navbar navbar-expand bg-light" data-bs-theme="light">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav me-auto d-flex justify-content-start">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @foreach(var category in categories)
+                        @foreach (var category in categories)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
                             </li>
                         }
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
 
+                    <span class="h5 m-1">@dateTime </span>
+                    <span class="h5 m-1">@weatherForecast.City </span> <span class="h5 m-1">@weatherForecast.TemperatureCelsius </span><span class="h5">&#176;</span>
+                    <img src="@weatherForecast.Icon.Url" height="50" />
+
+
                     <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
-
+                    
                     &nbsp;&nbsp; &nbsp;&nbsp;
-                    <partial name="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
 
     </header>
-   
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -73,8 +80,46 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="margin-top:500px">
+    @* <footer class="border-top footer text-muted" style="margin-top:500px">
         <div class="container">
+            <ul class="footer-nav me-auto d-flex justify-content-start">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                @foreach (var category in categories)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                    </li>
+                }
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+            </ul>
+            &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> *@
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container">
+            <nav>
+                <ul class="d-flex flex-wrap">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    @foreach (var category in categories)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+            </nav>
             &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
@@ -84,40 +129,7 @@
  *@    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/b-2.4.2/fc-4.3.0/sc-2.2.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    
-    <script>
-        function displayTime() {
-            var d = new Date();
-            var hour = d.getHours();
-            if (hour < 10) {
-                hour = "0" + hour;
-            }
-            var min = d.getMinutes();
-            if (min < 10) {
-                min = "0" + min;
-            }
-            var sec = d.getSeconds();
-            if (sec < 10) {
-                sec = "0" + sec;
-            }
-            document.getElementById("clock").innerText = "Time:" + hour + ":" + min + ":" + sec;
 
-        }
-        setInterval(displayTime, 1000);
-
-        const d = new Date();
-        var date = (d.getDate());
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var day = d.getDay();
-
-        document.getElementById("demo").innerText = year + ":" + month + ":" + date;
-    </script>
-
-
-    
 </body>
 </html>
-
-
 

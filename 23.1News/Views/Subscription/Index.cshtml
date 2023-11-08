@@ -23,8 +23,7 @@
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li class="dropdown-item
-">
+                    <li class="dropdown-item">
                         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                         </form>
@@ -90,7 +89,7 @@
         <h1 style="text-align:center">Subscription List</h1>
         <hr />
         <div class="table-responsive small">
-            <table class="table">
+            <table class="table" id="myTable">
                 <thead>
                     <tr>
                         <th>
@@ -130,31 +129,7 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">&laquo;</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">5</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
-                </li>
-            </ul>
-        </div>
+        
     </div>
 </div>
 
