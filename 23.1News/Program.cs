@@ -1,4 +1,5 @@
 using _23._1News.Data;
+using _23._1News.Helpers;
 using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
 using _23._1News.Services.Implement;
@@ -62,14 +63,35 @@ namespace _23._1News
             builder.Services.AddScoped<IAdminService, AdminService>();
 
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+            
 
+
+           
+
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            builder.Services.AddHttpClient("weatherForecast", config => 
+            {
+                
+                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
+            
+            });
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+            builder.Services.AddSingleton<IEmailConfiguration>(
+                builder.Configuration.GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>());
+
+            
+            builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
             builder.Services.AddHttpClient("weatherForecast", config =>
             {
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
             });
+
 
 
             var app = builder.Build();
@@ -90,7 +112,7 @@ namespace _23._1News
             app.UseStaticFiles();
 
             app.UseRouting();
-          
+
 
             app.UseAuthentication();
             app.UseAuthorization();

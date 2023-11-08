@@ -11,6 +11,8 @@ using _23._1News.Services.Abstract;
 using _23._1News.Services.Implement;
 using _23._1News.Models.View_Models;
 using Microsoft.AspNetCore.Authorization;
+using _23._1News.Models.Email;
+using _23._1News.Helpers;
 
 namespace _23._1News.Controllers
 {
@@ -20,15 +22,18 @@ namespace _23._1News.Controllers
         private readonly ISubscriptionService _subscriptionService;
         private readonly ILogger<SubscriptionController> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IEmailHelper _emailHelper;
 
         public SubscriptionController(ApplicationDbContext applicationDbContext,
             ISubscriptionService subscriptionService,
-            ILogger<SubscriptionController> logger)
+            ILogger<SubscriptionController> logger,
+            IEmailHelper emailHelper)
         {
 
             _subscriptionService = subscriptionService;
             _applicationDbContext = applicationDbContext;
             _logger = logger;
+            _emailHelper = emailHelper;
         }
 
 
@@ -70,7 +75,7 @@ namespace _23._1News.Controllers
             return View(record);
         }
 
-      
+
         [HttpPost]
         public IActionResult Edit(Subscription newSubs)
         {
@@ -96,6 +101,28 @@ namespace _23._1News.Controllers
                 return NotFound();
             }
             return View(det);
+        }
+
+        public IActionResult SendEmail()
+        {
+            EmailMessage newEmail = new EmailMessage()
+            {
+                FromAddress = new EmailAddress()
+                {
+                    Address = "senderemailservice23.1@gmail.com",
+                    Name = "23.1News"
+                },
+                Content = "Test to see if this works",
+                Subject = "Test"
+            };
+
+            newEmail.ToAddresses.Add(new EmailAddress()
+            {
+                Address = "xinliu1108@gmail.com",
+                Name = "Xin"
+            });
+            _emailHelper.SendEmail(newEmail);
+            return View();
         }
     }
 }
