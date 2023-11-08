@@ -4,8 +4,11 @@
     ViewData["Title"] = "GetWeatherForecast";
 }
 
-<h1>GetWeatherForecast</h1>
-
+<h1>City Forecast</h1>
+<form class="d-flex justify-content-center" asp-controller="Article" asp-action="GetWeatherForecast" enctype="multipart/form-data" method="get">
+    <input name="city" class="form-control me-sm-2" type="search" placeholder="Search City">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
 <div>
     <h4>WeatherForecast</h4>
     <hr />
