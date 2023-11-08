@@ -2,6 +2,7 @@
 using _23._1News.Models;
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
+using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace _23._1News.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IAdminService _adminService;
         private readonly IArticleService _articleService;
-       
+
 
         public AdminController(ILogger<AdminController> logger,
             IArticleService articleService, IAdminService adminService,
@@ -28,7 +29,7 @@ namespace _23._1News.Controllers
             _adminService = adminService;
             _applicationDbContext = applicationDbContext;
             _articleService = articleService;
-           
+
 
         }
 
@@ -46,14 +47,14 @@ namespace _23._1News.Controllers
             return View(record);
         }
 
-        
-        public IActionResult UserList() 
+
+        public IActionResult UserList()
         {
-           var users = _adminService.GetAllUsers();
+            var users = _adminService.GetAllUsers();
             return View(users);
         }
 
-        public IActionResult DelUser(string id) 
+        public IActionResult DelUser(string id)
         {
             var delete = _adminService.DeleteUser(id);
 
@@ -68,11 +69,39 @@ namespace _23._1News.Controllers
             }
         }
 
-        [Route("role")]
-        public IActionResult RoleList() 
+
+        public IActionResult RoleList()
         {
             var roles = _adminService.GetAllRoles();
             return View(roles);
         }
+
+        [Route("ur")]
+        public IActionResult UserRoles()
+        {
+            var userRoles = _adminService.GetUserRoles();
+            return View("UserRoles", userRoles);
+        }
+
+
+        [Route("cro")]
+        public IActionResult CreateRoles()
+        {
+            UserRoleVM addUserRoleVM = new UserRoleVM();
+            return View(addUserRoleVM);
+        }
+
+        [HttpPost]
+        [Route("cro")]
+        public IActionResult CreateRoles(UserRoleVM userRoleVM)
+        {
+            var aaa = _adminService.AddUserRole(userRoleVM);
+
+            return View(aaa);
+
+        }
+
+
+
     }
 }
