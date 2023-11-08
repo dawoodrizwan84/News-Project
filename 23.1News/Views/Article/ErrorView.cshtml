@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>City Forecast</h1>
+<form class="d-flex justify-content-center" asp-controller="Article" asp-action="GetWeatherForecast" enctype="multipart/form-data" method="get">
+    <input name="city" class="form-control me-sm-2" type="search" placeholder="Search City">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+<h1>Error: </h1>
+<p>@Model</p>
+

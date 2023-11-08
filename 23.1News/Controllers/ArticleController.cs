@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System.Web;
 using Microsoft.EntityFrameworkCore;
 using _23._1News.Services.Implement;
+using System.Net.Http;
 
 
 namespace _23._1News.Controllers
@@ -159,12 +160,31 @@ namespace _23._1News.Controllers
 
             return View(SearchArticles);
         }
-        public IActionResult GetWeatherForecast()
-        {
-            //var weatherForecast = _weatherService.GetWeatherForecast("linköping").Result;
-            var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
+        public async Task<IActionResult> GetWeatherForecast()
+{
+    string city = Request.Query["city"];
+    if (string.IsNullOrEmpty(city))
+    {
+        city = "Motala";
+    }
 
-            return View(weatherForecast);
-        }
+    try
+    {
+        var weatherForecast = await _weatherService.GetWeatherForecast(city);
+        return View(weatherForecast);
+    }
+    catch (HttpRequestException ex)
+    {
+        
+        return View("ErrorView", "City not found"); 
+    }
+    catch (Exception ex)
+    {
+        
+        return View("ErrorView", "City not found"); 
     }
 }
+
+    }
+}
+
