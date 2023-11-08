@@ -63,7 +63,20 @@ namespace _23._1News
             builder.Services.AddScoped<IAdminService, AdminService>();
 
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+            
 
+
+           
+
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            builder.Services.AddHttpClient("weatherForecast", config => 
+            {
+                
+                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
+            
+            });
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<IWeatherService, WeatherService>();
 
@@ -78,6 +91,7 @@ namespace _23._1News
             {
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
             });
+
 
 
             var app = builder.Build();
@@ -98,7 +112,7 @@ namespace _23._1News
             app.UseStaticFiles();
 
             app.UseRouting();
-          
+
 
             app.UseAuthentication();
             app.UseAuthorization();

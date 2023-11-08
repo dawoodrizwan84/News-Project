@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 using _23._1News.Services;
 using _23._1News.Services.Abstract;
+using _23._1News.Services.Implement;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using _23._1News.Models.Email;
@@ -15,7 +16,10 @@ namespace _23._1News.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService _articleService;
-        
+
+        private readonly IWeatherService _weatherService;
+        private readonly IWeatherService? weatherService;
+
 
         public HomeController(ILogger<HomeController> logger,
           IArticleService articleService
@@ -23,7 +27,7 @@ namespace _23._1News.Controllers
         {
             _logger = logger;
             _articleService = articleService;
-            
+            _weatherService = weatherService;
         }
        
         public IActionResult Index()
@@ -32,6 +36,7 @@ namespace _23._1News.Controllers
             articleList.Reverse();
             return View(articleList);
         }
+
 
         public IActionResult Privacy()
         {
