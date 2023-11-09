@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using _23._1News.Models.Email;
 using _23._1News.Helpers;
+using _23._1News.Models.Db;
 
 namespace _23._1News.Controllers
 {
