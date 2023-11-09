@@ -16,18 +16,21 @@ namespace _23._1News.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService _articleService;
+        private readonly ICategoryService _categoryService;
 
         private readonly IWeatherService _weatherService;
         private readonly IWeatherService? weatherService;
 
 
         public HomeController(ILogger<HomeController> logger,
-          IArticleService articleService
+          IArticleService articleService,
+          ICategoryService categoryService
           )
         {
             _logger = logger;
             _articleService = articleService;
             _weatherService = weatherService;
+            _categoryService = categoryService;
         }
        
         public IActionResult Index()
@@ -53,9 +56,24 @@ namespace _23._1News.Controllers
         {
             return View();
         }
+
+        public IActionResult LatestVC(string count)
+        {
+
+            return ViewComponent("LatestNews", new {count = count});
+        }
+
+        public IActionResult EditorsVC(string count)
+        {
+
+            return ViewComponent("EditorsChoice", new { count = count });
+        }
+
         public IActionResult News(int id)
         {
             var articles=_articleService.GetArticles(id);
+            Category category = _categoryService.GetCategotyById(id);
+            TempData["Headline"] = category.Name;
             return View(articles);
         }
 

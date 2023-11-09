@@ -10,22 +10,21 @@
         <div class="col-md-12 text-md-center">
             <div class="text-md-center mb-5 bg-light">
                 <h4 class="bg-primary text-white">Latest News</h4>
-                <vc:latest-news></vc:latest-news>
+                <vc:latest-news count="5"></vc:latest-news>
             </div>
-            @*<div class="col-md-12 text-md-center">
+         </div>
+         <div class="col-md-12 text-md-center">
             <div class="text-md-center mb-5 bg-light">
             <h4 class="bg-primary text-white">Editors Choice</h4>
-            <vc:editors-choice></vc:editors-choice>
+            <vc:editors-choice count="5"></vc:editors-choice>
             </div>
-            </div>*@
-
-        </div>
-
-        @*</div>*@
-    </div>
+         </div>
+     </div>
 
 
 </div>
+
+
 
 <div id="main">
 
@@ -38,6 +37,7 @@
         <div class="card-body">
             <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
                 @*<h5 class="card-title">mitem.LinkText</h5>*@
+                <h7 class="card-text"><i>@Model.DateStamp.ToString("yyyy-MM-dd HH:mm")</i></h7>
                 <h5 class="card-title">@Model.Headline</h5>
                 <p class="card-text">@Model.ContentSummary</p>
                 <p class="card-text">@Model.Content</p>

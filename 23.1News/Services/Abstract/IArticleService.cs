@@ -12,6 +12,8 @@ namespace _23._1News.Services.Abstract
 
         Task<IEnumerable<Article>> GetLatestArticles(int count);
 
+        Task<IEnumerable<Article>> GetEditorsChoice(int count);
+
         bool UpdateArticle(ArticleVM articleVM);
 
         Article GetArticleById(int id);

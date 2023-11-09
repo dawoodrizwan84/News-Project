@@ -138,6 +138,16 @@ namespace _23._1News.Services.Implement
             return latest;
         }
 
+
+        public async Task<IEnumerable<Article>> GetEditorsChoice(int count)
+        {
+
+
+            return await _db.Articles.Where(Article => Article.EdChoice == true)
+                   .OrderByDescending(a => a.DateStamp).Take(count).ToListAsync();
+        }
+
+
         public string UploadImageFile(IFormFile file)
         {
             string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
@@ -157,7 +167,8 @@ namespace _23._1News.Services.Implement
         // Search for category articles
         public List<Article> GetArticles(int id)
         {
-            return _db.Articles.Where(Article => Article.CategoryId == id).ToList();
+            return _db.Articles.Where(Article => Article.CategoryId == id)
+                    .OrderByDescending(a => a.DateStamp).ToList();
         }
 
 

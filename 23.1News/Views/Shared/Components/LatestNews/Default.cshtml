@@ -1,12 +1,27 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Article>
 
+
+<div id="latest">
+
 @foreach (var item in Model)
 {
     <div>
 
-        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><h6>@item.DateStamp.ToString("hh:mm") &nbsp;@item.LinkText</h6></a>
+        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><h6>@item.DateStamp.ToString("HH:mm") &nbsp;@item.LinkText</h6></a>
 
     </div>
 
 
 }
+
+
+
+<div id="morenews">
+
+    <button onclick="MoreNewsArticles('15')" class="btn btn-link bg-light">More articles</button>
+    @*<button type="button" class="btn btn-primary">Primary</button>*@
+</div>
+
+
+</div>
+
