@@ -167,7 +167,7 @@ namespace _23._1News.Controllers
     string city = Request.Query["city"];
     if (string.IsNullOrEmpty(city))
     {
-        city = "Motala";
+        city = "Linköping";
     }
     try
     {
