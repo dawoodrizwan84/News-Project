@@ -1,0 +1,31 @@
+﻿@model IEnumerable<_23._1News.Models.Db.Article>
+
+
+
+<div id="editors">
+
+    @foreach (var item in Model)
+    {
+        <div>
+
+            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><h6>@item.LinkText</h6></a>
+
+        </div>
+
+
+    }
+
+
+
+    <div id="morechoice">
+
+        <button onclick="MoreEditorsArticles('10')" class="btn btn-link bg-light">More articles</button>
+        @*<button type="button" class="btn btn-primary">Primary</button>*@
+    </div>
+
+
+
+</div>
+
+
+

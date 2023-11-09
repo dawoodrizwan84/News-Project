@@ -1,37 +1,41 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Article>
 @{
     ViewData["Title"] = "News 23";
+    var Headline = TempData["Headline"];
 }
+
 
 <div id="sidebar">
 
     <div class="row">
-            @*<div class="col-md- text-md-center">*@
             <div class="col-md-12 text-md-center">
                 <div class="text-md-center mb-5 bg-light">
                     <h4 class="bg-primary text-white">Latest News</h4>
-                    <vc:latest-news></vc:latest-news>
+                <vc:latest-news count="5"></vc:latest-news>
                 </div>
-                @*<div class="col-md-12 text-md-center">
+             </div>
+             <div class="col-md-12 text-md-center">
                 <div class="text-md-center mb-5 bg-light">
                     <h4 class="bg-primary text-white">Editors Choice</h4>
-                    <vc:editors-choice></vc:editors-choice>
+                    <vc:editors-choice count="5"></vc:editors-choice>
                 </div>
-             </div>*@
+             </div>
 
-            </div>
+     </div>
 
-            @*</div>*@
-    </div>
-
-
-</div>
+ </div>
 
 
 
 <div id="main">
 
-    <br/><br/>
+    </br>
+    <div class="text-center">
+        <h1 class="display-4"><strong>@Headline</strong></h1>
+
+    </div>
+
+    <br/>
 
     <div class="row">
     @foreach (var item in Model)

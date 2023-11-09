@@ -48,12 +48,6 @@ namespace _23._1News.Models.Db
 
         public bool Archived { get; set; }
 
-        
-
-
-
-
-
 
 
     }

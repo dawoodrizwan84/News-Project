@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace _23._1News.ViewComponents
 {
-    public class LatestNewsViewComponent : ViewComponent
+    public class EditorsChoiceViewComponent : ViewComponent
     {
 
         private readonly IArticleService _articleService;
 
 
-        public LatestNewsViewComponent(IArticleService articleService)
+        public EditorsChoiceViewComponent(IArticleService articleService)
         {
             _articleService = articleService;
 
@@ -20,8 +20,8 @@ namespace _23._1News.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(string count)
         {
             var intCount = Convert.ToInt32(count);
-            var latestNews = await _articleService.GetLatestArticles(intCount);
-            return View("Default", latestNews);
+            var editorsChoice = await _articleService.GetEditorsChoice(intCount);
+            return View("Default", editorsChoice);
         }
 
     }
