@@ -22,9 +22,10 @@ namespace _23._1News.Services.Implement
             return _db.Subscriptions.ToList();
         }
 
-        public void CreateSubs(Subscription newSubs) 
+        public void CreateSubs(Subscription newSub) 
         {
-            _db.Subscriptions.Add(newSubs);
+            newSub.Created = DateTime.Now;
+            _db.Subscriptions.Add(newSub);
             _db.SaveChanges();
         }
 
