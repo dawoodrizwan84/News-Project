@@ -1,5 +1,6 @@
 ﻿@inject _23._1News.Services.Abstract.IArticleService _articleService
 @inject _23._1News.Services.Abstract.IWeatherService _weatherService
+
 @{
     var categories = _articleService.GetCategories();
     var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;

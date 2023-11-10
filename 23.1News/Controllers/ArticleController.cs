@@ -54,7 +54,7 @@ namespace _23._1News.Controllers
         }
 
 
-      
+
         //[Authorize(Roles = "Editor, Admin")]
 
         public IActionResult Create()
@@ -77,7 +77,7 @@ namespace _23._1News.Controllers
 
 
 
-     
+
         [HttpPost]
         //[Authorize(Roles = "Editor , Admin")]
 
@@ -162,29 +162,32 @@ namespace _23._1News.Controllers
             return View(SearchArticles);
         }
 
-      public async Task<IActionResult> GetWeatherForecast()
-     {
-    string city = Request.Query["city"];
-    if (string.IsNullOrEmpty(city))
-    {
-        city = "Linköping";
-    }
-    try
-    {
-        var weatherForecast = await _weatherService.GetWeatherForecast(city);
-        return View(weatherForecast);
-    }
-    catch (HttpRequestException ex)
-    {
-        
-        return View("ErrorView", "City not found"); 
-    }
-    catch (Exception ex)
-    {
-        
-        return View("ErrorView", "City not found"); 
-    }
-}
+        public async Task<IActionResult> GetWeatherForecast()
+        {
+            string city = Request.Query["city"];
+            if (string.IsNullOrEmpty(city))
+            {
+                city = "Linköping";
+            }
+            try
+            {
+                var weatherForecast = await _weatherService.GetWeatherForecast(city);
+                return View(weatherForecast);
+            }
+            catch (HttpRequestException ex)
+            {
+
+                return View("ErrorView", "City not found");
+            }
+            catch (Exception ex)
+            {
+
+                return View("ErrorView", "City not found");
+            }
+        }
+
+
+     
 
     }
 }
