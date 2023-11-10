@@ -48,7 +48,8 @@ namespace _23._1News.Models.Db
 
         public bool Archived { get; set; }
 
-
+        [NotMapped]
+        public Uri BlobLink { get; set; }
 
     }
 

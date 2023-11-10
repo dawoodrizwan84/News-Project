@@ -75,7 +75,9 @@ namespace _23._1News.Services.Implement
 
         public Article GetArticleById(int id)
         {
-            return _db.Articles.Find(id);
+            var article = _db.Articles.Find(id);
+            article.BlobLink = BlobTrigger(article.ImageLink);
+            return article;
         }
 
         public List<Article> SearchArticle(string searchTerm)
@@ -148,6 +150,16 @@ namespace _23._1News.Services.Implement
         }
 
 
+
+        private Uri BlobTrigger(string imgLink)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(
+                _configuration["AzureWebJobsStorage"]);
+            var blobClient = blobServiceClient.GetBlobContainerClient("newsimages");
+            var address = blobClient.GetBlobClient(imgLink).Uri;
+            return address;
+        }
+
         public string UploadImageFile(IFormFile file)
         {
             string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
@@ -164,6 +176,7 @@ namespace _23._1News.Services.Implement
             return blobClient.Uri.AbsoluteUri;
         }
 
+
         // Search for category articles
         public List<Article> GetArticles(int id)
         {
@@ -173,5 +186,6 @@ namespace _23._1News.Services.Implement
 
 
 
+       
     }
 }
