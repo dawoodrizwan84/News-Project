@@ -64,31 +64,21 @@ namespace _23._1News.Services.Implement
             {
                 var user = _db.Users.Where(u => u.Id == userRoleVM.UserId)
                         .FirstOrDefault();
-                if (user != null)
+                var role = _roleManager.FindByIdAsync(userRoleVM.RoleId).Result;
+                if (user != null && role != null)
                 {
-                    _db.Users.Add(user);
-                    _db.SaveChanges();
-                    return true;
+                    var result = _userManager.AddToRoleAsync(user, role.Name).Result;
+                    return result.Succeeded;
                 }
+
+                return false;
             }
             catch (Exception)
             {
 
                 return false;
             }
-
-            return true;
-            
-            
-
-
           
         }
-
-
-
-
- 
-
     }
 }

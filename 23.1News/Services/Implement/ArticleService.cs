@@ -153,7 +153,7 @@ namespace _23._1News.Services.Implement
             string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
-            BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newscontainer");
+            BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newsimages");
             BlobClient blobClient = blobContainerClient.GetBlobClient(uniqueFileName);
 
             using (var stream = file.OpenReadStream())

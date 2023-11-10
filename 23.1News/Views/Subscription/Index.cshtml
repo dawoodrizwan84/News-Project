@@ -5,87 +5,6 @@
     Layout = "_AdminLayout";
 }
 
-
-<div class="row">
-    <div id="left" class="col-md-3">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;display:inline">
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-
-
-                    <strong>Admin</strong>
-
-                    <img src="~/image/images.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>@User.Identity?.Name</strong>
-
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li class="dropdown-item">
-                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item001">
-                    <a asp-controller="Article" asp-action="Index" class="nav-link link-dark" aria-current="page">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                        NewsList
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a asp-controller="Article" asp-action="Create" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                        Add News
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a asp-controller="Article" asp-action="Edit" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                        Edit News
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                        Search News
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                        Add Category
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a asp-controller="Category" asp-action="Create" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                        Edit Category
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a asp-controller="Subscription" asp-action="Index" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                        Subscription
-                    </a>
-                </li>
-                <li class="nav-item001">
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                        Customer detail
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div id="right" class=" col-md-9">
         <h1 style="text-align:center">Subscription List</h1>
         <hr />
         <div class="table-responsive small">
@@ -130,8 +49,7 @@
             </table>
         </div>
         
-    </div>
-</div>
+
 
 
 
