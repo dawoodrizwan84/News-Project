@@ -15,48 +15,58 @@ namespace _23._1News.Helpers
             _emailConfiguration = emailConfiguration;
         }
 
-        public void SendEmail(EmailMessage emailMessage) 
-        { 
-            var message=new MimeMessage();
-            message.Sender = MailboxAddress.Parse(emailMessage.FromAddress.Address);
-            message.Sender.Name = emailMessage.FromAddress.Name;
-            message.To.AddRange(emailMessage.ToAddresses.Select(x => new MailboxAddress(x.Name,x.Address)));
-            message.From.Add(message.Sender);
-            message.Subject = emailMessage.Subject;
-            message.Body=new TextPart(TextFormat.Html) 
-            { Text=emailMessage.Content};
-
-            using (var emailClient = new SmtpClient())
+        public void SendEmail(EmailMessage emailMessage)
+        {
+            try
             {
-                emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
-                emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
-                emailClient.Authenticate(_emailConfiguration.SmtpUsername,_emailConfiguration.SmtpPassword);
-                emailClient.Send(message);
-                emailClient.Disconnect(true);
+                var message = new MimeMessage();
+                message.Sender = MailboxAddress.Parse(emailMessage.FromAddress.Address);
+                message.Sender.Name = emailMessage.FromAddress.Name;
+                message.To.AddRange(emailMessage.ToAddresses.Select(x => new MailboxAddress(x.Name, x.Address)));
+                message.From.Add(message.Sender);
+                message.Subject = emailMessage.Subject;
+                message.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = emailMessage.Content
+                };
+
+                using (var emailClient = new SmtpClient())
+                {
+                    emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
+                    emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
+                    emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
+                    emailClient.Send(message);
+                    emailClient.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log or rethrow if necessary)
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
 
-    //public Task SendEmailAsync(EmailMessage emailMessage)
-    //{
-    //    var message = new MimeMessage();
-    //    message.Sender = MailboxAddress.Parse(emailMessage.FromAddress.Address);
-    //    message.Sender.Name = emailMessage.FromAddress.Name;
-    //    message.To.AddRange(emailMessage.ToAddresses.Select(x => new MailboxAddress(x.Name, x.Address)));
-    //    message.From.Add(message.Sender);
-    //    message.Subject = emailMessage.Subject;
-    //    message.Body = new TextPart(TextFormat.Html)
-    //    { Text = emailMessage.Content };
+        //public Task SendEmailAsync(EmailMessage emailMessage)
+        //{
+        //    var message = new MimeMessage();
+        //    message.Sender = MailboxAddress.Parse(emailMessage.FromAddress.Address);
+        //    message.Sender.Name = emailMessage.FromAddress.Name;
+        //    message.To.AddRange(emailMessage.ToAddresses.Select(x => new MailboxAddress(x.Name, x.Address)));
+        //    message.From.Add(message.Sender);
+        //    message.Subject = emailMessage.Subject;
+        //    message.Body = new TextPart(TextFormat.Html)
+        //    { Text = emailMessage.Content };
 
-    //    using (var emailClient = new SmtpClient())
-    //    {
-    //        emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
-    //        emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
-    //        emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
-    //        emailClient.Send(message);
-    //        emailClient.Disconnect(true);
-    //    }
-    //}
+        //    using (var emailClient = new SmtpClient())
+        //    {
+        //        emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
+        //        emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
+        //        emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
+        //        emailClient.Send(message);
+        //        emailClient.Disconnect(true);
+        //    }
+        //}
 
-}
+    }
 }

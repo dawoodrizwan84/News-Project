@@ -8,10 +8,9 @@ namespace _23._1News.Models.Db
 
         public string LastName { get; set; } = string.Empty;
 
+        public bool Employee { get; set; }
         public int DOB { get; set; }
 
-        //public string Employee { get; set; }
-
-        //public virtual ICollection<Article> Articles { get; set; }
+        public virtual ICollection<Subscription> Subscriptions { get; set;} 
     }
 }

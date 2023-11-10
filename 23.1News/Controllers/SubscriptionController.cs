@@ -13,6 +13,8 @@ using _23._1News.Models.View_Models;
 using Microsoft.AspNetCore.Authorization;
 using _23._1News.Models.Email;
 using _23._1News.Helpers;
+using Microsoft.AspNetCore.Identity;
+using System.Net.Mail;
 
 namespace _23._1News.Controllers
 {
@@ -23,10 +25,12 @@ namespace _23._1News.Controllers
         private readonly ILogger<SubscriptionController> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailHelper _emailHelper;
+        private readonly UserManager<User> _userManager;
 
         public SubscriptionController(ApplicationDbContext applicationDbContext,
             ISubscriptionService subscriptionService,
             ILogger<SubscriptionController> logger,
+            UserManager<User> userManager,
             IEmailHelper emailHelper)
         {
 
@@ -34,6 +38,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _logger = logger;
             _emailHelper = emailHelper;
+            _userManager = userManager;
         }
 
 
@@ -49,19 +54,64 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("sub")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("sub")]
         public IActionResult Create(Subscription newSubscription)
         {
             _subscriptionService.CreateSubs(newSubscription);
+            SendEmail(newSubscription);
             return RedirectToAction("Index");
         }
+
+
+        //[HttpPost]
+        //[Route("sub")]
+        //public async Task<IActionResult> Create(Subscription newSubscription)
+        //{
+        //    var user = new User
+        //    {
+        //        UserName = newSubscription.UserName,
+        //        Email = newSubscription.Email
+        //    };
+
+
+        //    var result = await _userManager.CreateAsync(user);
+
+        //    if (result.Succeeded)
+        //    {
+        //        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
+
+        //        EmailMessage newEmail = new EmailMessage()
+        //        {
+        //            FromAddress = new EmailAddress()
+        //            {
+        //                Address = "senderemailservice23.1@gmail.com",
+        //                Name = "23.1News"
+        //            },
+        //            Content = "Thank you for subscribing!.",
+        //            Subject = "Welcome to 23.1 News"
+        //        };
+
+        //        newEmail.ToAddresses.Add(new EmailAddress()
+        //        {
+        //            Address = newSubscription.UserName,
+        //            Name = newSubscription.Email
+        //        });
+
+        //        _emailHelper.SendEmail(newEmail);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Error");
+        //    }
+        //}
 
         public IActionResult Delete(int id)
         {
@@ -103,8 +153,11 @@ namespace _23._1News.Controllers
             return View(det);
         }
 
-        public IActionResult SendEmail()
+
+        public IActionResult SendEmail(Subscription newSubscription)
         {
+            var user = _userManager.GetUserAsync(User).Result;
+
             EmailMessage newEmail = new EmailMessage()
             {
                 FromAddress = new EmailAddress()
@@ -112,20 +165,25 @@ namespace _23._1News.Controllers
                     Address = "senderemailservice23.1@gmail.com",
                     Name = "23.1News"
                 },
-                Content = "Test to see if this works",
-                Subject = "Test"
+                Content = "Thank you for subscribing!",
+                Subject = "Welcome to 23.1 News"
             };
 
             newEmail.ToAddresses.Add(new EmailAddress()
             {
-                Address = "xinliu1108@gmail.com",
-                Name = "Xin"
+                Address = user.Email,
+                Name = user.FirstName + " " + user.LastName
             });
+
             _emailHelper.SendEmail(newEmail);
+
             return View();
         }
+
+
     }
 }
+
 
 
 
