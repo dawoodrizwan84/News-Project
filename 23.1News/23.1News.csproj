@@ -9,9 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Components\**" />
+    <Compile Remove="Views\WeatherForecast\**" />
     <Compile Remove="wwwroot\Images\**" />
+    <Content Remove="Views\Components\**" />
+    <Content Remove="Views\WeatherForecast\**" />
     <Content Remove="wwwroot\Images\**" />
+    <EmbeddedResource Remove="Views\Components\**" />
+    <EmbeddedResource Remove="Views\WeatherForecast\**" />
     <EmbeddedResource Remove="wwwroot\Images\**" />
+    <None Remove="Views\Components\**" />
+    <None Remove="Views\WeatherForecast\**" />
     <None Remove="wwwroot\Images\**" />
   </ItemGroup>
 
@@ -33,10 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Views\Components\LatestNews\" />
-
-    <Folder Include="Views\WeatherForecast\" />
 
     <Folder Include="wwwroot\images\" />
 

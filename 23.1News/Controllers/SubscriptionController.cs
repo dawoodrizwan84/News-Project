@@ -48,10 +48,6 @@ namespace _23._1News.Controllers
             return View(subsList);
         }
 
-        public IActionResult Info()
-        {
-            return View();
-        }
 
 
         public IActionResult Create()
@@ -62,9 +58,10 @@ namespace _23._1News.Controllers
         [HttpPost]
         public IActionResult Create(Subscription newSubscription)
         {
+            newSubscription.User = _userManager.GetUserAsync(User).Result;
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 
@@ -156,7 +153,6 @@ namespace _23._1News.Controllers
 
         public IActionResult SendEmail(Subscription newSubscription)
         {
-            var user = _userManager.GetUserAsync(User).Result;
 
             EmailMessage newEmail = new EmailMessage()
             {
@@ -171,8 +167,8 @@ namespace _23._1News.Controllers
 
             newEmail.ToAddresses.Add(new EmailAddress()
             {
-                Address = user.Email,
-                Name = user.FirstName + " " + user.LastName
+                Address = newSubscription.User.Email,
+                Name = newSubscription.User.FirstName + " " + newSubscription.User.LastName
             });
 
             _emailHelper.SendEmail(newEmail);
