@@ -75,9 +75,10 @@ namespace _23._1News
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
             
             });
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            //builder.Services.AddScoped<ICategoryService, CategoryService>();
+            //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
+            //builder.Services.AddScoped<IWeatherService, WeatherService>();
 
             builder.Services.AddHttpClient("weatherForecast", config =>
             {

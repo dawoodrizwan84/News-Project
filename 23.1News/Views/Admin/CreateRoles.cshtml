@@ -1,13 +1,19 @@
 ﻿@model _23._1News.Models.ViewModels.UserRoleVM
 @{
     ViewData["Title"] = "CreateRoles";
+    var msg = TempData["msg"] as string;
 }
 
 <h1>CreateRoles</h1>
 
+@if (msg != null)
+{
+    <p>@msg</p>
+}
+    
 
 
-<form asp-action="Create" method="post">
+<form asp-action="CreateRoles" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
@@ -22,6 +28,9 @@
         <span asp-validation-for="RoleId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Insert User Role</button>
+    <button type="submit" class="btn btn-primary mt-3">Insert User Role</button>
 
+    <div>
+        <a asp-action="Index">Back to Admin</a>
+    </div>
 </form>

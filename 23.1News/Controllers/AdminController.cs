@@ -84,7 +84,6 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("cro")]
         public IActionResult CreateRoles()
         {
             UserRoleVM addUserRoleVM = new UserRoleVM();
@@ -92,12 +91,17 @@ namespace _23._1News.Controllers
         }
 
         [HttpPost]
-        [Route("cro")]
+        
         public IActionResult CreateRoles(UserRoleVM userRoleVM)
         {
             var aaa = _adminService.AddUserRole(userRoleVM);
+            if (!aaa)
+            {
+                TempData["msg"] = "Not succeeded";
+                return RedirectToAction("CreateRoles");
+            }
 
-            return View(aaa);
+            return RedirectToAction("UserRoles");
 
         }
 
