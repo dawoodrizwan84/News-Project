@@ -14,7 +14,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    position: relative;
 }
 
 .header-top {
@@ -83,14 +84,14 @@ a:link {
     margin-top: 20px;
 }
 
+
+
 #frontpagefooter {
     bottom: 0;
     width: 100%;
     display: block;
-    height: 80px;
     text-align: center;
     justify-content: center;
-    margin-top: 20px;
 }
 
 #hover002:hover {
