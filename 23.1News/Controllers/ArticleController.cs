@@ -100,7 +100,8 @@ namespace _23._1News.Controllers
             //}
 
 
-            articleVM.ImageLink = _articleService.UploadImageFile(articleVM.File);
+            _articleService.UploadImageFile(articleVM.File);
+          
 
             var userId = _userManager.GetUserId(User);
             _articleService.CreateArticle(articleVM, userId);
