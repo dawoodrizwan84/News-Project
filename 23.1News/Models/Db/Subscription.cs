@@ -9,10 +9,9 @@ namespace _23._1News.Models.Db
         public decimal Price { get; set; }
         public DateTime Created { get; set; }
 
-        //public User User { get; set; }
         public bool PaymentComplete { get; set; }
 
-        
+        //public User User { get; set; }
 
         public virtual User User { get; set; }
     }

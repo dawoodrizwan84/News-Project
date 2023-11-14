@@ -2,6 +2,7 @@
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _23._1News.Controllers
@@ -16,7 +17,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _subscriptionTypeService = subscriptionTypeService;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             var subscriptionTypeList = _applicationDbContext.SubscriptionTypes.ToList();
