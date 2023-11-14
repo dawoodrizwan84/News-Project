@@ -25,10 +25,9 @@ namespace _23._1News.Services.Implement
 
         public List<Article> GetArticles()
         {
-            var articles =_db.Articles.Include(a => a.Category).ToList();
-            //.OrderByDescending(a => a.DateStamp)
+            var articles = _db.Articles.Include(a => a.Category).ToList();
 
-            //_db.Categories.ToList();
+            
 
             return _db.Articles.ToList();
         }
@@ -46,15 +45,12 @@ namespace _23._1News.Services.Implement
                 Category = _db.Categories
                                 .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
-                ImageLink = articleVM.ImageLink
+                ImageLink = articleVM.File.Name
             };
 
             dbArt.Author = _db.Users.Find(userId);
             _db.Articles.Add(dbArt);
             _db.SaveChanges();
-
-
-
         }
 
         public bool UpdateArticle(ArticleVM articleVM)
@@ -76,7 +72,7 @@ namespace _23._1News.Services.Implement
         public Article GetArticleById(int id)
         {
             var article = _db.Articles.Find(id);
-            article.BlobLink = BlobTrigger(article.ImageLink);
+            article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
 
@@ -136,7 +132,14 @@ namespace _23._1News.Services.Implement
         public async Task<IEnumerable<Article>> GetLatestArticles(int count)
         {
 
-            var latest = await _db.Articles.Include(a => a.Category).OrderByDescending(a => a.DateStamp).Take(count).ToListAsync();
+            var latest = await _db.Articles.Include(a => a.Category)
+                            .OrderByDescending(a => a.DateStamp)
+                            .Take(count).ToListAsync();
+            
+            foreach (var article in latest) 
+            {
+                article.BlobLink = GetSmallBlobImage(article.ImageLink);
+            }
             return latest;
         }
 
@@ -151,11 +154,19 @@ namespace _23._1News.Services.Implement
 
 
 
-        private Uri BlobTrigger(string imgLink)
+        private Uri GetBlobImage(string imgLink)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
             var blobClient = blobServiceClient.GetBlobContainerClient("newsimages");
+            var address = blobClient.GetBlobClient(imgLink).Uri;
+            return address;
+        }
+        private Uri GetSmallBlobImage(string imgLink)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(
+                _configuration["AzureWebJobsStorage"]);
+            var blobClient = blobServiceClient.GetBlobContainerClient("resizeimages-sm");
             var address = blobClient.GetBlobClient(imgLink).Uri;
             return address;
         }
@@ -186,6 +197,6 @@ namespace _23._1News.Services.Implement
 
 
 
-       
+
     }
 }
