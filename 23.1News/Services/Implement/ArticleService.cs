@@ -27,7 +27,10 @@ namespace _23._1News.Services.Implement
         {
             var articles = _db.Articles.Include(a => a.Category).ToList();
 
-            
+            foreach (var item in articles)
+            {
+                item.BlobLink = GetBlobImage(item.ImageLink);
+            }
 
             return _db.Articles.ToList();
         }
@@ -46,6 +49,7 @@ namespace _23._1News.Services.Implement
                                 .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
                 ImageLink = articleVM.File.Name
+
             };
 
             dbArt.Author = _db.Users.Find(userId);
@@ -72,7 +76,7 @@ namespace _23._1News.Services.Implement
         public Article GetArticleById(int id)
         {
             var article = _db.Articles.Find(id);
-            article!.BlobLink = GetBlobImage(article.ImageLink);
+            article!.BlobLink = GetSmallBlobImage(article.ImageLink);
             return article;
         }
 

@@ -115,6 +115,7 @@ namespace _23._1News.Controllers
             return View(record);
         }
 
+
         [Authorize(Roles = "Editor, Admin")]
         [HttpPost]
         public IActionResult Edit(ArticleVM newArticle)
