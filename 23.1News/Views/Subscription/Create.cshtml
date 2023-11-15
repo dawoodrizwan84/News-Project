@@ -1,15 +1,30 @@
-﻿@model _23._1News.Models.Db.Subscription
+﻿﻿
+@model _23._1News.Models.Db.Subscription
+
 @{
     ViewData["Title"] = "Create";
+    var subTypeId = TempData["subTypeId"];
+    var subTypeName=TempData["subTypeName"];
+    var subTypePrice = TempData["subTypePrice"];
+    var subTypeDescription = TempData["subTypeDescription"];
+
 }
 
 <h1>Welcome to Subscribe</h1>
 <hr />
 <div class="row">
+    <div class="col-md-6">
+        <div style="border:1px solid grey">
+            <h4>Your Plan:@subTypeName</h4>
+            <h4>Price:$ @subTypePrice</h4>
+            <p>@subTypeDescription</p>
+        </div>
+    </div>
+
+
     <div class="col-md-4">
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
            @*  <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />

@@ -7,7 +7,7 @@ namespace _23._1News.Services.Abstract
     {
         List<Subscription> GetAllSubs();
 
-        void CreateSubs(Subscription newSubs);
+        void CreateSubs(Subscription newSub);
 
         bool UpdateSubs(Subscription newSubs);
 

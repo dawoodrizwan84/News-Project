@@ -1,6 +1,9 @@
 ﻿using _23._1News.Data;
 using _23._1News.Models.Db;
+using _23._1News.Models.View_Models;
+using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace _23._1News.Services.Implement
 {
@@ -24,7 +27,9 @@ namespace _23._1News.Services.Implement
 
         public void CreateSubs(Subscription newSub) 
         {
+            newSub.SubscriptionType = _db.SubscriptionTypes.Where(t => t.Id == newSub.SubscriptionTypeId).FirstOrDefault()!;
             newSub.Created = DateTime.Now;
+            newSub.Price = newSub.SubscriptionType.Price;
             _db.Subscriptions.Add(newSub);
             _db.SaveChanges();
         }
