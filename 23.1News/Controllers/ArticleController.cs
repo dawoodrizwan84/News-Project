@@ -99,6 +99,10 @@ namespace _23._1News.Controllers
             //    articleVM.ImageLink = "/image/" + uniqueFileName;
             //}
 
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(articleVM);
+            //}
 
             _articleService.UploadImageFile(articleVM.File);
           
@@ -112,7 +116,19 @@ namespace _23._1News.Controllers
         public IActionResult Edit(int id)
         {
             var record = _articleService.GetArticleById(id);
-            return View(record);
+
+            ArticleVM articleVM = new ArticleVM();
+            articleVM.Id = record.Id;
+            articleVM.DateStamp = record.DateStamp;
+            articleVM.LinkText = record.LinkText;
+            articleVM.Headline = record.Headline;
+            articleVM.ContentSummary = record.ContentSummary;
+            articleVM.Content = record.Content;
+            articleVM.ImageLink = record.ImageLink;
+            articleVM.CategoryId = record.CategoryId;
+            articleVM.EdChoice = record.EdChoice;
+
+            return View(articleVM);
         }
 
 
@@ -120,10 +136,11 @@ namespace _23._1News.Controllers
         [HttpPost]
         public IActionResult Edit(ArticleVM newArticle)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(newArticle);
-            }
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(newArticle);
+            //}
             var result = _articleService.UpdateArticle(newArticle);
             if (result)
             {

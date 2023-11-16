@@ -45,11 +45,12 @@ namespace _23._1News.Services.Implement
                 Content = articleVM.Content,
                 ContentSummary = articleVM.ContentSummary,
                 LinkText = articleVM.LinkText,
+                CategoryId = articleVM.CategoryId,
                 Category = _db.Categories
                                 .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
-                ImageLink = articleVM.File.Name
-
+                ImageLink = articleVM.File.Name,
+                EdChoice = articleVM.EdChoice
             };
 
             dbArt.Author = _db.Users.Find(userId);
@@ -59,10 +60,23 @@ namespace _23._1News.Services.Implement
 
         public bool UpdateArticle(ArticleVM articleVM)
         {
+            Article dbArt = new Article()
+
+            {
+            Id = articleVM.Id,
+            DateStamp = articleVM.DateStamp,
+            LinkText = articleVM.LinkText,
+            Headline = articleVM.Headline,
+            ContentSummary = articleVM.ContentSummary,
+            Content = articleVM.Content,
+            CategoryId = articleVM.CategoryId,
+            ImageLink = articleVM.ImageLink,
+            EdChoice = articleVM.EdChoice
+            };
 
             try
             {
-                _db.Update(articleVM);
+                _db.Update(dbArt);
                 _db.SaveChanges();
                 return true;
             }

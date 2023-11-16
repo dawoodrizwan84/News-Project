@@ -48,6 +48,18 @@
         <span asp-validation-for="ChosenCategory" class="text-danger"></span>
     </div>
 
+
+    </br>
+
+    <div class="form-group">
+        <label asp-for="EdChoice" class="control-label">Editor's choice</label>
+        <input asp-for="EdChoice" />
+
+    </div>
+
+    </br>
+
+
     <div class="form-group">
         <dl>
             <dt>
@@ -55,12 +67,12 @@
             </dt>
             <dd>
                 <input asp-for="File" type="file">
-                <img src="@Model.File" alt="Image Preview" height="100" width="100" />
+                @* <img src="@Model.File" alt="Image Preview" height="100" width="100" /> *@
                 <span asp-validation-for="File"></span>
 
             </dd>
         </dl>
-        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload" onclick="typevalfunc()" />
+        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload and Save" onclick="typevalfunc()" />
 
 
     </div>
