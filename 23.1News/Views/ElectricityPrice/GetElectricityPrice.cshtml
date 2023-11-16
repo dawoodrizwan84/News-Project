@@ -1,0 +1,35 @@
+﻿
+@model _23._1News.Models.Db.Electricity
+
+@{
+    ViewData["Title"] = "GetElectricityPrice";
+}
+
+<h1>GetElectricityPrice</h1>
+
+
+
+@foreach (var todaysSpotPrices in Model.TodaysSpotPrices)
+{
+    <h3>Todays Spot Prices</h3>
+
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead>
+            <tr>
+                <th>Date and Time</th>
+                <th>Area Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spotData in todaysSpotPrices.SpotData)
+            {
+                <tr>
+                    <td>@spotData.DateAndTime</td>
+                    <td>@spotData.AreaName</td>
+                    <td>@spotData.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
