@@ -25,14 +25,14 @@ namespace _23._1News.Services.Implement
 
         public List<Article> GetArticles()
         {
-            var articles = _db.Articles.Include(a => a.Category).ToList();
+            var articles = _db.Articles.Include(a => a.Category).OrderByDescending(a => a.DateStamp).ToList();
 
             foreach (var item in articles)
             {
                 item.BlobLink = GetBlobImage(item.ImageLink);
             }
 
-            return _db.Articles.ToList();
+            return articles;
         }
 
         public void CreateArticle(ArticleVM articleVM, string userId)
@@ -154,10 +154,10 @@ namespace _23._1News.Services.Implement
                             .OrderByDescending(a => a.DateStamp)
                             .Take(count).ToListAsync();
             
-            foreach (var article in latest) 
-            {
-                article.BlobLink = GetSmallBlobImage(article.ImageLink);
-            }
+            //foreach (var article in latest) 
+            //{
+            //    article.BlobLink = GetSmallBlobImage(article.ImageLink);
+            //}
             return latest;
         }
 
@@ -209,8 +209,13 @@ namespace _23._1News.Services.Implement
         // Search for category articles
         public List<Article> GetArticles(int id)
         {
-            return _db.Articles.Where(Article => Article.CategoryId == id)
+            var articles = _db.Articles.Where(Article => Article.CategoryId == id)
                     .OrderByDescending(a => a.DateStamp).ToList();
+            foreach (var item in articles)
+            {
+                item.BlobLink = GetBlobImage(item.ImageLink);
+            }
+            return articles;
         }
 
 
