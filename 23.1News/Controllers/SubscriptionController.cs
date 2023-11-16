@@ -22,6 +22,7 @@ namespace _23._1News.Controllers
     {
 
         private readonly ISubscriptionService _subscriptionService;
+        private readonly ISubscriptionTypeService _subscriptionTypeService;
         private readonly ILogger<SubscriptionController> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailHelper _emailHelper;
@@ -29,12 +30,14 @@ namespace _23._1News.Controllers
 
         public SubscriptionController(ApplicationDbContext applicationDbContext,
             ISubscriptionService subscriptionService,
+            ISubscriptionTypeService subscriptionTypeService,
             ILogger<SubscriptionController> logger,
             UserManager<User> userManager,
             IEmailHelper emailHelper)
         {
 
             _subscriptionService = subscriptionService;
+            _subscriptionTypeService = subscriptionTypeService;
             _applicationDbContext = applicationDbContext;
             _logger = logger;
             _emailHelper = emailHelper;
@@ -48,23 +51,25 @@ namespace _23._1News.Controllers
             return View(subsList);
         }
 
-        public IActionResult Info()
-        {
-            return View();
-        }
 
 
         public IActionResult Create()
         {
+            var subTypeId = TempData["subTypeId"];
+            TempData.Keep("subTypeId");
             return View();
         }
+
 
         [HttpPost]
         public IActionResult Create(Subscription newSubscription)
         {
+            var subTypeId = (int)TempData["subTypeId"]!;
+            newSubscription.SubscriptionTypeId = subTypeId;
+            newSubscription.User = _userManager.GetUserAsync(User).Result;
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new {id=newSubscription.Id});
         }
 
 
@@ -156,7 +161,6 @@ namespace _23._1News.Controllers
 
         public IActionResult SendEmail(Subscription newSubscription)
         {
-            var user = _userManager.GetUserAsync(User).Result;
 
             EmailMessage newEmail = new EmailMessage()
             {
@@ -171,8 +175,8 @@ namespace _23._1News.Controllers
 
             newEmail.ToAddresses.Add(new EmailAddress()
             {
-                Address = user.Email,
-                Name = user.FirstName + " " + user.LastName
+                Address = newSubscription.User.Email,
+                Name = newSubscription.User.FirstName + " " + newSubscription.User.LastName
             });
 
             _emailHelper.SendEmail(newEmail);
@@ -180,6 +184,7 @@ namespace _23._1News.Controllers
             return View();
         }
 
+    
 
     }
 }

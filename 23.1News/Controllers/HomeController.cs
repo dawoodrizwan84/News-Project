@@ -72,9 +72,10 @@ namespace _23._1News.Controllers
 
         public IActionResult News(int id)
         {
+         
             var articles=_articleService.GetArticles(id);
             Category category = _categoryService.GetCategotyById(id);
-            TempData["Headline"] = category.Name;
+            //TempData["Headline"] = category.Name;
             return View(articles);
         }
 

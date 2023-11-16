@@ -2,6 +2,8 @@
 using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
+using _23._1News.Services.Implement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _23._1News.Controllers
@@ -16,7 +18,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _subscriptionTypeService = subscriptionTypeService;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             var subscriptionTypeList = _applicationDbContext.SubscriptionTypes.ToList();
@@ -35,7 +37,7 @@ namespace _23._1News.Controllers
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public IActionResult Create(SubscriptionType subscriptionType)
         {
             if (ModelState.IsValid)
@@ -49,6 +51,16 @@ namespace _23._1News.Controllers
         {
             _subscriptionTypeService.DeleteSubscriptionType(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GotoStart(int id)
+        {
+            SubscriptionType subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(id);
+            TempData["subTypeId"] = subscriptionType.Id;
+            TempData["subTypeName"] = subscriptionType.TypeName;
+            TempData["subTypePrice"] = subscriptionType.Price;
+            TempData["subTypeDescription"] = subscriptionType.Description;
+            return RedirectToAction("Create", "Subscription");
         }
     }
 }

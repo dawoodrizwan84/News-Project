@@ -1,4 +1,4 @@
-﻿@model _23._1News.Models.Db.Article
+﻿@model _23._1News.Models.View_Models.ArticleVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CategoryId" />
             <div class="form-group">
                 <label asp-for="DateStamp" class="control-label"></label>
                 <input asp-for="DateStamp" class="form-control" />
@@ -39,12 +40,25 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
-          @*   <div class="form-group">
+            <div class="form-group">
                 <label asp-for="ImageLink" class="control-label"></label>
                 <input asp-for="ImageLink" class="form-control" />
                 <span asp-validation-for="ImageLink" class="text-danger"></span>
-            </div> *@
+            </div>
 
+            </br>
+
+            <div class="form-group">
+                <label asp-for="EdChoice" class="control-label">Editor's choice</label>
+                <input asp-for="EdChoice" />
+
+            </div>
+
+            </br>
+
+
+
+ 
                        <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
