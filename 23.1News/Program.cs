@@ -68,6 +68,13 @@ namespace _23._1News
 
 
 
+            builder.Services.AddScoped<IElectricityService, ElectricityService>();
+            builder.Services.AddHttpClient("electricityPrice", config =>
+            {
+
+                config.BaseAddress = new(builder.Configuration["MyElectricityPriceAPIAddress"]);
+
+            });
 
             builder.Services.AddScoped<IWeatherService, WeatherService>();
             builder.Services.AddHttpClient("weatherForecast", config => 
