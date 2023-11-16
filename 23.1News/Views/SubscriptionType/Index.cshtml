@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using _23._1News.Models.Db;
-@model IEnumerable<_23._1News.Models.Db.SubscriptionType>
+@model IEnumerable<_23._1News.Models.Db.SubscriptionType> 
+
 
 @{
     ViewData["Title"] = "SubscriptionType";
@@ -15,28 +16,48 @@
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         @foreach (var item in Model)
         {
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">@item.TypeName</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$@item.Price<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>@item.Description</li>
-                        </ul>
-                        <br />
-                        <br />
-                        <a asp-controller="SubscriptionType" asp-action="GotoStart" asp-route-id="@item.Id" class="btn btn-lg btn-primary m-2">Go to Start</a>
+            if(@item.TypeName=="Free")
+            {
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm" style="height:295px;">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">@item.TypeName</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">$@item.Price<small class="text-body-secondary fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>@item.Description<br /></li>
+                            
+                            </ul>
+                            <a asp-controller="SubscriptionType" asp-action="GotoStart" asp-route-id="@item.Id" class="btn btn-lg btn-outline-primary m-2">Sign up for free</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                            <h4 class="my-0 fw-normal"style="color:white;">@item.TypeName</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">$@item.Price<small class="text-body-secondary fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>@item.Description</li>
+                            </ul>
+                            <a asp-controller="SubscriptionType" asp-action="GotoStart" asp-route-id="@item.Id" class="btn btn-lg btn-primary m-2">Go to Start</a>
+                        </div>
+                    </div>
+                </div>
+            }
         }
-     </div>           
+     </div>
+</main>
 
+ 
 
-
-    <h2 class="display-6 text-center mb-4" style="margin-top:20px;">Compare plans</h2>
+   <h2 class="display-6 text-center mb-4" style="margin-top:20px;">Compare plans</h2>
 
     <div class="table-responsive">
         <table class="table text-center">

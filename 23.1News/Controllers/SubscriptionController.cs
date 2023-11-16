@@ -57,6 +57,7 @@ namespace _23._1News.Controllers
         {
             var subTypeId = TempData["subTypeId"];
             TempData.Keep("subTypeId");
+            
             return View();
         }
 
