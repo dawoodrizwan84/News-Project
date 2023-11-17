@@ -24,7 +24,7 @@ namespace _23._1News.Services.Abstract
         string UploadImageFile(IFormFile file);
 
 
-        
+        List<Article> GetArchiveNews();
 
 
     }

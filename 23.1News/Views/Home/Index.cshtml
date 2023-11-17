@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Article>
 @{
     ViewData["Title"] = "Front Page";
-    
+
 }
+
 
 
 
@@ -20,7 +21,7 @@
 
 <div id="sidebar">
 
-   <div class="row">
+    <div class="row">
         <div class="col-md-12 text-md-center">
             <div class="text-md-center mb-5 bg-light">
                 <h4 class="bg-primary text-white">Latest News</h4>
@@ -32,7 +33,7 @@
                 <h4 class="bg-primary text-white">Editors Choice</h4>
                 <vc:editors-choice count="5"></vc:editors-choice>
             </div>
-         </div>
+        </div>
     </div>
 
 </div>
@@ -45,25 +46,29 @@
 
     </div>
 
-<br />
+    <br />
     <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="card col-md-11">
-                    <img src="@item.BlobLink" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
-                            @*<h5 class="card-title">@item.LinkText</h5>*@
-                            <h4 class="card-title mt-2">@item.Headline</h4>
-                            <p class="card-text mb-2">@item.ContentSummary</p>
-                            @*<p class="card-text">@item.Content</p>*@
-                        </a>
-                    </div>
-
+        @foreach (var item in Model)
+        {
+            <div class="card col-md-11">
+                <img src="@item.BlobLink" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                        @*<h5 class="card-title">@item.LinkText</h5>*@
+                        <h4 class="card-title mt-2">@item.Headline</h4>
+                        <p class="card-text mb-2">@item.ContentSummary</p>
+                        @*<p class="card-text">@item.Content</p>*@
+                    </a>
                 </div>
-            }
+
+            </div>
+        }
     </div>
 
 </div>
+
+
+
+
 
 
