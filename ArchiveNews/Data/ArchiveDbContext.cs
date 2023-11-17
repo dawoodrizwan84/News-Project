@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ArchiveNews.Data
 {
-    public class ArchiveDbContext : ApplicationDbContext
+    public class ArchiveDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _db;
@@ -22,9 +22,10 @@ namespace ArchiveNews.Data
             : base(options)
         {
             _configuration = configuration;
+            
         }
        
-        public DbSet<Article> Articles { get; set; }
+        //public DbSet<Article> Articles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

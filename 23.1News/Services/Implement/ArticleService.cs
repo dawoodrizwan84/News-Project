@@ -65,15 +65,15 @@ namespace _23._1News.Services.Implement
             Article dbArt = new Article()
 
             {
-            Id = articleVM.Id,
-            DateStamp = articleVM.DateStamp,
-            LinkText = articleVM.LinkText,
-            Headline = articleVM.Headline,
-            ContentSummary = articleVM.ContentSummary,
-            Content = articleVM.Content,
-            CategoryId = articleVM.CategoryId,
-            ImageLink = articleVM.ImageLink,
-            EdChoice = articleVM.EdChoice
+                Id = articleVM.Id,
+                DateStamp = articleVM.DateStamp,
+                LinkText = articleVM.LinkText,
+                Headline = articleVM.Headline,
+                ContentSummary = articleVM.ContentSummary,
+                Content = articleVM.Content,
+                CategoryId = articleVM.CategoryId,
+                ImageLink = articleVM.ImageLink,
+                EdChoice = articleVM.EdChoice
             };
 
             try
@@ -155,8 +155,8 @@ namespace _23._1News.Services.Implement
             var latest = await _db.Articles.Include(a => a.Category)
                             .OrderByDescending(a => a.DateStamp)
                             .Take(count).ToListAsync();
-            
-            foreach (var article in latest) 
+
+            foreach (var article in latest)
             {
                 article.BlobLink = GetSmallBlobImage(article.ImageLink);
             }
@@ -222,7 +222,19 @@ namespace _23._1News.Services.Implement
             return articles;
         }
 
+        public List<Article> GetArchiveNews()
+        {
+            var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
+                                        .AddDays(-30) && !a.Archived).ToList();
 
+            foreach (var item in archiveNews)
+            {
+                item.Archived = true;
+            }
+            
+            _db.SaveChanges();
+            return archiveNews;
+        }
 
 
     }
