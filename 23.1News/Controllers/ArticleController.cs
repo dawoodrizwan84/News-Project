@@ -112,6 +112,7 @@ namespace _23._1News.Controllers
             return RedirectToAction("Index");
         }
 
+
         [Authorize(Roles = "Editor, Admin")]
         public IActionResult Edit(int id)
         {

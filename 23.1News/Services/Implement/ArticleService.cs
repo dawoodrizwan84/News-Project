@@ -92,7 +92,8 @@ namespace _23._1News.Services.Implement
         public Article GetArticleById(int id)
         {
             var article = _db.Articles.Find(id);
-            article!.BlobLink = GetSmallBlobImage(article.ImageLink);
+            
+            article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
 
@@ -158,7 +159,7 @@ namespace _23._1News.Services.Implement
 
             foreach (var article in latest)
             {
-                article.BlobLink = GetSmallBlobImage(article.ImageLink);
+                article.BlobLink = GetBlobImage(article.ImageLink);
             }
             return latest;
         }
@@ -217,6 +218,7 @@ namespace _23._1News.Services.Implement
             foreach (var item in articles)
             {
                 item.BlobLink = GetBlobImage(item.ImageLink);
+              
             }
 
             return articles;

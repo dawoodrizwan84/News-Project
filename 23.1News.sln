@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "23.1News", "23.1News\23.1Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResizeBlob", "ResizeBlob\ResizeBlob.csproj", "{ADA383B2-0FD9-4052-AC3A-11994FE812DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveNews", "ArchiveNews\ArchiveNews.csproj", "{A6857ECB-4612-49BE-A994-DDFA84302C99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveNews", "ArchiveNews\ArchiveNews.csproj", "{A6857ECB-4612-49BE-A994-DDFA84302C99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
