@@ -37,7 +37,6 @@ namespace _23._1News.Controllers
         public IActionResult Index()
         {
             var articleList = _articleService.GetArticles();
-            articleList.Reverse();
             return View(articleList);
         }
 

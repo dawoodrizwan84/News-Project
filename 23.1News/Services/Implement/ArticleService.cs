@@ -29,6 +29,7 @@ namespace _23._1News.Services.Implement
                 .OrderByDescending(a => a.DateStamp)
                 .ToList();
 
+
             foreach (var item in articles)
             {
                 item.BlobLink = GetBlobImage(item.ImageLink);
@@ -157,10 +158,14 @@ namespace _23._1News.Services.Implement
                             .OrderByDescending(a => a.DateStamp)
                             .Take(count).ToListAsync();
 
+
             foreach (var article in latest)
             {
                 article.BlobLink = GetBlobImage(article.ImageLink);
             }
+
+            
+         
             return latest;
         }
 
@@ -213,16 +218,18 @@ namespace _23._1News.Services.Implement
         public List<Article> GetArticles(int id)
         {
             var articles = _db.Articles.Where(Article => Article.CategoryId == id)
+
                             .OrderByDescending(a => a.DateStamp).ToList();
 
+                  
             foreach (var item in articles)
             {
                 item.BlobLink = GetBlobImage(item.ImageLink);
-              
             }
 
             return articles;
         }
+
 
         public List<Article> GetArchiveNews()
         {

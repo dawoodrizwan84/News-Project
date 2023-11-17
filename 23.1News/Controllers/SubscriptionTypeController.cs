@@ -47,6 +47,45 @@ namespace _23._1News.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Edit(int id)
+        {
+            var subTypeId = _subscriptionTypeService.GetSubscriptionTypeById(id);
+
+            SubscriptionType subscriptionType = new SubscriptionType();
+            subscriptionType.Id = subTypeId.Id;
+            subscriptionType.TypeName = subTypeId.TypeName;
+            subscriptionType.Price = subTypeId.Price;
+            subscriptionType.Description = subTypeId.Description;
+
+            return View("Edit");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(SubscriptionType subscriptionType)
+        {
+
+            var result = _subscriptionTypeService.UpdateSubscriptionType(subscriptionType);
+            if (result)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View("Edit");
+        }
+
+
+        public IActionResult Details(int id)
+        {
+            var det = _subscriptionTypeService.GetSubscriptionTypeById(id);
+
+            if (det == null)
+            {
+                return NotFound();
+            }
+            return View(det);
+        }
         public IActionResult Delete(int id)
         {
             _subscriptionTypeService.DeleteSubscriptionType(id);
