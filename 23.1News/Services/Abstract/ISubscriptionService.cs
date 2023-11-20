@@ -14,5 +14,8 @@ namespace _23._1News.Services.Abstract
         bool DeleteSubs(int id);
 
         Subscription GetSubsById(int id);
+
+        int GetActiveSubscribersCount();
+        
     }
 }

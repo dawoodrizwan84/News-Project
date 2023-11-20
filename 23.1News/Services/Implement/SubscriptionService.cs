@@ -75,6 +75,12 @@ namespace _23._1News.Services.Implement
             }
         }
 
+        public int GetActiveSubscribersCount()
+        {
+            var thirtyDaysAgo = DateTime.Now.AddDays(-30);
+            return _db.Subscriptions.Count(s => s.Created >= thirtyDaysAgo);
+        }
+
     }
 
 }
