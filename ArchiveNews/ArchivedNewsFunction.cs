@@ -12,10 +12,10 @@ namespace ArchiveNews
         private readonly ILogger _logger;
         private readonly IArticleService _articleService;
 
-     
-       
 
-        public ArchivedNewsFunction(ILoggerFactory loggerFactory, 
+
+
+        public ArchivedNewsFunction(ILoggerFactory loggerFactory,
                                     IArticleService articleService)
         {
             _logger = loggerFactory.CreateLogger<ArchivedNewsFunction>();
@@ -27,11 +27,10 @@ namespace ArchiveNews
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            
 
             var articlesToArchive = _articleService.GetArchiveNews();
 
-          
+
 
             if (myTimer.ScheduleStatus is not null)
             {
