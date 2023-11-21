@@ -4,6 +4,7 @@ using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
 using _23._1News.Services.Implement;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace _23._1News
@@ -93,6 +94,7 @@ namespace _23._1News
                 .Get<EmailConfiguration>());
 
             
+            builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
             builder.Services.AddHttpClient("weatherForecast", config =>

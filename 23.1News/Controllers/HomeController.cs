@@ -10,6 +10,10 @@ using System.Data;
 using _23._1News.Models.Email;
 using _23._1News.Helpers;
 using _23._1News.Models.Db;
+using Microsoft.AspNetCore.Identity;
+using _23._1News.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace _23._1News.Controllers
 {
@@ -21,17 +25,29 @@ namespace _23._1News.Controllers
 
         private readonly IWeatherService _weatherService;
         private readonly IWeatherService? weatherService;
+        private readonly IEmailConfiguration _emailConfiguration;
+        private readonly IEmailHelper _emailHelper;
+        private readonly UserManager<User> _userManager;
+        private readonly IEmailSender _emailSender;
 
 
         public HomeController(ILogger<HomeController> logger,
           IArticleService articleService,
-          ICategoryService categoryService
+          ICategoryService categoryService,
+          IEmailConfiguration emailConfiguration,
+          UserManager<User> userManager,
+          IEmailHelper emailHelper,
+          IEmailSender emailSender
           )
         {
             _logger = logger;
             _articleService = articleService;
             _weatherService = weatherService;
             _categoryService = categoryService;
+            _emailConfiguration = emailConfiguration;
+            _emailHelper = emailHelper;
+            _userManager = userManager;
+            _emailSender = emailSender;
         }
        
         public IActionResult Index()
