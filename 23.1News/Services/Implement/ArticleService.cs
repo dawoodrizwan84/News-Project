@@ -234,7 +234,7 @@ namespace _23._1News.Services.Implement
         public List<Article> GetArchiveNews()
         {
             var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
-                                        .AddDays(-30) && !a.Archived).ToList();
+                                        .AddDays(-30)).ToList();
 
             foreach (var item in archiveNews)
             {
