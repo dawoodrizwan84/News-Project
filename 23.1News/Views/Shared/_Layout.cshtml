@@ -55,10 +55,14 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand bg-light" data-bs-theme="light">
+            <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
             <div class="container-fluid">
+                <a class="navbar-brand" href="#">23.1News</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarColor03">
-                    <ul class="navbar-nav me-auto d-flex justify-content-start">
+                    <ul class="navbar-nav me-auto">
                         <li id="hover001" class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -74,9 +78,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity Price</a>
-                        </li
+                        </li>
                     </ul>
-
                     <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -87,7 +90,6 @@
                 </div>
             </div>
         </nav>
-
     </header>
 
     <div class="container">
@@ -96,11 +98,12 @@
         </main>
     </div>
 
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary" style="height:100px;margin-top:300px;" data-bs-theme="dark">
+
+    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" style="height:100px;" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:20px">
+                <span class="navbar-toggler-icon" ></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto" style="margin-top:20px">
