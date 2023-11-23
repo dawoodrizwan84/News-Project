@@ -6,66 +6,65 @@
 
 
 
+<section class="section">
+    <div>
+        <div class="container">
+            <div class="content">
+                <div class="row gx-5">
+                    <div class="col-xl-8 col-lg-7 col-md-12">
+                        <div class="text-center">
+                            <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
+                            <br />
+                            <div>
+                                @foreach (var item in Model)
+                                {
+                                    <div class="card col-md-11">
+                                        <img src="@item.BlobLink" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                @*<h5 class="card-title">@item.LinkText</h5>*@
+                                                <h4 class="card-title mt-2">@item.Headline</h4>
+                                                <p class="card-text mb-2">@item.ContentSummary</p>
+                                                @*<p class="card-text">@item.Content</p>*@
+                                            </a>
+                                        </div>
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome To 23 News</h1>
-    <p>
-        <em>
-            Welcome to our news site! Here you will find the latest news and updates from around the world.
-            Our team of experienced journalists and reporters work tirelessly to bring you the most accurate and up-to-date information on a wide range of topics, including politics, business, sports, entertainment,
-            and more. We strive to provide our readers with a comprehensive view of the world, covering both local and international news.
-            Stay tuned for breaking news alerts, in-depth analysis, and exclusive interviews with some of the most influential people in the world. Thank you for choosing us as your go-to source for news!
-        </em>
-    </p>
-</div>*@
+                                    </div>
+                                }
+                            </div>
+                        </div>
 
-<div id="sidebar">
-
-    <div class="row">
-        <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-                <h4 class="bg-primary text-white">Latest News</h4>
-                <vc:latest-news count="5"></vc:latest-news>
-            </div>
-        </div>
-        <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-                <h4 class="bg-primary text-white">Editors Choice</h4>
-                <vc:editors-choice count="5"></vc:editors-choice>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-<div id="main">
-
-    <div class="text-center">
-        <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
-
-    </div>
-
-    <br />
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="card col-md-11">
-                <img src="@item.BlobLink" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
-                        @*<h5 class="card-title">@item.LinkText</h5>*@
-                        <h4 class="card-title mt-2">@item.Headline</h4>
-                        <p class="card-text mb-2">@item.ContentSummary</p>
-                        @*<p class="card-text">@item.Content</p>*@
-                    </a>
+                    </div>
+                    <div class="col-xl-4 col-lg-5 col-md-12" style="margin-top:100px;">
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Latest News</h3>
+                            <div class="card-body">
+                                <vc:latest-news count="5"></vc:latest-news>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#c71c22;">Editor choice</h3>
+                            <div class="card-body">
+                                <vc:editors-choice count="5"></vc:editors-choice>
+                            </div>
+                        </div>   
+                    </div>
                 </div>
-
             </div>
-        }
+        </div>
     </div>
+</section>
 
-</div>
+
+
+
+
+
+
+
+
+
 
 
 

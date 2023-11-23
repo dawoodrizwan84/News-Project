@@ -3,19 +3,36 @@
 
 <div id="latest">
 
-@foreach (var item in Model)
-{
-    <div>
+    @foreach (var item in Model)
+    {
+        <div>
 
-        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><h6>@item.DateStamp.ToString("HH:mm") &nbsp;@item.LinkText</h6></a>
+            
+            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                <h3 class="card-title">@item.LinkText</h3>
+                <img src="@item.BlobLink" class="card-img-top" alt="...">
+                <h5 class="card-title" style="color:#adc3d0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                    </svg>@item.Category.Name
+                    &nbsp&nbsp&nbsp&nbsp
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                    </svg>
+                    @item.DateStamp.ToString("HH:mm")
+                </h5>
+                
+                
+            </a>
+        </div>
+        <hr>
 
-    </div>
-
-
-}
+    }
+    
 
 
 
+    <br />
 <div id="morenews">
 
     <button onclick="MoreNewsArticles('15')" class="btn btn-link bg-light">More articles</button>
