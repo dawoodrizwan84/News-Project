@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResizeBlob", "ResizeBlob\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveNews", "ArchiveNews\ArchiveNews.csproj", "{A6857ECB-4612-49BE-A994-DDFA84302C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsLetterToQueue", "NewsLetterToQueue\NewsLetterToQueue.csproj", "{6D369114-D9A3-4583-929E-8572CF8042ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsLetterToQueue", "NewsLetterToQueue\NewsLetterToQueue.csproj", "{6D369114-D9A3-4583-929E-8572CF8042ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueTrigger", "QueueTrigger\QueueTrigger.csproj", "{9117A64A-9A48-4950-A65E-751C83D67598}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendGridNewsLetter", "SendGridNewsLetter\SendGridNewsLetter.csproj", "{E23F59DE-2118-4F66-BFB1-87A5CD06CFC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{6D369114-D9A3-4583-929E-8572CF8042ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D369114-D9A3-4583-929E-8572CF8042ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D369114-D9A3-4583-929E-8572CF8042ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9117A64A-9A48-4950-A65E-751C83D67598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9117A64A-9A48-4950-A65E-751C83D67598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9117A64A-9A48-4950-A65E-751C83D67598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9117A64A-9A48-4950-A65E-751C83D67598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E23F59DE-2118-4F66-BFB1-87A5CD06CFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E23F59DE-2118-4F66-BFB1-87A5CD06CFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E23F59DE-2118-4F66-BFB1-87A5CD06CFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E23F59DE-2118-4F66-BFB1-87A5CD06CFC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
