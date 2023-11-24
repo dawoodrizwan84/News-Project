@@ -192,7 +192,7 @@ namespace _23._1News.Controllers
             try
             {
                 var weatherForecast = await _weatherService.GetWeatherForecast(city);
-                _weatherService.StoreHistoricalWeather(weatherForecast);
+               // _weatherService.StoreHistoricalWeather(weatherForecast);
 
                 return View(weatherForecast);
             }
