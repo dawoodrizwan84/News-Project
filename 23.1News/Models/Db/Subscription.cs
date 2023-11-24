@@ -9,7 +9,7 @@ namespace _23._1News.Models.Db
         public int SubscriptionTypeId { get; set; }
         public decimal Price { get; set; }
         public DateTime Created { get; set; }
-
+        public bool IsActive { get; set; }
         public bool PaymentComplete { get; set; }
 
         //public User User { get; set; }

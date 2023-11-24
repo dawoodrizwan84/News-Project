@@ -36,7 +36,7 @@ namespace _23._1News.Services.Implement
         {
 
             HistoricalWeatherData historicalWeather = ConvertToHistoricalWeatherData(weatherForecast);
-                _db.HistoricalWeatherDatas.Add(historicalWeather);
+               // _db.HistoricalWeatherDatas.Add(historicalWeather);
             _db.SaveChanges();
         }
 

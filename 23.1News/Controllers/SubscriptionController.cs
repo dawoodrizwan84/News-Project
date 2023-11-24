@@ -15,6 +15,7 @@ using _23._1News.Models.Email;
 using _23._1News.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
+using _23._1News.Models.ViewModels;
 
 namespace _23._1News.Controllers
 {
@@ -160,9 +161,33 @@ namespace _23._1News.Controllers
         }
 
 
+        //public IActionResult SendEmail(Subscription newSubscription)
+        //{
+
+        //    EmailMessage newEmail = new EmailMessage()
+        //    {
+        //        FromAddress = new EmailAddress()
+        //        {
+        //            Address = "senderemailservice23.1@gmail.com",
+        //            Name = "23.1News"
+        //        },
+        //        Content = "Thank you for subscribing!",
+        //        Subject = "Welcome to 23.1 News"
+        //    };
+
+        //    newEmail.ToAddresses.Add(new EmailAddress()
+        //    {
+        //        Address = newSubscription.User.Email,
+        //        Name = newSubscription.User.FirstName + " " + newSubscription.User.LastName
+        //    });
+
+        //    _emailHelper.SendEmail(newEmail);
+
+        //    return View();
+        //}
+
         public IActionResult SendEmail(Subscription newSubscription)
         {
-
             EmailMessage newEmail = new EmailMessage()
             {
                 FromAddress = new EmailAddress()
@@ -170,22 +195,76 @@ namespace _23._1News.Controllers
                     Address = "senderemailservice23.1@gmail.com",
                     Name = "23.1News"
                 },
-                Content = "Thank you for subscribing!",
                 Subject = "Welcome to 23.1 News"
             };
+
+            // Determine subscription type
+            string subscriptionTypeMessage = string.Empty;
+            switch (newSubscription.SubscriptionType.TypeName.ToLower())
+            {
+                case "free":
+                    subscriptionTypeMessage = "Welcome to the Free Subscription!";
+                    break;
+                case "pro":
+                    subscriptionTypeMessage = "Welcome to the Pro Subscription! Thank you for upgrading.";
+                    break;
+                case "enterprise":
+                    subscriptionTypeMessage = "Welcome to the Enterprise Subscription! Enjoy our premium features.";
+                    break;
+                default:
+                    subscriptionTypeMessage = "Welcome to 23.1 News!";
+                    break;
+            }
+
+            // Determine if subscription ends in two days
+            DateTime subscriptionEndDate = newSubscription.Created.AddDays(30); // Assuming subscription duration is 30 days
+
+            // Check if the subscription has reached its end date
+            if (DateTime.Now.AddDays(2) >= subscriptionEndDate)
+            {
+                // Update subscription status to inactive
+                newSubscription.IsActive = false;
+
+                // Subscription ends in two days, add an additional message
+                subscriptionTypeMessage += $" Your subscription is ending in two days. Renew now to continue enjoying our services!";
+            }
+
+            // Include subscriber's name in the email content
+            string subscriberName = $"{newSubscription.User.FirstName} {newSubscription.User.LastName}";
+            newEmail.Content = $"{subscriptionTypeMessage} Thank you, {subscriberName}, for subscribing.";
 
             newEmail.ToAddresses.Add(new EmailAddress()
             {
                 Address = newSubscription.User.Email,
-                Name = newSubscription.User.FirstName + " " + newSubscription.User.LastName
+                Name = subscriberName
             });
+
+            // Update the subscription status in the database
+            _subscriptionService.UpdateSubs(newSubscription);
 
             _emailHelper.SendEmail(newEmail);
 
             return View();
         }
 
-    
+
+
+        [Authorize(Roles = "Editor, Admin")]
+        public IActionResult SubscriptionStatistics()
+        {
+            var totalSubscribers = _subscriptionService.GetAllSubs().Count();
+            var activeSubscribers = _subscriptionService.GetActiveSubscribersCount(); // You need to implement this method in your SubscriptionService
+
+            var viewModel = new SubscriptionStatisticsVM
+            {
+                TotalSubscribers = totalSubscribers,
+                ActiveSubscribers = activeSubscribers
+            };
+
+            return View(viewModel);
+        }
+
+
 
     }
 }

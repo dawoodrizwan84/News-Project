@@ -1,4 +1,5 @@
 using System;
+using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
 using _23._1News.Services.Implement;
 using Microsoft.Azure.Functions.Worker;
@@ -12,10 +13,10 @@ namespace ArchiveNews
         private readonly ILogger _logger;
         private readonly IArticleService _articleService;
 
-     
-       
 
-        public ArchivedNewsFunction(ILoggerFactory loggerFactory, 
+
+
+        public ArchivedNewsFunction(ILoggerFactory loggerFactory,
                                     IArticleService articleService)
         {
             _logger = loggerFactory.CreateLogger<ArchivedNewsFunction>();
@@ -23,15 +24,14 @@ namespace ArchiveNews
         }
 
         [Function("ArchivedNewsFunction")]
-        public void Run([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] MyInfo myTimer)
+        public void Run([TimerTrigger("0 */5 * * * *", RunOnStartup = true)] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            
 
             var articlesToArchive = _articleService.GetArchiveNews();
 
-          
+
 
             if (myTimer.ScheduleStatus is not null)
             {

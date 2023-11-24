@@ -208,9 +208,26 @@ namespace _23._1News.Controllers
             }
         }
 
-        
 
+        [Route("arc")]
+        public IActionResult ArchivedNews() 
+        {
+         var archives =  _articleService.GetArchiveNews();
+            return View(archives);
+        }
 
+        public IActionResult SearchArchivedNews()
+        {
+            string Headline = Request.Query["searcharchive"];
+            var SearchArchivedNews = _articleService.SearchArhivedNews(Headline);
+
+            if (SearchArchivedNews == null)
+            {
+                return NotFound();
+            }
+
+            return View("ArchivedNews",SearchArchivedNews);
+        }
 
     }
 }

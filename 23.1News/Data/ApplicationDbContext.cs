@@ -7,6 +7,10 @@ namespace _23._1News.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -19,7 +23,7 @@ namespace _23._1News.Data
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<HistoricalWeatherData> HistoricalWeatherDatas { get; set; }
+        
 
     }
 }
