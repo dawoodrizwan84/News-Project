@@ -12,13 +12,14 @@ using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using Microsoft.Extensions.Logging;
 using User = _23._1News.Models.Db.User;
+using System.Net.Mail;
 
 namespace SendGridNewsLetter
 {
     public class SendEmail
     {
         [FunctionName("SendEmail")]
-        [return: SendGrid(ApiKey = "", To = "{CustomerEmail}", From = "SenderEmail@org.com")]
+        [return: SendGrid(ApiKey = "23NewsKey", To = "", From = "send.23.1news@outlook.com")]
         public SendGridMessage Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")] User user, ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed order: {user.Email}");
@@ -27,6 +28,7 @@ namespace SendGridNewsLetter
             {
                 Subject = $"Weekly Newsletter From 23.1News."
             };
+            message.AddTo(user.Email);
 
             message.AddContent("text/html", $"<h3>Good afernoon {user.FirstName}!</h3>" +
                 $"<h4>Articles of your choice.</h4>");
@@ -35,10 +37,10 @@ namespace SendGridNewsLetter
 
         }
     }
-    public class Order
-    {
-        public string OrderId { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerEmail { get; set; }
-    }
+    //public class Order
+    //{
+    //    public string OrderId { get; set; }
+    //    public string CustomerName { get; set; }
+    //    public string CustomerEmail { get; set; }
+    //}
 }
