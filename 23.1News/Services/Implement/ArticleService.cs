@@ -244,6 +244,30 @@ namespace _23._1News.Services.Implement
             _db.SaveChanges();
             return archiveNews;
         }
+        public List<Article> SearchArhivedNews(string searchTerm)
+        {
+            DateTime? datestamp = null;
+            string datePattern = @"^\d{4}-\d{2}-\d{2}$";
+
+            if (Regex.IsMatch(searchTerm, datePattern))
+            {
+                datestamp = DateTime.Parse(searchTerm).Date;
+            }
+            
+            var Articles = _db.Articles.Where(Article => Article.Archived == true).ToList();
+            var searchResults = Articles
+                .Where(article =>
+                    article.Headline.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    (datestamp != null && article.DateStamp.Date == datestamp)
+                )
+                .ToList();
+
+            return searchResults;
+        }
+
 
 
     }

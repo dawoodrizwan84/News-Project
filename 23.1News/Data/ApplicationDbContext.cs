@@ -23,9 +23,7 @@ namespace _23._1News.Data
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
-
+        
 
     }
 }
