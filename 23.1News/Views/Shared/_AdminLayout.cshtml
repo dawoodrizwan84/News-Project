@@ -1,149 +1,128 @@
-﻿@inject _23._1News.Services.Abstract.IArticleService _articleService
-@inject _23._1News.Services.Abstract.IWeatherService _weatherService
-@{
-    var categories = _articleService.GetCategories();
-    var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
-    DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-    var dateTime = unixStart.AddSeconds(weatherForecast.UnixTime).ToLocalTime().ToShortTimeString();
-}
-
-
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]-23.1News</title>
-    <link rel="icon" href="~/23_favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="~/css/bootswatchtheme.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link href="~/css/fontawesome-5.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/_23._1News.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<title>Adimin Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>@ViewData["Title"]-23.1News</title>
+	<link rel="icon" href="~/23_favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/styleadmin.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <div class="header-top d-flex justify-content-between align-items-center p-2">
-            <div>
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" href="Home/Index" alt="23.1" class="img-fluid" />
-                </a>
-            </div>
-            <div class="btn btn-outline-primary">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetWeatherForecast">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16" style="color:#537FE7">
-                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
-                    </svg>
-                    <span class="h5 m-1">@dateTime </span>
-                    <img src="@weatherForecast.Icon.Url" height="50" />
-                    <span class="h5 m-1">@weatherForecast.City </span> <span class="h5 m-1">@weatherForecast.TemperatureCelsius </span><span class="h5">&#176;</span>
 
-                </a>
-            </div>
-            <div style="margin-right:20px;">
+	<div class="wrapper d-flex align-items-stretch">
+		<nav id="sidebar">
+			<div class="custom-menu">
+				<button type="button" id="sidebarCollapse" class="btn btn-primary">
+					<i class="fa fa-bars"></i>
+					<span class="sr-only">Toggle Menu</span>
+				</button>
+			</div>
+			<div class="p-4">
+				<a asp-area="" asp-controller="Home" asp-action="Index">
+					<img src="~/image/logowhite.png" href="Home/Index" alt="23.1" class="img-fluid" />
+				</a>
+				<br />
+				<br />
+				<ul class="list-unstyled components mb-5">
+					<li class="active">
+						<a asp-controller="Article" asp-action="Index" aria-current="page">
+							<span class="fa fa-home mr-3"></span>
+							<strong> Dashboard</strong>
+						</a>
+					</li>
+					<li>
+							<p style="margin-top:10px;"><small>Editor</small></p>
+							<a asp-controller="Article" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+								<span class="fa fa-sticky-note mr-3"></span> Add News
+							</a>
+							<a asp-controller="Article" asp-action="Edit" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-pencil mr-3"></span> Edit News
+							</a>
+							<a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-list mr-3"></span> News List
+							</a>
+							<a asp-controller="Category" asp-action="Create" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-book mr-3"></span> Add Category
+							</a>
+							<a asp-controller="Category" asp-action="Index" style="margin-top:-10px;">
+								<span class="fa fa-list mr-3"></span> Category List
+							</a>
+					</li>
+
+					<li>
+						<p style="margin-top:10px;"><small>User</small></p>
+						<a asp-controller="Admin" asp-action="UserList" style="margin-top:-20px;border-bottom:none;">
+							<span class="fa fa-user-circle-o mr-3"></span> User List
+						</a>
+						<a asp-controller="Admin" asp-action="UserRoles" style="margin-top:-10px;border-bottom:none;">
+							<span class="fa fa-user mr-3"></span> User Roles
+						</a>
+						<a asp-controller="Admin" asp-action="CreateRoles" style="margin-top:-10px;border-bottom:none;">
+							<span class="fa fa-user-plus mr-3"></span> Create Roles
+						</a>
+						<a asp-controller="Admin" asp-action="RoleList" style="margin-top:-10px;">
+							<span class="fa fa-users mr-3"></span> Role List
+						</a>
+					</li>
+
+					<li>
+						<p style="margin-top:10px;"><small>Subscription</small></p>
+						<a asp-controller="SubscriptionType" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+							<span class="fa fa-envelope mr-3"></span> Add Plan
+						</a>
+						<a asp-controller="SubscriptionType" asp-action="List" style="margin-top:-10px;border-bottom:none;">
+							<span class="fa fa-envelope-square mr-3"></span> Plan List
+						</a>
+						<a asp-controller="Subscription" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+							<span class="fa fa-envelope-open mr-3"></span> Subscription List
+						</a>
+						<a asp-controller="Subscription" asp-action="SubscriptionStatistics" style="margin-top:-10px;">
+							<span class="fa fa-bar-chart mr-3"></span> Subscription Stats
+						</a>
+					</li>
+				</ul>
+				<div style="margin-top:-20px;">
+					<form class="d-flex justify-content-right" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
+						<input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit" style="background-color:#c71c22;">Search</button>
+					</form>
+				</div>
+				
+				<br />
+				<div class="footer" style="margin-top:500px;">
+					<p>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						&copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:white">Privacy</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+				</div>
+
+			</div>
+		</nav>
+
+		<!-- Page Content  -->
+		<div id="content" class="p-4 p-md-5 pt-5">
+				<main role="main">
+					@RenderBody()
+				</main>
+		</div>
+	</div>
 
 
-            </div>
-        </div>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.min.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/js/popper.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	@*     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	*@
+	<script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/b-2.4.2/fc-4.3.0/sc-2.2.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 
-        <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarColor03">
-                    <ul class="navbar-nav me-auto d-flex justify-content-start">
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        &nbsp;&nbsp; &nbsp;&nbsp;
-
-                        <img src="~/image/images.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <li class="nav-item">
-                            <partial name="_AdminLoginPartial" />
-                        </li> 
-                    </ul>
-                  
-                   
-                   
-                    <form class="d-flex justify-content-center">
-                        <input class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    
-                </div>
-            </div>
-        </nav>
-
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary" style="height:100px;margin-bottom:-200px;" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto" style="margin-top:20px">
-                    <li id="hover002" class="nav-item ">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    @foreach (var category in categories)
-                    {
-                        <li id="hover002" class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-
-            <div id="hover002" style="color:white;margin-top:20px">
-                &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:white">Privacy</a>
-            </div>
-        </div>
-
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @*     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    *@
-    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/b-2.4.2/fc-4.3.0/sc-2.2.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-   @*  <script>
-        function displayTime() {
-            var d = new Date();
-            var hour = d.getHours();
-            if (hour < 10) {
-                hour = "0" + hour;
-            }
-            var min = d.getMinutes();
-            if (min < 10) {
-                min = "0" + min;
-            }
-            var sec = d.getSeconds();
-            if (sec < 10) {
-                sec = "0" + sec;
-            }
-            document.getElementById("clock").innerText = "Time:" + hour + ":" + min + ":" + sec;
-
-        }
-        setInterval(displayTime, 1000);
-
-        const d = new Date();
-        var date = (d.getDate());
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var day = d.getDay();
-
-        document.getElementById("demo").innerText = year + ":" + month + ":" + date;
-    </script> *@
 </body>
 </html>
 

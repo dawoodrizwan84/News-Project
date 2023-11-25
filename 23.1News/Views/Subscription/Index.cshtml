@@ -2,74 +2,63 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "_AdminLayout";
 }
 
 
-<div class="row">
-    <div id="left" class="col-md-3">
-        <partial name="_AdminSidebarPartialView" />
-
-    </div>
-
-
-    <div id="right" class=" col-md-9">
-        <h1 style="text-align:center">Subscription List</h1>
-        <hr />
-        <div class="table-responsive small">
-            <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            CreatedDate
-                        </th>
-                        <th>
-                            PaymentComplete
-                        </th>
-                        <th>
-                            SubscriptionTypeId
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Created)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PaymentComplete)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubscriptionTypeId)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+<h1>Subscription List</h1>
+<hr />
+<div class="table-responsive small">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    CreatedDate
+                </th>
+                <th>
+                    PaymentComplete
+                </th>
+                <th>
+                    SubscriptionTypeId
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentComplete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubscriptionTypeId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
        
         
