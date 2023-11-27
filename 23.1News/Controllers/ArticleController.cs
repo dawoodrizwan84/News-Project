@@ -128,6 +128,7 @@ namespace _23._1News.Controllers
             articleVM.ImageLink = record.ImageLink;
             articleVM.CategoryId = record.CategoryId;
             articleVM.EdChoice = record.EdChoice;
+          
 
             return View(articleVM);
         }
