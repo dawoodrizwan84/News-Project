@@ -23,13 +23,14 @@
                                         <div class="card-body">
                                             <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
                                                 @*<h5 class="card-title">@item.LinkText</h5>*@
-                                                <h4 class="card-title mt-2">@item.Headline</h4>
+                                                <h1 class="card-title mt-2">@item.Headline</h1>
                                                 <p class="card-text mb-2">@item.ContentSummary</p>
                                                 @*<p class="card-text">@item.Content</p>*@
                                             </a>
                                         </div>
 
                                     </div>
+                                    <br />
                                 }
                             </div>
                         </div>

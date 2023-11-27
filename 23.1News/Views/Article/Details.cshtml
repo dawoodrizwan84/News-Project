@@ -4,51 +4,48 @@
     var test = @Model.BlobLink;
 }
 
-<div id="sidebar">
 
-    <div class="row">
-        @*<div class="col-md- text-md-center">*@
-        <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-                <h4 class="bg-primary text-white">Latest News</h4>
-                <vc:latest-news count="5"></vc:latest-news>
+<section class="section">
+    <div>
+        <div class="container">
+            <div class="content">
+                <div class="row gx-5">
+                    <div class="col-xl-8 col-lg-7 col-md-12">
+                        <h1 style="font-size:60px;margin-top:50px;">@Model.Headline</h1>
+                        <br />
+                        <img src="@test" class="card-img-top" alt="...">
+                        <br />
+                        <div class="card-body">
+                            <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
+                                @*<h5 class="card-title">mitem.LinkText</h5>*@
+                                <h7 class="card-text"><i>@Model.DateStamp.ToString("yyyy-MM-dd HH:mm")</i></h7>
+                                
+                                <p class="card-text"><i>@Model.ContentSummary</i></p>
+                                <hr />
+                                <p class="card-text">@Model.Content</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-5 col-md-12" style="margin-top:100px;">
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Latest News</h3>
+                            <div class="card-body">
+                                <vc:latest-news count="5"></vc:latest-news>
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Editor choice</h3>
+                            <div class="card-body">
+                                <vc:editors-choice count="5"></vc:editors-choice>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-
-         <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-            <h4 class="bg-primary text-white">Editors Choice</h4>
-            <vc:editors-choice count="5"></vc:editors-choice>
-            </div>
-         </div>
-     </div>
-
-
-</div>
-
-
-
-<div id="main">
-
-<br /><br />
-
-<div class="row">
-
-    <div class="card col-md-11">
-        <img src="@test" class="card-img-top"  alt="..." >
-        <div class="card-body">
-            <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
-                @*<h5 class="card-title">mitem.LinkText</h5>*@
-                <h7 class="card-text"><i>@Model.DateStamp.ToString("yyyy-MM-dd HH:mm")</i></h7>
-                <h5 class="card-title">@Model.Headline</h5>
-                <p class="card-text">@Model.ContentSummary</p>
-                <p class="card-text">@Model.Content</p>
-            </a>
         </div>
-
     </div>
+</section>
 
-</div>
-
-</div>
 
