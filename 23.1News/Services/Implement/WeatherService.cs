@@ -13,10 +13,12 @@ namespace _23._1News.Services.Implement
     public class WeatherService : IWeatherService
     {
         private readonly HttpClient _httpClient;
+        private readonly ApplicationDbContext _db;
 
-        public WeatherService(IHttpClientFactory httpClientFactory)
+        public WeatherService(IHttpClientFactory httpClientFactory, ApplicationDbContext db)
         {
             _httpClient = httpClientFactory.CreateClient("weatherForecast");
+            _db = db;
         }
 
         //public List<string> GetCities()
@@ -30,7 +32,27 @@ namespace _23._1News.Services.Implement
 
             return JsonConvert.DeserializeObject<WeatherForecast>(forecastResponse);
         }
+        public void StoreHistoricalWeather(WeatherForecast weatherForecast)
+        {
 
+            HistoricalWeatherData historicalWeather = ConvertToHistoricalWeatherData(weatherForecast);
+               // _db.HistoricalWeatherDatas.Add(historicalWeather);
+            _db.SaveChanges();
+        }
+
+        public  HistoricalWeatherData ConvertToHistoricalWeatherData(WeatherForecast weatherForecast)
+        {
+            return new HistoricalWeatherData
+            {
+                Summary = weatherForecast.Summary,
+                City = weatherForecast.City,
+                TemperatureCelsius = weatherForecast.TemperatureCelsius,
+                Humidity = weatherForecast.Humidity,
+                WindSpeed = weatherForecast.WindSpeed,
+                DateAndTime = weatherForecast.DateAndTime,
+                
+            };
+        }
     }
 }
 

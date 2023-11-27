@@ -128,6 +128,7 @@ namespace _23._1News.Controllers
             articleVM.ImageLink = record.ImageLink;
             articleVM.CategoryId = record.CategoryId;
             articleVM.EdChoice = record.EdChoice;
+          
 
             return View(articleVM);
         }
@@ -192,6 +193,8 @@ namespace _23._1News.Controllers
             try
             {
                 var weatherForecast = await _weatherService.GetWeatherForecast(city);
+               // _weatherService.StoreHistoricalWeather(weatherForecast);
+
                 return View(weatherForecast);
             }
             catch (HttpRequestException ex)
@@ -206,13 +209,26 @@ namespace _23._1News.Controllers
             }
         }
 
+
         [Route("arc")]
         public IActionResult ArchivedNews() 
         {
-           _articleService.GetArchiveNews();
-            return View();
+         var archives =  _articleService.GetArchiveNews();
+            return View(archives);
         }
-     
+
+        public IActionResult SearchArchivedNews()
+        {
+            string Headline = Request.Query["searcharchive"];
+            var SearchArchivedNews = _articleService.SearchArhivedNews(Headline);
+
+            if (SearchArchivedNews == null)
+            {
+                return NotFound();
+            }
+
+            return View("ArchivedNews",SearchArchivedNews);
+        }
 
     }
 }

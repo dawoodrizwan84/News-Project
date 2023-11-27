@@ -4,69 +4,171 @@
 
 
 @{
-    ViewData["Title"] = "Admin-NewsList";
+	Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 
-<div class="row">
-    <div id="left" class="col-md-3">
-        <partial name="_AdminSidebarPartialView" />
+<main>
 
-    </div>
-
-
-    <div id="right" class=" col-md-9">
-        <h1 style="text-align:center">News List</h1>
-        <hr />
-        <div class="table-responsive small">
-            <table class="table table-striped table-sm" id="myTable">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Headline</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">DateStamp</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ImageLink)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Headline)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateStamp)
-                            </td>
-                            <td>
-                                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="navbar navbar-expand" style="margin-top:50px">
+    <partial name="_LoginPartial" /> 
 </div>
 
 
+<div class="row">
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-pencil mr-3"></span>News</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Article" asp-action="Create">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-sticky-note mr-3"></span> Add News</h5>
+                </a>
+                <br />
+                <a asp-controller="Article" asp-action="Edit">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-pencil mr-3"></span> Edit News</h5>
+                </a>
+                <br />
+                <a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-list mr-3"></span> News List</h5>
+                </a>
+            </div>
+        </div>
+
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-book mr-3"></span>Category</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Category" asp-action="Create" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-book mr-3"></span> Add Category</h5>
+                </a>
+                <br />
+                <a asp-controller="Category" asp-action="Index" style="margin-top:-10px;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-list mr-3"></span> Category List</h5>
+                </a>
+            </div>
+        </div>
+
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-pencil mr-3"></span>User</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Admin" asp-action="UserList" style="margin-top:-20px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-user-circle-o mr-3"></span> User List</h5>
+                </a>
+                <br />
+            </div>
+        </div>
+
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-user mr-3"></span>User Role</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Admin" asp-action="UserRoles" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-user mr-3"></span> User Roles</h5>
+                </a>
+                <br />
+                <a asp-controller="Admin" asp-action="CreateRoles" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-user-plus mr-3"></span> Create Roles</h5>
+                </a>
+                <br />
+                <a asp-controller="Admin" asp-action="RoleList" style="margin-top:-10px;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-users mr-3"></span> Role List</h5>
+                </a>
+            </div>
+        </div>
+
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-envelope mr-3"></span>Subscription Type</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="SubscriptionType" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-envelope mr-3"></span> Add Plan</h5>
+                </a>
+                <br />
+                <a asp-controller="SubscriptionType" asp-action="List" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-envelope-square mr-3"></span> Plan List</h5>
+                </a>
+            </div>
+        </div>
+
+        <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
+            <div class="card-header bg-primary">
+                <h5 style="color:white"><span class="fa fa-envelope-open mr-3"></span>Subscription</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Subscription" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-envelope-open mr-3"></span> Subscription List</h5>
+                </a>
+                <br />
+                <a asp-controller="Subscription" asp-action="SubscriptionStatistics" style="margin-top:-10px;">
+                    <h5 style="color:#2fa4e7"><span class="fa fa-bar-chart mr-3"></span> Subscription Statistics</h5>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col" style="width:100%;padding:0;margin-top:40px;">
+        <div class="card border-primary shadow-sm">
+            <div class="card-header" style="background-color:#2fa4e7">
+                <h5 style="color:white"><span class="fa fa-pencil mr-3"></span>News List</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive small" style="margin-top:10px">
+                    <table class="table table-striped table-sm" id="myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Headline</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">DateStamp</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Headline)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateStamp)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id"><sapn style="color:#2fa4e7">Details |</sapn></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"><span style="color:#2fa4e7">Delete</span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
+
+</main>
+
+			
+	
 
 
 

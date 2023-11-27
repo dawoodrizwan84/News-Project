@@ -4,39 +4,29 @@
     ViewData["Title"] = "UserRoles";
 }
 
+<h1>UserRoles</h1>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>Role Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userRole in Model)
+        {
+            <tr>
+                <td>@userRole.UserId</td>
+                <td>@userRole.RoleId</td>
+                <td>
+                    <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<div class="row">
-    <div id="left" class="col-md-3">
-        <partial name="_AdminSidebarPartialView" />
-
-    </div>
-
-
-    <div id="right" class=" col-md-9">
-        <h1 style="text-align:center">UserRoles</h1>
-        <hr />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>User Id</th>
-                    <th>Role Id</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var userRole in Model)
-                {
-                    <tr>
-                        <td>@userRole.UserId</td>
-                        <td>@userRole.RoleId</td>
-                        <td>
-                            <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
 
 
 

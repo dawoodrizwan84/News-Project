@@ -25,7 +25,7 @@ namespace _23._1News.Services.Abstract
 
 
         List<Article> GetArchiveNews();
-
+        List<Article> SearchArhivedNews(string Headline);
 
     }
 }

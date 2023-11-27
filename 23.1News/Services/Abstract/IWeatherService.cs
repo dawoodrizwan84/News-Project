@@ -7,6 +7,7 @@ namespace _23._1News.Services.Abstract
     {
         Task<WeatherForecast> GetWeatherForecast(string city);
         //List<string> GetCities();
+        void StoreHistoricalWeather(WeatherForecast weatherForecast);
 
     }
 }
