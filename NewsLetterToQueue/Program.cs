@@ -19,8 +19,6 @@ var host = new HostBuilder()
           //s.AddScoped<IArticleService, ArticleService>();
       })
 
-
-
     .Build();
 
 host.Run();
