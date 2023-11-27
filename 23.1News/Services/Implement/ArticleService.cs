@@ -93,7 +93,12 @@ namespace _23._1News.Services.Implement
         public Article GetArticleById(int id)
         {
             var article = _db.Articles.Find(id);
-            
+
+            //if (article != null)
+            //{
+            //    article.BlobLink = GetBlobImage(article.ImageLink);
+            //}
+
             article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
@@ -103,6 +108,7 @@ namespace _23._1News.Services.Implement
             DateTime? datestamp = null;
             string datePattern = @"^\d{4}-\d{2}-\d{2}$";
 
+        
             if (Regex.IsMatch(searchTerm, datePattern))
             {
                 datestamp = DateTime.Parse(searchTerm).Date;
@@ -116,6 +122,8 @@ namespace _23._1News.Services.Implement
                     article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     (datestamp != null && article.DateStamp.Date == datestamp)
+                                        
+
                 )
                 .ToList();
 
