@@ -5,7 +5,21 @@
 
 @{
     ViewData["Title"] = "SubscriptionType";
+
+    if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+    {
+
+        TempData["Subsciption"] = "You are Already Subscribing";
+
+    }
 }
+
+<div class="col-md-12 text-md-center">
+    <div class="text-md-center mb-5 bg-light">
+        <h3 class="bg-primary text-white">@TempData["Subsciption"]</h3>
+
+    </div>
+</div>
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top:40px;">
     <h1 class="display-4 fw-normal text-body-emphasis">Start Subscribing Today</h1>
