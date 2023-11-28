@@ -1,5 +1,7 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,14 +10,9 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
-    margin-bottom: 60px;
-    position: relative;
+    margin-bottom: 100px;
 }
 
 .header-top {
@@ -88,8 +85,10 @@ a:link {
 
 #frontpagefooter {
     bottom: 0;
+    height: 100px;
     width: 100%;
     display: block;
+    position: absolute;
     text-align: center;
     justify-content: center;
 }

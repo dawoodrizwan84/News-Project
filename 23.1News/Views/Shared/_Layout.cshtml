@@ -32,7 +32,7 @@
                     <img src="~/images/logo.png" href="Home/Index" alt="23.1" class="img-fluid" />
                 </a>
             </div>
-            <div class="btn btn-outline-primary">
+            <div style="margin:20px;">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetWeatherForecast">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16" style="color:#537FE7">
                         <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -44,6 +44,13 @@
 
                 </a>
             </div>
+            <div>
+                <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
+                    <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+
             <div style="margin-right:20px;">
 
                 <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2  btn-lg">
@@ -80,10 +87,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity Price</a>
                         </li>
                     </ul>
-                    <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
-                        <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
 
                     &nbsp;&nbsp; &nbsp;&nbsp;
                     <partial name="_LoginPartial" />
@@ -99,7 +102,7 @@
     </div>
 
 
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" style="height:100px;" data-bs-theme="dark">
+    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:20px">
