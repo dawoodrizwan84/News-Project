@@ -1,60 +1,65 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Article>
+
 @{
     ViewData["Title"] = "Search";
 }
 
-<div id="sidebar">
 
-    <div class="row">
-        <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-                <h4 class="bg-primary text-white">Latest News</h4>
-                <vc:latest-news count="5"></vc:latest-news>
-            </div>
-         <div class="col-md-12 text-md-center">
-            <div class="text-md-center mb-5 bg-light">
-            <h4 class="bg-primary text-white">Editors Choice</h4>
-            <vc:editors-choice count="5"></vc:editors-choice>
-            </div>
-          </div>
-    </div>
-</div>
+<section class="section">
+    <div>
+        <div class="container">
+            <div class="content">
+                <div class="row gx-5">
+                    <div class="col-xl-8 col-lg-7 col-md-12">
+                        <div class="text-center">
+                            <h1 class="display-4"><strong>Search results</strong></h1>
+                            <br />
+                            <div>
+                                @foreach (var item in Model)
+                                {
+                                    if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+                                    {
 
+                                        TempData["ContentSummary"] = item.ContentSummary;
+                                    }
 
-</div>
+                                    <div class="card col-md-11">
+                                        <img src="@item.BlobLink" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                @*<h5 class="card-title">@item.LinkText</h5>*@
+                                                <h1 class="card-title mt-2">@item.Headline</h1>
+                                                <p class="card-text mt-2">@TempData["ContentSummary"]</p>
+                                                @*<p class="card-text">@item.Content</p>*@
+                                            </a>
+                                        </div>
 
+                                    </div>
+                                }
+                            </div>
+                        </div>
 
-<div id="main">
+                    </div>
+                    <div class="col-xl-4 col-lg-5 col-md-12" style="margin-top:100px;">
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Latest News</h3>
+                            <div class="card-body">
+                                <vc:latest-news count="5"></vc:latest-news>
 
-</br>
-    <div class="text-center">
-        <h1 class="display-4"><strong>Search results</strong></h1>
-
-    </div>
-
-<br/>
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            if (Context.Request.Cookies.TryGetValue("user_id", out string value))
-            {
-
-                TempData["ContentSummary"] = item.ContentSummary;
-            }
-
-            <div class="card col-md-11">
-                <img src="@item.ImageLink" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
-                        @*<h5 class="card-title">@item.LinkText</h5>*@
-                        <h5 class="card-title mt-2">@item.Headline</h5>
-                        <p class="card-text mt-2">@TempData["ContentSummary"]</p>
-                        @*<p class="card-text">@item.Content</p>*@
-                    </a>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Editor choice</h3>
+                            <div class="card-body">
+                                <vc:editors-choice count="5"></vc:editors-choice>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-        }
+        </div>
     </div>
+</section>
 
-</div>
+
