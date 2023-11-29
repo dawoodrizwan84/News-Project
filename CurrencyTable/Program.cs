@@ -13,7 +13,7 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(s =>
         {
-            s.AddScoped<ICurrencyExchange, CurrencyExchange>();
+            s.AddScoped<ICurrencyService, CurrencyService>();
         })
 
     .Build();

@@ -2,7 +2,7 @@
 
 namespace _23._1News.Services.Abstract
 {
-    public interface ICurrencyExchange
+    public interface ICurrencyService
     {
         Task<string> GetSpotRateAsync();
     }

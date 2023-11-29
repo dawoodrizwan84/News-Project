@@ -4,13 +4,13 @@ using Newtonsoft.Json;
 
 namespace _23._1News.Services.Implement
 {
-    public class CurrencyExchange : ICurrencyExchange
+    public class CurrencyService : ICurrencyService
     {
         private readonly IConfiguration _configuration;
         private HttpClient _spotHttpClient = new HttpClient();
         //TableServiceClient _tableServiceClient;
 
-        public CurrencyExchange(IConfiguration configuration)
+        public CurrencyService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

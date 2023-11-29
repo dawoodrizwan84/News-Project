@@ -8,8 +8,8 @@ namespace CurrencyTable
     public class Exchange
     {
         private readonly ILogger _logger;
-        private readonly ICurrencyExchange _currencyExchange;
-        public Exchange(ILoggerFactory loggerFactory, ICurrencyExchange currencyExchange)
+        private readonly ICurrencyService _currencyExchange;
+        public Exchange(ILoggerFactory loggerFactory, ICurrencyService currencyExchange)
         {
             _logger = loggerFactory.CreateLogger<Exchange>();
             _currencyExchange = currencyExchange;
