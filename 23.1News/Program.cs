@@ -66,6 +66,12 @@ namespace _23._1News
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
+           
+            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+            builder.Services.AddHttpClient("exchangePrice", config =>
+            {
+                config.BaseAddress = new(builder.Configuration["ExchangeRateAPIAddress"]);
+            });
 
 
 
@@ -84,6 +90,7 @@ namespace _23._1News
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
             
             });
+
             //builder.Services.AddScoped<ICategoryService, CategoryService>();
             //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 

@@ -2,25 +2,31 @@
 {
     public class SpotRate
     {
-        public DateTime DateAndTime { get; set; } = DateTime.Now;
-        public string ExchangeRate { get; set; }
-        public string Currency { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
+        //public string ExchangeRate { get; set; }
+        //public string Currency { get; set; }
+
+        public string Base { get; set; }
+
+        public Dictionary<string, decimal> Rates { get; set; }
+
+       
 
     }
 
     public class TodaysSpotRate
     {
-        public List<SpotRateList> TodaysRate { get; set; }
+        public List<SpotRate> SpotRates { get; set; }
 
-        public TodaysSpotRate()
-        {
-            TodaysRate = new List<SpotRateList>();
-        }
+        //public TodaysSpotRate()
+        //{
+        //    TodaysRate = new List<CurrencyExchange>();
+        //}
 
     }
 
-    public class SpotRateList
+    public class CurrencyExchange
     {
-        public List<SpotRate> SpotRates { get; set; }
+        public List<TodaysSpotRate> TodaySpotRate { get; set; }
     }
 }
