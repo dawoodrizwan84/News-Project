@@ -32,6 +32,17 @@ namespace _23._1News.Services.Implement
             return _db.Users.ToList();
         }
 
+        //public User GetUserById(string id)
+        //{
+        //   User user = _db.Users
+        //               .Single(p => p.Id.Equals(id));
+
+        //    return user;
+        //}
+
+
+
+
         public bool DeleteUser(string userId)
         {
             var user = _db.Users.Find(userId);
