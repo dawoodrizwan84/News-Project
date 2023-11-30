@@ -7,7 +7,7 @@ namespace _23._1News.Models.Db
     {
         public DateTime DateAndTime { get; set; }
         public string AreaName { get; set; }
-        public string Price { get; set; }
+        public string Price { get; set; } 
     }
 
     public class TodaysSpotPrices
