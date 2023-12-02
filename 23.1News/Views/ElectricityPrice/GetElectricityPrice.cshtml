@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @model _23._1News.Models.Db.Electricity
 
 @{
@@ -18,7 +18,8 @@
             <tr>
                 <th>Date and Time</th>
                 <th>Area Name</th>
-                <th>Price</th>
+                <th>Price,Öre</th>
+                <th>Price,Kronor</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                     <td>@spotData.DateAndTime</td>
                     <td>@spotData.AreaName</td>
                     <td>@spotData.Price</td>
+                    <td>@spotData.DecimalPrice</td>
                 </tr>
             }
         </tbody>
