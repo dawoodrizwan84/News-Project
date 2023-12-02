@@ -15,9 +15,6 @@ namespace _23._1News.Models.Db
             get
             {
                 Price = Price.Replace(" ", "").Replace(',', '.');
-
-
-
                 CultureInfo culture = CultureInfo.InvariantCulture;
 
                 if (decimal.TryParse(Price, NumberStyles.Number, culture, out decimal result))

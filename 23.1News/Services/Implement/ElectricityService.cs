@@ -29,6 +29,7 @@ namespace _23._1News.Services.Implement
             var electricityResponse = await _httpClient.GetStringAsync("");
 
             return JsonConvert.DeserializeObject<Electricity>(electricityResponse);
+
         }
 
     }

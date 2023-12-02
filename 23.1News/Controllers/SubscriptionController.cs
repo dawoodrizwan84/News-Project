@@ -158,12 +158,29 @@ namespace _23._1News.Controllers
 
         public IActionResult Details(int id)
         {
+
             var det = _subscriptionService.GetSubsById(id);
 
             if (det == null)
             {
                 return NotFound();
             }
+
+            var usr = _subscriptionService.GetUserById(det.UserId);
+
+
+           if (usr == null)
+            {
+                return NotFound();
+            }
+
+
+            TempData["FirstName"] = usr.FirstName;
+            TempData["LastName"] = usr.LastName;
+            TempData["Email"] = usr.Email;
+
+ 
+
             return View(det);
         }
 
