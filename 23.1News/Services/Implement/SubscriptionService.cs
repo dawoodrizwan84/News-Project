@@ -97,6 +97,10 @@ namespace _23._1News.Services.Implement
             return _db.Subscriptions.Count(s => s.Created >= thirtyDaysAgo);
         }
 
+        //object ISubscriptionService.GetSubsByUserId(string? userId)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 }

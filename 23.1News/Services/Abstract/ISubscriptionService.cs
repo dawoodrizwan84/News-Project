@@ -20,6 +20,6 @@ namespace _23._1News.Services.Abstract
         List<Subscription> GetSubsByUserId(string id);
 
         int GetActiveSubscribersCount();
-        
+       // object GetSubsByUserId(string? userId);
     }
 }
