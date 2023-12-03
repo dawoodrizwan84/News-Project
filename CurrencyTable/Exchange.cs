@@ -1,5 +1,4 @@
-using System;
-using _23._1News.Services.Abstract;
+using CurrencyTable.Properties.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -8,11 +7,11 @@ namespace CurrencyTable
     public class Exchange
     {
         private readonly ILogger _logger;
-        private readonly ICurrencyService _currencyExchange;
-        public Exchange(ILoggerFactory loggerFactory, ICurrencyService currencyExchange)
+        private readonly ICurrencyServices _currencyServices;
+        public Exchange(ILoggerFactory loggerFactory, ICurrencyServices currencyServices)
         {
             _logger = loggerFactory.CreateLogger<Exchange>();
-            _currencyExchange = currencyExchange;
+            _currencyServices = currencyServices;
         }
 
         [Function("Exchange")]
@@ -20,7 +19,7 @@ namespace CurrencyTable
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             
-            var spotRates = _currencyExchange.GetSpotRateAsync().Result;
+            var newRates = _currencyServices.GetRateAsync().Result;
             
             if (myTimer.ScheduleStatus is not null) 
             {

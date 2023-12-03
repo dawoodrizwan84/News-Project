@@ -66,14 +66,6 @@ namespace _23._1News
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
-           
-            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
-            builder.Services.AddHttpClient("exchangePrice", config =>
-            {
-                config.BaseAddress = new(builder.Configuration["ExchangeRateAPIAddress"]);
-            });
-
-
 
             builder.Services.AddScoped<IElectricityService, ElectricityService>();
             builder.Services.AddHttpClient("electricityPrice", config =>
@@ -84,12 +76,19 @@ namespace _23._1News
             });
 
             builder.Services.AddScoped<IWeatherService, WeatherService>();
-            builder.Services.AddHttpClient("weatherForecast", config => 
+            builder.Services.AddHttpClient("weatherForecast", config =>
             {
-                
+
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
-            
+
             });
+
+            builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServicve>();
+            builder.Services.AddHttpClient("dailyPrices", config =>
+            {
+                config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
+            });
+            
 
             //builder.Services.AddScoped<ICategoryService, CategoryService>();
             //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
@@ -100,7 +99,7 @@ namespace _23._1News
                 builder.Configuration.GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>());
 
-            
+
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
@@ -113,7 +112,7 @@ namespace _23._1News
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
