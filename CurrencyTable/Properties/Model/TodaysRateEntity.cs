@@ -9,11 +9,11 @@ namespace _23._1News.Models.Db
         public string PartitionKey { get; set; } = string.Empty;
         public DateTimeOffset? Timestamp { get; set; } = DateTimeOffset.Now;
         public ETag ETag { get; set; } = ETag.All;
-        public Dictionary<string, decimal> Rates { get; set; }
+        public string Currency { get; set; }
+        public decimal Rate { get; set; }
 
 
-        public decimal Rate1 { get; set; }
-        public decimal Rate2 { get; set; }
+       
 
     }
 }

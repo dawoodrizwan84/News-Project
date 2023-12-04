@@ -1,6 +1,7 @@
 ﻿using _23._1News.Models.Db;
 using Azure.Data.Tables;
 using CurrencyTable.Properties.Model;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -43,20 +44,20 @@ namespace CurrencyTable.Properties.Services
 
         }
 
-        public async Task SaveDataAsync(TodaysRate todaysRate)
+        public async Task SaveDataAsync(CurrencyRates todaysRates)
         {
 
-            var queryRateEntities = todaysRate.currencyExchangeRates
-                                 .SelectMany(s => s.Rates)
-                                .Take(10)
-                                .Select((rate, index) => new TodaysRateEntity()
-                                {
-                                    PartitionKey = rate.Key,
-                                    RowKey = $"{rate.Key}_{index}",
-                                    Rate1 = rate.Value,
-                                    Timestamp = DateTime.UtcNow
-                                })
-                                .ToList();
+            //var queryRateEntities = todaysRates.Rates
+            //                     .SelectMany(s => s.Value)
+            //                    .Take(10)
+            //                    .Select((rate, index) => new TodaysRateEntity()
+            //                    {
+            //                        PartitionKey = rate.Key,
+            //                        RowKey = $"{rate.Key}_{index}",
+
+            //                        Timestamp = DateTime.UtcNow
+            //                    })
+            //                    .ToList();
 
             TableClient tableClient = _tableServiceClient.GetTableClient(tableName: "exchangeprices");
             try
@@ -70,18 +71,50 @@ namespace CurrencyTable.Properties.Services
                 Console.WriteLine($"Error: {ex.Message}");
             }
 
-            Random rnd = new Random();
 
 
-            foreach (var item in queryRateEntities)
+            foreach (var (symbol, value) in todaysRates.Rates)
             {
-                //item.RowKey = item.PartitionKey + item.Timestamp;
-                tableClient.AddEntityAsync<TodaysRateEntity>(item);
+                //var rates = todaysRates.Rates
+                //            .Select(s => s.Value)
+                //            .Distinct() 
+                //            .Take(10)
+                //            .ToList();
+                    
+                    
+                var newEntity = new TodaysRateEntity()
+                {
+                    Currency = symbol,
+                    Rate = value,
+                    Timestamp = DateTime.UtcNow,
+                    RowKey = /*DateTime.UtcNow + " " + symbol*/  $"{symbol}_{DateTime.UtcNow.Ticks}",
+                    PartitionKey = symbol,
 
 
+                };
+
+                try
+                {
+                    await tableClient.AddEntityAsync(newEntity);
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"Error adding entity: {ex.Message}");
+                }
+
+
+                var tableRows = tableClient.Query<TodaysRateEntity>().ToList();
             }
-            var tableRows = tableClient.Query<TodaysRateEntity>().ToList();
+
+
+
+
+
 
         }
+
+
     }
 }

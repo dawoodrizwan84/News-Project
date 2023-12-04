@@ -1,6 +1,8 @@
+using CurrencyTable.Properties.Model;
 using CurrencyTable.Properties.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace CurrencyTable
 {
@@ -20,6 +22,11 @@ namespace CurrencyTable
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             
             var newRates = _currencyServices.GetRateAsync().Result;
+            if ( newRates != null && newRates.Length > 0 ) 
+            {
+                var rates = JsonConvert.DeserializeObject<CurrencyRates>(newRates);
+                _currencyServices.SaveDataAsync(rates);
+            }
             
             if (myTimer.ScheduleStatus is not null) 
             {

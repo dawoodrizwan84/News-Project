@@ -11,7 +11,7 @@ namespace CurrencyTable.Properties.Services
     {
         Task<string> GetRateAsync();
 
-        Task SaveDataAsync(TodaysRate newtodaysRate);
+        Task SaveDataAsync(CurrencyRates newtodaysRates);
 
      
         //Task<CurrencyExchangeRates> GetRate();
