@@ -13,7 +13,7 @@ namespace _23._1News.Models.Db
         public bool PaymentComplete { get; set; }
 
         //public User User { get; set; }
-
+        public string UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

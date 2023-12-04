@@ -55,6 +55,22 @@ namespace _23._1News.Services.Implement
             return _db.Subscriptions.Find(id);
         }
 
+        public User GetUserById(string id)
+        {
+
+            return _db.Users.Find(id);
+
+
+        }
+
+        public List<Subscription> GetSubsByUserId(string id)
+        {
+            var subscriptions = _db.Subscriptions.Where(Subscription => Subscription.UserId== id)
+                            .OrderByDescending(a => a.Created).ToList();
+
+            return subscriptions;
+        }
+
         public bool DeleteSubs(int id)
         {
             try
@@ -81,6 +97,10 @@ namespace _23._1News.Services.Implement
             return _db.Subscriptions.Count(s => s.Created >= thirtyDaysAgo);
         }
 
+        //object ISubscriptionService.GetSubsByUserId(string? userId)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 }
