@@ -17,7 +17,7 @@ namespace CurrencyTable
         }
 
         [Function("Exchange")]
-        public void Run([TimerTrigger("0 14 * * * *", RunOnStartup = true)] MyInfo myTimer)
+        public void Run([TimerTrigger("0 14 * * * *")] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             

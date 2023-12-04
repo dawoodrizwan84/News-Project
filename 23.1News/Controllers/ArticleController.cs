@@ -46,11 +46,7 @@ namespace _23._1News.Controllers
                 ApplicationDbContext applicationDbContext,
 
                 UserManager<User> userManager, IYahooFinanceService yahooFinanceService,
-
-
-                UserManager<User> userManager,
-
-
+                                                
                 IWebHostEnvironment webHostEnvironment)
 
         {
@@ -359,7 +355,7 @@ namespace _23._1News.Controllers
             }
 
             return View("ArchivedNews", SearchArchivedNews);
-
+        }
 
         public async Task<IActionResult> GetYahooFinanceData(string? symbol)
         {
@@ -402,9 +398,4 @@ namespace _23._1News.Controllers
     
 }
 
-        }
-    }
-
-
-    
-}
+       
