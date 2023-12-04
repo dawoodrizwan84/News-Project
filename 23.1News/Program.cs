@@ -66,6 +66,15 @@ namespace _23._1News
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
+            builder.Services.AddScoped<IYahooFinanceService,YahooFinanceService>();
+            builder.Services.AddHttpClient("YahooFinance", config =>
+            {
+
+                config.BaseAddress = new(builder.Configuration["MyYahooFinanceAPIAddress"]);
+                config.DefaultRequestHeaders.Add("X-RapidAPI-Key", builder.Configuration["YahooApiKey"]);
+                config.DefaultRequestHeaders.Add("X-RapidAPI-Host", builder.Configuration["YahooApiHost"]);
+
+            });
 
 
 
@@ -84,10 +93,7 @@ namespace _23._1News
                 config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
             
             });
-            //builder.Services.AddScoped<ICategoryService, CategoryService>();
-            //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
-            //builder.Services.AddScoped<IWeatherService, WeatherService>();
+          
 
             builder.Services.AddSingleton<IEmailConfiguration>(
                 builder.Configuration.GetSection("EmailConfiguration")

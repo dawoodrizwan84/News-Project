@@ -21,11 +21,7 @@ namespace _23._1News.Services.Implement
             _db = db;
         }
 
-        //public List<string> GetCities()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
+       
         public async Task<WeatherForecast> GetWeatherForecast(string city)
         {
             var forecastResponse = await _httpClient.GetStringAsync($"forecast?city={city}& lang= en");

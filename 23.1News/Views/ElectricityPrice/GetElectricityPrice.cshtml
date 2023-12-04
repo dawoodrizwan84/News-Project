@@ -33,3 +33,57 @@
         </tbody>
     </table>
 }
+
+
+
+@* @model _23._1News.Models.Db.Electricity
+@{
+    ViewData["Title"] = "GetElectricityPrice";
+}
+
+<h1>GetElectricityPrice</h1>
+
+@foreach (var todaysSpotPrices in Model.TodaysSpotPrices)
+{
+    <h3>Todays Spot Prices</h3>
+
+    <canvas id="spotPricesChart" width="400" height="200"></canvas>
+
+    <script>
+        var ctx = document.getElementById('spotPricesChart').getContext('2d');
+
+        var labels = @Json.Serialize(todaysSpotPrices.SpotData.Select(spotData => spotData.DateAndTime));
+        var data = @Json.Serialize(todaysSpotPrices.SpotData.Select(spotData => spotData.Price));
+
+        var chartData = {
+            labels: JSON.parse(labels),
+            datasets: [{
+                label: 'Spot Prices',
+                data: JSON.parse(data),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: [{
+                        type: 'linear',
+                        position: 'bottom'
+                    }],
+                    y: [{
+                        type: 'linear',
+                        position: 'left'
+                    }]
+                }
+            }
+        });
+    </script>
+}
+ *@

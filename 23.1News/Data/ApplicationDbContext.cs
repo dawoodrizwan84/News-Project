@@ -23,7 +23,27 @@ namespace _23._1News.Data
 
         public DbSet<Category> Categories { get; set; }
 
-        
+        public DbSet<WeeklySubscriptionData> WeeklySubscriptionData { get; set; }
+        public DbSet<HistoricalYahooData> HistoricalYahooData { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<WeeklySubscriptionData>().HasNoKey();
+
+            // Add other configurations as needed
+            modelBuilder.Entity<HistoricalYahooData>()
+                .HasNoKey();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<HistoricalYahooData>()
+        //        .HasNoKey();
+        //}
+
+
 
     }
 }

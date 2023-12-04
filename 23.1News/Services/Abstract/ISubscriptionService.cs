@@ -16,6 +16,10 @@ namespace _23._1News.Services.Abstract
         Subscription GetSubsById(int id);
 
         int GetActiveSubscribersCount();
-        
+        Subscription GetActiveSubscriptionByUser(string Id);
+        //IEnumerable<object> GetWeeklySubscriptionData();
+
+        IEnumerable<Subscription> GetWeeklySubscriptionData();
+        List<SubscriptionType> GetSubscriptionTypes();
     }
 }

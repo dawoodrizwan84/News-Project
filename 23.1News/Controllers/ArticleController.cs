@@ -14,7 +14,8 @@ using System.Web;
 using Microsoft.EntityFrameworkCore;
 using _23._1News.Services.Implement;
 using System.Net.Http;
-
+using _23._1News.Models.ViewModels;
+using static _23._1News.Models.Db.YahooFinance;
 
 namespace _23._1News.Controllers
 {
@@ -27,13 +28,14 @@ namespace _23._1News.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ArticleController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IYahooFinanceService _yahooFinanceService;
 
         public ArticleController(ILogger<ArticleController> logger,
 
                 IArticleService articleService,
                 IWeatherService weatherService,
                 ApplicationDbContext applicationDbContext,
-                UserManager<User> userManager,
+                UserManager<User> userManager, IYahooFinanceService yahooFinanceService,
                 IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
@@ -42,6 +44,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _yahooFinanceService =  yahooFinanceService;
         }
 
 
@@ -230,6 +233,44 @@ namespace _23._1News.Controllers
             return View("ArchivedNews",SearchArchivedNews);
         }
 
+        public async Task<IActionResult> GetYahooFinanceData(string? symbol)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(symbol))
+                {
+                    return View("NoDataView", "No Yahoo Finance data available");
+                }
+
+                var yahooFinance = await _yahooFinanceService.GetFinancialDataAsync(symbol);
+
+                if (yahooFinance != null && yahooFinance.Any())
+                {
+                    var yahooFinanceVM = new YahooFinanceVM
+                    {
+                        Quotes = yahooFinance,
+                        News = await _yahooFinanceService.GetNewsAsync(symbol)
+                    };
+
+                    return View(yahooFinanceVM);
+                }
+                else
+                {
+                    return View("NoDataView", "No Yahoo Finance data available");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                return View("ErrorView", "Error fetching Yahoo Finance data. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                return View("ErrorView", "An unexpected error occurred while fetching Yahoo Finance data.");
+            }
+        }
     }
+
+
+    
 }
 
