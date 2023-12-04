@@ -1,11 +1,14 @@
-﻿
+
+﻿﻿
 @model _23._1News.Models.Db.Electricity
+
+
 
 @{
     ViewData["Title"] = "GetElectricityPrice";
 }
 
-<h1>GetElectricityPrice</h1>
+@*<h1>GetElectricityPrice</h1>*@
 
 
 
@@ -18,7 +21,8 @@
             <tr>
                 <th>Date and Time</th>
                 <th>Area Name</th>
-                <th>Price</th>
+                <th>Price,Öre</th>
+                <th>Price,Kronor</th>
             </tr>
         </thead>
         <tbody>
@@ -28,10 +32,12 @@
                     <td>@spotData.DateAndTime</td>
                     <td>@spotData.AreaName</td>
                     <td>@spotData.Price</td>
+                    <td>@spotData.DecimalPrice</td>
                 </tr>
             }
         </tbody>
     </table>
+
 }
 
 
@@ -87,3 +93,6 @@
     </script>
 }
  *@
+
+}
+

@@ -92,6 +92,8 @@ namespace _23._1News.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+
         public IActionResult GotoStart(int id)
         {
             SubscriptionType subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(id);

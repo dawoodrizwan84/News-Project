@@ -9,6 +9,16 @@
     var weatherForecast = _weatherService.GetWeatherForecast("Linköping").Result;
     DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
     var dateTime = unixStart.AddSeconds(weatherForecast.UnixTime).ToLocalTime().ToShortTimeString();
+
+    if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+    {
+        TempData["Subscription"] = "Subscribed";
+    }
+    else
+    {
+        TempData["Subscription"] = "Subscribe";
+    }
+    
 }
 
 <!DOCTYPE html>
@@ -36,10 +46,10 @@
         <div class="header-top d-flex justify-content-between align-items-center p-2">
             <div>
                 <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" href="Home/Index" alt="23.1" class="img-fluid" />
+                    <img src="https://newsprojectstorage.blob.core.windows.net/newsimages/logo.png" href="Home/Index" alt="23.1" class="img-fluid" />
                 </a>
             </div>
-            <div class="btn btn-outline-primary">
+            <div style="margin:20px;">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetWeatherForecast">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16" style="color:#537FE7">
                         <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -51,12 +61,19 @@
 
                 </a>
             </div>
+            <div>
+                <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
+                    <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+
             <div style="margin-right:20px;">
 
                 <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2  btn-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
-                    </svg>&nbsp;&nbsp;<strong>Subscribe</strong>
+                    </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
 
                 </a>
             </div>
@@ -96,11 +113,13 @@
                             </li>
                         } *@
                     </ul>
+
                     <form class="d-flex justify-content-center" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
                         <input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                    
+
                     &nbsp;&nbsp; &nbsp;&nbsp;
                     <partial name="_LoginPartial" />
                 </div>
@@ -115,7 +134,7 @@
     </div>
 
 
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" style="height:100px;" data-bs-theme="dark">
+    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:20px">

@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
+using Microsoft.Extensions.Azure;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace _23._1News.Services.Implement
@@ -94,7 +95,12 @@ namespace _23._1News.Services.Implement
         public Article GetArticleById(int id)
         {
             var article = _db.Articles.Find(id);
-            
+
+            //if (article != null)
+            //{
+            //    article.BlobLink = GetBlobImage(article.ImageLink);
+            //}
+
             article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
@@ -104,22 +110,33 @@ namespace _23._1News.Services.Implement
             DateTime? datestamp = null;
             string datePattern = @"^\d{4}-\d{2}-\d{2}$";
 
+
             if (Regex.IsMatch(searchTerm, datePattern))
             {
                 datestamp = DateTime.Parse(searchTerm).Date;
             }
 
             var Articles = _db.Articles.ToList();
+
+            foreach (var item in Articles)
+            {
+                item.BlobLink = GetBlobImage(item.ImageLink);
+            }
+
+          
             var searchResults = Articles
                 .Where(article =>
+
                     article.Headline.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                    (datestamp != null && article.DateStamp.Date == datestamp)
-                )
-                .ToList();
+                    (datestamp != null && article.DateStamp.Date == datestamp) 
 
+                    )
+                  .ToList();
+
+           
             return searchResults;
         }
 
@@ -165,8 +182,8 @@ namespace _23._1News.Services.Implement
                 article.BlobLink = GetBlobImage(article.ImageLink);
             }
 
-            
-         
+
+
             return latest;
         }
 
@@ -222,7 +239,7 @@ namespace _23._1News.Services.Implement
 
                             .OrderByDescending(a => a.DateStamp).ToList();
 
-                  
+
             foreach (var item in articles)
             {
                 item.BlobLink = GetBlobImage(item.ImageLink);
@@ -278,11 +295,14 @@ namespace _23._1News.Services.Implement
                 datestamp = DateTime.Parse(searchTerm).Date;
             }
 
+
             var thirtyDaysAgo = DateTime.Today.AddDays(-30);
 
             var archivedArticles = _db.Articles
                 .Where(article => article.Archived && article.DateStamp.Date <= thirtyDaysAgo)
                 .ToList();
+
+
 
             var Articles = _db.Articles.Where(Article => Article.Archived == true).ToList();
             var searchResults = Articles

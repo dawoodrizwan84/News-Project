@@ -99,7 +99,17 @@ namespace _23._1News.Controllers
             newSubscription.User = currentUser;
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
+
             return RedirectToAction("Index", new { id = newSubscription.Id });
+
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(30));
+            var userid = newSubscription.User.Id;
+            HttpContext.Response.Cookies.Append("user_id", userid, cookieOptions);
+
+            //return RedirectToAction("Index",new {id=newSubscription.Id});
+            return RedirectToAction("Index", "Home", new { id = newSubscription.Id });
+
         }
 
 
@@ -134,12 +144,29 @@ namespace _23._1News.Controllers
 
         public IActionResult Details(int id)
         {
+
             var det = _subscriptionService.GetSubsById(id);
 
             if (det == null)
             {
                 return NotFound();
             }
+
+            var usr = _subscriptionService.GetUserById(det.UserId);
+
+
+           if (usr == null)
+            {
+                return NotFound();
+            }
+
+
+            TempData["FirstName"] = usr.FirstName;
+            TempData["LastName"] = usr.LastName;
+            TempData["Email"] = usr.Email;
+
+ 
+
             return View(det);
         }
 

@@ -1,5 +1,7 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,14 +10,9 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
-    margin-bottom: 60px;
-    position: relative;
+    margin-bottom: 100px;
 }
 
 .header-top {
@@ -31,22 +28,6 @@ body {
     display: flex;
 
     
-}
-
-#left {
-    position: absolute;
-    margin-top: 155px;
-    top: 0;
-    left: 20px;
-    height: 100%;
-}
-
-#right {
-    margin-top: 20px;
-    margin-left:250px;
-    width:85%;
-    height: 100%;
-    font-size: large;
 }
 
 
@@ -72,24 +53,14 @@ a:link {
     font-size: large;
 }
 
-#adminpagefooter {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: block;
-    height: 50px;
-    background-color: #f5f5f5;
-    text-align: center;
-    justify-content: center;
-    margin-top: 20px;
-}
-
 
 
 #frontpagefooter {
     bottom: 0;
+    height: 100px;
     width: 100%;
     display: block;
+    position: absolute;
     text-align: center;
     justify-content: center;
 }
