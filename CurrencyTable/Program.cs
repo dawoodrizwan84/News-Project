@@ -1,5 +1,4 @@
-using _23._1News.Services.Abstract;
-using _23._1News.Services.Implement;
+using CurrencyTable.Properties.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,9 +10,11 @@ var host = new HostBuilder()
       })
 
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(s =>
+    .ConfigureServices( s =>
         {
-            s.AddScoped<ICurrencyService, CurrencyService>();
+            s.AddScoped<ICurrencyServices, CurrencyServices>();
+            s.AddHttpClient();
+
         })
 
     .Build();
