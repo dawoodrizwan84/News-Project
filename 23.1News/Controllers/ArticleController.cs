@@ -26,6 +26,8 @@ namespace _23._1News.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
 
         private readonly IArticleService _articleService;
+        private readonly ISubscriptionService _subscriptionService;
+        private readonly ISubscriptionTypeService _subscriptionTypeService;
 
         private readonly IWeatherService _weatherService;
 
@@ -40,6 +42,8 @@ namespace _23._1News.Controllers
         public ArticleController(ILogger<ArticleController> logger,
 
                 IArticleService articleService,
+                ISubscriptionService subscriptionService,
+                ISubscriptionTypeService subscriptionTypeService,
 
                 IWeatherService weatherService,
 
@@ -54,6 +58,8 @@ namespace _23._1News.Controllers
             _logger = logger;
 
             _articleService = articleService;
+            _subscriptionService = subscriptionService;
+            _subscriptionTypeService = subscriptionTypeService;
 
             _weatherService = weatherService;
 
@@ -243,21 +249,60 @@ namespace _23._1News.Controllers
         }
 
         public IActionResult Details(int id)
-
         {
+
+
 
             var det = _articleService.GetArticleById(id);
 
             if (det == null)
+            {
+                return NotFound();
+            }
+
+
+
+            if (HttpContext.Request.Cookies.ContainsKey("user_id"))
 
             {
+                var userId = HttpContext.Request.Cookies["user_id"];
+                var Subscriptions = _subscriptionService.GetSubsByUserId(userId);
+                var subs = Subscriptions.First();
 
-                return NotFound();
+                var subsType = _subscriptionTypeService.GetAllSubscriptionTypes();
+
+                int n = 1;
+
+                foreach (var sType in subsType)
+                {
+
+
+
+                    if ((sType.Id == subs.SubscriptionTypeId) && (n == 1))
+                    {
+
+                        TempData["ContentSummary"] = det.ContentSummary;
+
+                    }
+                    else if ((sType.Id == subs.SubscriptionTypeId) && (n > 1))
+                    {
+
+                        TempData["ContentSummary"] = det.ContentSummary;
+                        TempData["Content"] = det.Content;
+                    }
+
+
+                    n++;
+
+
+                }
+
+
 
             }
 
-            return View(det);
 
+            return View(det);
         }
 
 
