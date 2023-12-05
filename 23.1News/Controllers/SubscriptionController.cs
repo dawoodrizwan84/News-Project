@@ -85,12 +85,12 @@ namespace _23._1News.Controllers
             // Check if the user is already subscribed
             var existingSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
 
-            if (existingSubscription != null)
-            {
-                // User is already subscribed, you may want to handle this case (e.g., display an error message)
-                // For now, redirect to the existing subscription details
-                return RedirectToAction("Details", new { id = existingSubscription.Id });
-            }
+            //if (existingSubscription != null)
+            //{
+            //    // User is already subscribed, you may want to handle this case (e.g., display an error message)
+            //    // For now, redirect to the existing subscription details
+            //    return RedirectToAction("Details", new { id = existingSubscription.Id });
+            //}
           
 
             // If the user is not already subscribed, proceed with creating a new subscription
@@ -100,15 +100,15 @@ namespace _23._1News.Controllers
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
 
-            return RedirectToAction("Index", new { id = newSubscription.Id });
-
             CookieOptions cookieOptions = new CookieOptions();
             cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(30));
             var userid = newSubscription.User.Id;
             HttpContext.Response.Cookies.Append("user_id", userid, cookieOptions);
 
-            //return RedirectToAction("Index",new {id=newSubscription.Id});
+            //return RedirectToAction("Index", new { id = newSubscription.Id });
             return RedirectToAction("Index", "Home", new { id = newSubscription.Id });
+
+
 
         }
 
