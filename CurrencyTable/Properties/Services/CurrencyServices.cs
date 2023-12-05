@@ -75,11 +75,7 @@ namespace CurrencyTable.Properties.Services
 
             foreach (var (symbol, value) in todaysRates.Rates)
             {
-                //var rates = todaysRates.Rates
-                //            .Select(s => s.Value)
-                //            .Distinct() 
-                //            .Take(10)
-                //            .ToList();
+                
                     
                     
                 var newEntity = new TodaysRateEntity()
@@ -88,7 +84,7 @@ namespace CurrencyTable.Properties.Services
                     Rate = value,
                     Timestamp = DateTime.UtcNow,
                     RowKey = /*DateTime.UtcNow + " " + symbol*/  $"{symbol}_{DateTime.UtcNow.Ticks}",
-                    PartitionKey = symbol,
+                    PartitionKey = symbol
 
 
                 };

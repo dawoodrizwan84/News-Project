@@ -24,7 +24,7 @@ namespace ArchiveNews
         }
 
         [Function("ArchivedNewsFunction")]
-        public void Run([TimerTrigger("0 */5 * * * *", RunOnStartup = true)] MyInfo myTimer)
+        public void Run([TimerTrigger("0 */5 * * * *")] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 

@@ -7,13 +7,12 @@ namespace _23._1News.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext()
-        {
-        }
+    
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
         public DbSet<Article> Articles { get; set; }
 
@@ -22,6 +21,10 @@ namespace _23._1News.Data
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+
+
 
         public DbSet<WeeklySubscriptionData> WeeklySubscriptionData { get; set; }
         public DbSet<HistoricalYahooData> HistoricalYahooData { get; set; }

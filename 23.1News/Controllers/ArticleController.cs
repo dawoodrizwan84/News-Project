@@ -46,7 +46,7 @@ namespace _23._1News.Controllers
                 ApplicationDbContext applicationDbContext,
 
                 UserManager<User> userManager, IYahooFinanceService yahooFinanceService,
-                                                
+
                 IWebHostEnvironment webHostEnvironment)
 
         {
@@ -63,7 +63,7 @@ namespace _23._1News.Controllers
 
             _webHostEnvironment = webHostEnvironment;
 
-            _yahooFinanceService =  yahooFinanceService;
+            _yahooFinanceService = yahooFinanceService;
 
 
 
@@ -249,7 +249,6 @@ namespace _23._1News.Controllers
             var det = _articleService.GetArticleById(id);
 
             if (det == null)
-
             {
 
                 return NotFound();
@@ -395,7 +394,6 @@ namespace _23._1News.Controllers
     }
 
 
-    
+
 }
 
-       

@@ -100,8 +100,6 @@ namespace _23._1News.Controllers
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
 
-            return RedirectToAction("Index", new { id = newSubscription.Id });
-
             CookieOptions cookieOptions = new CookieOptions();
             cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(30));
             var userid = newSubscription.User.Id;
@@ -109,6 +107,9 @@ namespace _23._1News.Controllers
 
             //return RedirectToAction("Index",new {id=newSubscription.Id});
             return RedirectToAction("Index", "Home", new { id = newSubscription.Id });
+        
+
+           
 
         }
 
