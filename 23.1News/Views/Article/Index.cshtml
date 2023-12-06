@@ -6,15 +6,27 @@
 
 <h1>News List</h1>
 <hr />
-@if (User.IsInRole("Editor") || User.IsInRole("Admin"))
- {
 
-<p>
-    <a asp-controller="Article" asp-action="Create">Create New</a>
-</p>
- }
+@if (User.IsInRole("Editor"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a> 
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a> 
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
 <div>
-    <table id="myTable" class="table table-bordered table-striped table-hover table-sm">
+
+    <table id="myTable" class="table table-bordered table-striped table-hover table-sm" style="width:100%">
     <thead>
         <tr>
             <th>
@@ -22,6 +34,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LinkText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageLink)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Headline)
@@ -33,10 +48,10 @@
                 @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImageLink)
+                @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                Action
             </th>
             <th></th>
         </tr>
@@ -51,6 +66,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.LinkText)
                 </td>
+                    <td style="width:150px;">
+                    <img src="@item.BlobLink" class="card-img-top" alt="...">
+                    </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Headline)
                 </td>
@@ -61,27 +79,19 @@
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BlobLink)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-
-                    
-                   
                     @if (User.IsInRole("Editor"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a>
- 
                     }
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        
                     }
                     
                 </td>
@@ -89,4 +99,5 @@
         }
     </tbody>
 </table>
+
 </div>

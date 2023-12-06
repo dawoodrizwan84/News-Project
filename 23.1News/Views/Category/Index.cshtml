@@ -9,6 +9,24 @@
 <p>
     <a asp-action="Create">Create New Category</a>
 </p>
+
+@if (User.IsInRole("Editor"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary m-2">Create New Category</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary m-2">Create New Category</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
 <table class="table table-bordered table-striped table-hover table-sm" style="width:200px">
     <thead>
         <tr>

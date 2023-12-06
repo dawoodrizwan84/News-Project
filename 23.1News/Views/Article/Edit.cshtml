@@ -4,10 +4,27 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Article</h1>
 
-<h4>Article</h4>
 <hr />
+
+@if (User.IsInRole("Editor"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
