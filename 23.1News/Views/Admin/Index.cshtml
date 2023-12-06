@@ -28,10 +28,6 @@
                         <h5 style="color:#2fa4e7"><span class="fa fa-sticky-note mr-3"></span> Add News</h5>
                     </a>
                     <br />
-                    <a asp-controller="Article" asp-action="Edit">
-                        <h5 style="color:#2fa4e7"><span class="fa fa-pencil mr-3"></span> Edit News</h5>
-                    </a>
-                    <br />
                     <a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
                         <h5 style="color:#2fa4e7"><span class="fa fa-list mr-3"></span> News List</h5>
                     </a>
@@ -149,10 +145,6 @@ else if (User.IsInRole("Editor"))
                 <div class="card-body">
                     <a asp-controller="Article" asp-action="Create">
                         <h5 style="color:#2fa4e7"><span class="fa fa-sticky-note mr-3"></span> Add News</h5>
-                    </a>
-                    <br />
-                    <a asp-controller="Article" asp-action="Edit">
-                        <h5 style="color:#2fa4e7"><span class="fa fa-pencil mr-3"></span> Edit News</h5>
                     </a>
                     <br />
                     <a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
