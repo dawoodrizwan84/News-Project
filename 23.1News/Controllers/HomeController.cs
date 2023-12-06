@@ -94,7 +94,6 @@ namespace _23._1News.Controllers
             return View(articles);
         }
 
-
         public IActionResult World()
         {
             return View();

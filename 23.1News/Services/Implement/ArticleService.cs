@@ -3,6 +3,7 @@ using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Services.Abstract;
 using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
@@ -248,10 +249,29 @@ namespace _23._1News.Services.Implement
         }
 
 
+        //public List<Article> GetArchiveNews()
+        //{
+        //    var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
+        //                                .AddDays(-30)).ToList();
+
+        //    foreach (var item in archiveNews)
+        //    {
+        //        item.Archived = true;
+        //    }
+
+        //    _db.SaveChanges();
+        //    return archiveNews;
+        //}
+
+
+        //[Authorize("Admin")]
         public List<Article> GetArchiveNews()
         {
-            var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
-                                        .AddDays(-30)).ToList();
+            var thirtyDaysAgo = DateTime.Today.AddDays(-30);
+
+            var archiveNews = _db.Articles
+                .Where(a => a.DateStamp.Date <= thirtyDaysAgo && !a.Archived)
+                .ToList();
 
             foreach (var item in archiveNews)
             {
@@ -261,6 +281,10 @@ namespace _23._1News.Services.Implement
             _db.SaveChanges();
             return archiveNews;
         }
+
+
+        [Authorize("Admin")]
+
         public List<Article> SearchArhivedNews(string searchTerm)
         {
             DateTime? datestamp = null;
@@ -270,6 +294,15 @@ namespace _23._1News.Services.Implement
             {
                 datestamp = DateTime.Parse(searchTerm).Date;
             }
+
+
+            var thirtyDaysAgo = DateTime.Today.AddDays(-30);
+
+            var archivedArticles = _db.Articles
+                .Where(article => article.Archived && article.DateStamp.Date <= thirtyDaysAgo)
+                .ToList();
+
+
 
             var Articles = _db.Articles.Where(Article => Article.Archived == true).ToList();
             var searchResults = Articles
@@ -284,6 +317,35 @@ namespace _23._1News.Services.Implement
 
             return searchResults;
         }
+
+        //public List<Article> SearchArchivedNews(string searchTerm)
+        //{
+        //    DateTime? datestamp = null;
+        //    string datePattern = @"^\d{4}-\d{2}-\d{2}$";
+
+        //    if (Regex.IsMatch(searchTerm, datePattern))
+        //    {
+        //        datestamp = DateTime.Parse(searchTerm).Date;
+        //    }
+
+        //    var thirtyDaysAgo = DateTime.Today.AddDays(-30);
+
+        //    var archivedArticles = _db.Articles
+        //        .Where(article => article.Archived && article.DateStamp.Date <= thirtyDaysAgo)
+        //        .ToList();
+
+        //    var searchResults = archivedArticles
+        //        .Where(article =>
+        //            article.Headline.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+        //            article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+        //            article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+        //            article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+        //            (datestamp != null && article.DateStamp.Date == datestamp)
+        //        )
+        //        .ToList();
+
+        //    return searchResults;
+        //}
 
 
 

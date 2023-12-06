@@ -66,80 +66,91 @@ namespace _23._1News
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
-           
-            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
-            builder.Services.AddHttpClient("exchangePrice", config =>
-            {
-                config.BaseAddress = new(builder.Configuration["ExchangeRateAPIAddress"]);
-            });
 
 
 
-            builder.Services.AddScoped<IElectricityService, ElectricityService>();
-            builder.Services.AddHttpClient("electricityPrice", config =>
+            builder.Services.AddScoped<IYahooFinanceService, YahooFinanceService>();
+            builder.Services.AddHttpClient("YahooFinance", config =>
             {
 
-                config.BaseAddress = new(builder.Configuration["MyElectricityPriceAPIAddress"]);
+                config.BaseAddress = new(builder.Configuration["MyYahooFinanceAPIAddress"]);
+                config.DefaultRequestHeaders.Add("X-RapidAPI-Key", builder.Configuration["YahooApiKey"]);
+                config.DefaultRequestHeaders.Add("X-RapidAPI-Host", builder.Configuration["YahooApiHost"]);
 
             });
-
-            builder.Services.AddScoped<IWeatherService, WeatherService>();
-            builder.Services.AddHttpClient("weatherForecast", config => 
-            {
-                
-                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
-            
-            });
-
-            //builder.Services.AddScoped<ICategoryService, CategoryService>();
-            //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
-            //builder.Services.AddScoped<IWeatherService, WeatherService>();
-
-            builder.Services.AddSingleton<IEmailConfiguration>(
-                builder.Configuration.GetSection("EmailConfiguration")
-                .Get<EmailConfiguration>());
-
-            
-            builder.Services.AddTransient<IEmailSender, EmailHelper>();
-            builder.Services.AddTransient<IEmailHelper, EmailHelper>();
-
-            builder.Services.AddHttpClient("weatherForecast", config =>
-            {
-                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
-            });
+          
 
 
+                builder.Services.AddScoped<IElectricityService, ElectricityService>();
+                builder.Services.AddHttpClient("electricityPrice", config =>
+                {
 
-            var app = builder.Build();
+                    config.BaseAddress = new(builder.Configuration["MyElectricityPriceAPIAddress"]);
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
+                });
+
+                builder.Services.AddScoped<IWeatherService, WeatherService>();
+                builder.Services.AddHttpClient("weatherForecast", config =>
+                {
+
+                    config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
+
+                });
+
+
+                builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServicve>();
+                builder.Services.AddHttpClient("dailyPrices", config =>
+                {
+                    config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
+                });
+
+
+                //builder.Services.AddScoped<ICategoryService, CategoryService>();
+                //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
+                //builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+
+                builder.Services.AddSingleton<IEmailConfiguration>(
+                    builder.Configuration.GetSection("EmailConfiguration")
+                    .Get<EmailConfiguration>());
+
+
+                builder.Services.AddTransient<IEmailSender, EmailHelper>();
+                builder.Services.AddTransient<IEmailHelper, EmailHelper>();
+
+
+
+                var app = builder.Build();
+
+                //Configure the HTTP request pipeline.
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseMigrationsEndPoint();
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    app.UseHsts();
+                }
+
+                app.UseHttpsRedirection();
+                app.UseStaticFiles();
+
+                app.UseRouting();
+
+
+                app.UseAuthentication();
+                app.UseAuthorization();
+
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                app.MapRazorPages();
+
+                app.Run();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
-
-            app.Run();
-        }
     }
-}
+
+    } 

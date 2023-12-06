@@ -1,0 +1,79 @@
+﻿@model _23._1News.Models.ViewModels.YahooFinanceVM
+
+@{
+    ViewData["Title"] = "GetYahooFinanceData";
+}
+
+<h1>Yahoo Finance Data</h1>
+
+<div>
+    <h4>Quotes</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Short Name</th>
+                <th>Score</th>
+                <th>Type Display</th>
+                <th>Long Name</th>
+                <th>Sector</th>
+                <th>Industry</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quote in Model.Quotes)
+            {
+                <tr>
+                    <td>@quote.symbol</td>
+                    <td>@quote.shortname</td>
+                    <td>@quote.score</td>
+                    <td>@quote.typeDisp</td>
+                    <td>@quote.longname</td>
+                    <td>@quote.sector</td>
+                    <td>@quote.industry</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h4>News</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Publisher</th>
+                <th>Link</th>
+                <th>Provider Publish Time</th>
+                <th>Thumbnail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var news in Model.News)
+            {
+                <tr>
+                    <td>@news.title</td>
+                    <td>@news.publisher</td>
+                    <td>@news.link</td>
+                    <td>@news.providerPublishTime</td>
+                    <td>
+                        @if (news.thumbnail != null && news.thumbnail.resolutions.Length > 0)
+                        {
+                            <img src="@news.thumbnail.resolutions[0].url" alt="Thumbnail" width="@news.thumbnail.resolutions[0].width" height="@news.thumbnail.resolutions[0].height" />
+                        }
+                        else
+                        {
+                            <span>No thumbnail available</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

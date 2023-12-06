@@ -16,6 +16,7 @@ using _23._1News.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 using _23._1News.Models.ViewModels;
+using System.Security.Claims;
 
 namespace _23._1News.Controllers
 {
@@ -63,12 +64,39 @@ namespace _23._1News.Controllers
         }
 
 
+        //[HttpPost]
+        //public IActionResult Create(Subscription newSubscription)
+        //{
+        //    var subTypeId = (int)TempData["subTypeId"]!;
+        //    newSubscription.SubscriptionTypeId = subTypeId;
+        //    newSubscription.User = _userManager.GetUserAsync(User).Result;
+        //    _subscriptionService.CreateSubs(newSubscription);
+        //    SendEmail(newSubscription);
+        //    return RedirectToAction("Index",new {id=newSubscription.Id});
+        //}
+
+
         [HttpPost]
         public IActionResult Create(Subscription newSubscription)
         {
+            // Get the current user
+            var currentUser = _userManager.GetUserAsync(User).Result;
+
+            // Check if the user is already subscribed
+            var existingSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
+
+            //if (existingSubscription != null)
+            //{
+            //    // User is already subscribed, you may want to handle this case (e.g., display an error message)
+            //    // For now, redirect to the existing subscription details
+            //    return RedirectToAction("Details", new { id = existingSubscription.Id });
+            //}
+          
+
+            // If the user is not already subscribed, proceed with creating a new subscription
             var subTypeId = (int)TempData["subTypeId"]!;
             newSubscription.SubscriptionTypeId = subTypeId;
-            newSubscription.User = _userManager.GetUserAsync(User).Result;
+            newSubscription.User = currentUser;
             _subscriptionService.CreateSubs(newSubscription);
             SendEmail(newSubscription);
 
@@ -77,55 +105,13 @@ namespace _23._1News.Controllers
             var userid = newSubscription.User.Id;
             HttpContext.Response.Cookies.Append("user_id", userid, cookieOptions);
 
-            //return RedirectToAction("Index",new {id=newSubscription.Id});
+            //return RedirectToAction("Index", new { id = newSubscription.Id });
             return RedirectToAction("Index", "Home", new { id = newSubscription.Id });
+
+
+
         }
 
-
-        //[HttpPost]
-        //[Route("sub")]
-        //public async Task<IActionResult> Create(Subscription newSubscription)
-        //{
-        //    var user = new User
-        //    {
-        //        UserName = newSubscription.UserName,
-        //        Email = newSubscription.Email
-        //    };
-
-
-        //    var result = await _userManager.CreateAsync(user);
-
-        //    if (result.Succeeded)
-        //    {
-        //        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
-
-        //        EmailMessage newEmail = new EmailMessage()
-        //        {
-        //            FromAddress = new EmailAddress()
-        //            {
-        //                Address = "senderemailservice23.1@gmail.com",
-        //                Name = "23.1News"
-        //            },
-        //            Content = "Thank you for subscribing!.",
-        //            Subject = "Welcome to 23.1 News"
-        //        };
-
-        //        newEmail.ToAddresses.Add(new EmailAddress()
-        //        {
-        //            Address = newSubscription.UserName,
-        //            Name = newSubscription.Email
-        //        });
-
-        //        _emailHelper.SendEmail(newEmail);
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Error");
-        //    }
-        //}
 
         public IActionResult Delete(int id)
         {
@@ -184,31 +170,6 @@ namespace _23._1News.Controllers
             return View(det);
         }
 
-
-        //public IActionResult SendEmail(Subscription newSubscription)
-        //{
-
-        //    EmailMessage newEmail = new EmailMessage()
-        //    {
-        //        FromAddress = new EmailAddress()
-        //        {
-        //            Address = "senderemailservice23.1@gmail.com",
-        //            Name = "23.1News"
-        //        },
-        //        Content = "Thank you for subscribing!",
-        //        Subject = "Welcome to 23.1 News"
-        //    };
-
-        //    newEmail.ToAddresses.Add(new EmailAddress()
-        //    {
-        //        Address = newSubscription.User.Email,
-        //        Name = newSubscription.User.FirstName + " " + newSubscription.User.LastName
-        //    });
-
-        //    _emailHelper.SendEmail(newEmail);
-
-        //    return View();
-        //}
 
         public IActionResult SendEmail(Subscription newSubscription)
         {
@@ -274,18 +235,68 @@ namespace _23._1News.Controllers
 
 
         [Authorize(Roles = "Editor, Admin")]
+
+        //public IActionResult SubscriptionStatistics()
+        //{
+        //    var totalSubscribers = _subscriptionService.GetAllSubs().Count();
+        //    var activeSubscribers = _subscriptionService.GetActiveSubscribersCount(); // You need to implement this method in your SubscriptionService
+
+        //    var viewModel = new SubscriptionStatisticsVM
+        //    {
+        //        TotalSubscribers = totalSubscribers,
+        //        ActiveSubscribers = activeSubscribers
+        //    };
+
+        //    return View(viewModel);
+        //}
+
         public IActionResult SubscriptionStatistics()
         {
             var totalSubscribers = _subscriptionService.GetAllSubs().Count();
-            var activeSubscribers = _subscriptionService.GetActiveSubscribersCount(); // You need to implement this method in your SubscriptionService
+            var activeSubscribers = _subscriptionService.GetActiveSubscribersCount();
+
+            // Assuming you have a method to get weekly subscription data from your service
+            var weeklySubscriptionData = _subscriptionService.GetWeeklySubscriptionData();
 
             var viewModel = new SubscriptionStatisticsVM
             {
                 TotalSubscribers = totalSubscribers,
-                ActiveSubscribers = activeSubscribers
+                ActiveSubscribers = activeSubscribers,
+                InActiveSubscribers = totalSubscribers - activeSubscribers,
+
+                // Populate these based on your weekly data
+                //WeeklyLabels = weeklySubscriptionData.Select(entry => entry.WeekLabel).ToList(),
+                WeeklySubscribers = weeklySubscriptionData.Select(entry => entry.SubscriberCount).ToList(),
+
+                SubscriptionTypes = _subscriptionService.GetSubscriptionTypes()
             };
 
+            // Assuming you want to render a doughnut chart
+            ViewBag.ChartType = "doughnut";
+
             return View(viewModel);
+        }
+
+        public IActionResult SubscribeToType(int subscriptionTypeId)
+        {
+            // Get the current user
+            var currentUser = _userManager.GetUserAsync(User).Result;
+
+            // Create a new subscription with the obtained user identifier
+            var newSubscription = new Subscription
+            {
+                SubscriptionTypeId = subscriptionTypeId,
+                // Other subscription properties...
+                User = currentUser
+            };
+
+            // Call the CreateSubs method with the new subscription
+            _subscriptionService.CreateSubs(newSubscription);
+
+            // Redirect or return a response as needed
+            // ...
+
+            return RedirectToAction("Index");
         }
 
 

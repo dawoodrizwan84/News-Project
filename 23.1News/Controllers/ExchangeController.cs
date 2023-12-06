@@ -1,29 +1,22 @@
-﻿using _23._1News.Models.Db;
-using _23._1News.Services.Abstract;
+﻿using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _23._1News.Controllers
 {
     public class ExchangeController : Controller
     {
-        private readonly ICurrencyService _currencyService;
 
-        public ExchangeController(ICurrencyService currencyService)
+        private readonly IExchangeRatesService _exchangeRatesService;
+
+        public ExchangeController(IExchangeRatesService exchangeRatesService)
         {
-            _currencyService = currencyService;
-
+            _exchangeRatesService = exchangeRatesService;
         }
 
-
-
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> LatestRates()
         {
-            var newRate = await _currencyService.GetRate();
-
-            return View(newRate);
-
-
+            var newRates = await _exchangeRatesService.GetRateAsync();
+            return View(newRates);
         }
-
     }
 }
