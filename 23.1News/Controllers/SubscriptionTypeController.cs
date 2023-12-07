@@ -18,6 +18,7 @@ namespace _23._1News.Controllers
             _applicationDbContext = applicationDbContext;
             _subscriptionTypeService = subscriptionTypeService;
         }
+
         [Authorize]
         public IActionResult Index()
         {

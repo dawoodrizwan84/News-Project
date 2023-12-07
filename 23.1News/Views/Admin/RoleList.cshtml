@@ -2,6 +2,11 @@
 
 
 
+
+@{
+    ViewData["Title"] = "Role List";
+}
+
 <h1>Role List</h1>
 <hr />
 
@@ -11,6 +16,7 @@
 </p>
 
 
+
 <table class="table table-bordered table-hover table-striped table-light">
     <thead>
         <tr>
@@ -18,21 +24,23 @@
             <th>Name</th>
             <th>NormalizedName</th>
             <th>Action</th>
-
         </tr>
     </thead>
     <tbody>
+        @{
+            var counter = 1;
+        }
         @foreach (var role in Model)
         {
             <tr>
-                <td>@role.Id</td>
+                <td>@counter</td>
                 <td>@role.Name</td>
                 <td>@role.NormalizedName</td>
                 <td>
-                    <a asp-action="DelUser" asp-route-id="@role.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                    <a asp-controller="YourControllerName" asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this role?')">Delete</a>
                 </td>
-
             </tr>
+            counter++;
         }
     </tbody>
 </table>

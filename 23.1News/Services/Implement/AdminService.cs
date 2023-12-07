@@ -55,11 +55,33 @@ namespace _23._1News.Services.Implement
             return false;
         }
 
-
+       
         public List<IdentityRole> GetAllRoles()
         {
             return _roleManager.Roles.ToList();
         }
+
+        public async Task<bool> AddRole(string roleName)
+        {
+            // Check if the role already exists
+            if (await _roleManager.RoleExistsAsync(roleName))
+            {
+                // Role already exists, return false or handle accordingly
+                return false;
+            }
+
+            // Create a new IdentityRole instance
+            var newRole = new IdentityRole(roleName);
+
+            // Create the role using the RoleManager
+            var result = await _roleManager.CreateAsync(newRole);
+
+            // Check if the role creation was successful
+            
+            return result.Succeeded;
+        }
+
+
 
         public List<IdentityUserRole<string>> GetUserRoles()
         {

@@ -50,7 +50,7 @@ namespace _23._1News.Controllers
                 ApplicationDbContext applicationDbContext,
 
                 UserManager<User> userManager, IYahooFinanceService yahooFinanceService,
-                                                
+
                 IWebHostEnvironment webHostEnvironment)
 
         {
@@ -69,7 +69,7 @@ namespace _23._1News.Controllers
 
             _webHostEnvironment = webHostEnvironment;
 
-            _yahooFinanceService =  yahooFinanceService;
+            _yahooFinanceService = yahooFinanceService;
 
 
 
@@ -256,6 +256,8 @@ namespace _23._1News.Controllers
             var det = _articleService.GetArticleById(id);
 
             if (det == null)
+
+
             {
                 return NotFound();
             }
@@ -263,6 +265,7 @@ namespace _23._1News.Controllers
 
 
             if (HttpContext.Request.Cookies.ContainsKey("user_id"))
+
 
             {
                 var userId = HttpContext.Request.Cookies["user_id"];
@@ -440,7 +443,6 @@ namespace _23._1News.Controllers
     }
 
 
-    
+
 }
 
-       

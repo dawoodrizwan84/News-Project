@@ -18,6 +18,8 @@ namespace _23._1News.Services.Abstract
 
         
         bool AddUserRole(UserRoleVM userRoleVM);
-       
+
+        Task<bool> AddRole(string roleName);
+        
     }
 }
