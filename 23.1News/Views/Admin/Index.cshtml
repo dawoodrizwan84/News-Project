@@ -29,14 +29,14 @@
                     </a>
                     <br />
                     <a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
-                        <h5 style="color:#2fa4e7"><span class="fa fa-list mr-3"></span> News List</h5>
+                        <h5 style="color:#2fa4e7"><span class="fa fa-file-text mr-3"></span> News List</h5>
                     </a>
                 </div>
             </div>
 
             <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
                 <div class="card-header bg-primary">
-                    <h5 style="color:white"><span class="fa fa-book mr-3"></span>Category</h5>
+                    <h5 style="color:white"><span class="fa fa-book mr-3"></span> Category</h5>
                 </div>
                 <div class="card-body">
                     <a asp-controller="Category" asp-action="Create" style="margin-top:-10px;border-bottom:none;">
@@ -51,11 +51,15 @@
 
             <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
                 <div class="card-header bg-primary">
-                    <h5 style="color:white"><span class="fa fa-pencil mr-3"></span>User</h5>
+                    <h5 style="color:white"><span class="fa fa-pencil mr-3"></span>Employee</h5>
                 </div>
                 <div class="card-body">
-                    <a asp-controller="Admin" asp-action="UserList" style="margin-top:-20px;border-bottom:none;">
-                        <h5 style="color:#2fa4e7"><span class="fa fa-user-circle-o mr-3"></span> User List</h5>
+                    <a asp-controller="Employee" asp-action="CreateEmployee" style="margin-top:-20px;border-bottom:none;">
+                        <h5 style="color:#2fa4e7"><span class="fa fa-address-book mr-3"></span> Add Employee</h5>
+                    </a>
+                    <br />
+                    <a asp-controller="Employee" asp-action="EmployeeList" style="margin-top:-20px;border-bottom:none;">
+                        <h5 style="color:#2fa4e7"><span class="fa fa-address-card mr-3"></span> Employee List</h5>
                     </a>
                     <br />
                 </div>
@@ -63,9 +67,13 @@
 
             <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
                 <div class="card-header bg-primary">
-                    <h5 style="color:white"><span class="fa fa-user mr-3"></span>User Role</h5>
+                    <h5 style="color:white"><span class="fa fa-user mr-3"></span>User</h5>
                 </div>
                 <div class="card-body">
+                    <a asp-controller="Admin" asp-action="UserList" style="margin-top:-20px;border-bottom:none;">
+                        <h5 style="color:#2fa4e7"><span class="fa fa-user-circle-o mr-3"></span> User List</h5>
+                    </a>
+                    <br />
                     <a asp-controller="Admin" asp-action="UserRoles" style="margin-top:-10px;border-bottom:none;">
                         <h5 style="color:#2fa4e7"><span class="fa fa-user mr-3"></span> User Roles</h5>
                     </a>
