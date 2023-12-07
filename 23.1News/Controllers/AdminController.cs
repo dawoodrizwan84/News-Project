@@ -69,14 +69,44 @@ namespace _23._1News.Controllers
             }
         }
 
-
+        [Route("rol")]
         public IActionResult RoleList()
         {
             var roles = _adminService.GetAllRoles();
             return View(roles);
         }
 
-        [Route("ur")]
+        [Route("anr")]
+        public IActionResult AddNewRole()
+        {
+
+            
+            return View();
+
+
+        }
+
+        [HttpPost]
+        [Route("anr")]
+        public async Task<IActionResult> AddNewRole(string roleName)
+        {
+            var result = await _adminService.AddRole(roleName);
+
+            if (result)
+            {
+                // Role added successfully, you can redirect to the RoleList action or handle accordingly
+                return RedirectToAction("RoleList");
+            }
+            else
+            {
+                // Role creation failed, handle accordingly (e.g., return an error view)
+                return View("Error");
+            }
+
+
+        }
+
+
         public IActionResult UserRoles()
         {
             var userRoles = _adminService.GetUserRoles();
@@ -91,7 +121,7 @@ namespace _23._1News.Controllers
         }
 
         [HttpPost]
-        
+
         public IActionResult CreateRoles(UserRoleVM userRoleVM)
         {
             var aaa = _adminService.AddUserRole(userRoleVM);

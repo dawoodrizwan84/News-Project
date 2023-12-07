@@ -1,16 +1,21 @@
 ﻿using _23._1News.Models.Db;
+using _23._1News.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace _23._1News.Services.Abstract
 {
     public interface IEmployeeService
     {
-        List<Employee> GetEmployees();
+        List<User> GetEmployees();
 
-        void AddEmployee(Employee employee);
+        void AddEmployee(EmployeeVM employeeVM);
 
-        Employee GetEmployeeById(int employeeId);
+        //Task<string> GetEmployeeRoleAsync(int employeeId);
+        //Task<bool> AssignRoleAsync(int employeeId, string roleName);
 
-        bool DeleteEmployee(int employeeId);
+        //Employee GetEmployeeById(int employeeId);
+
+        //bool DeleteEmployee(int employeeId);
 
     }
 }

@@ -11,6 +11,8 @@ namespace _23._1News.Models.Db
         //public bool Employee { get; set; }
         public int DOB { get; set; }
 
+        public string Address { get; set; } = string.Empty;
+
         public virtual ICollection<Subscription> Subscriptions { get; set; }
     }
 }
