@@ -353,8 +353,8 @@
                 datasets: [{
                     label: 'Subscribers by Subscription Type',
                     data: @Html.Raw(Json.Serialize(Model.SubscriptionTypes.Select(st => st.Id))),
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }]
             };
@@ -376,33 +376,57 @@
     </script>
 }
 
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+<h1>Subscription Statistics</h1>
+<hr />
 
-<div>
-    <h1>Subscription Statistics</h1>
-    <hr />
-    <div style="width: 80%; margin: auto;">
-        <canvas id="subscriptionChart"></canvas>
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Active Subscribers</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5">
+            <canvas id="subscriptionChart"></canvas>
+        </div>
     </div>
-    
-    <!-- Chart for Weekly Subscribers -->
-    <div style="width: 80%; margin: auto;">
+</div>
+
+<!-- Chart for Weekly Subscribers -->
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Weekly Subscribers</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5" style="width: 80%; margin: auto;">
+            <canvas id="weeklySubscribersChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart for Subscription Types -->
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Subscription Types</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5" style="width: 80%; margin: auto;">
+            <canvas id="subscriptionTypesChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@* <!-- Chart for Weekly Subscribers -->
+    <div class="mt-5" style="width: 80%; margin: auto;">
         <canvas id="weeklySubscribersChart"></canvas>
     </div>
 
     <!-- Chart for Subscription Types -->
-    <div style="width: 80%; margin: auto;">
+    <div class="mt-5" style="width: 80%; margin: auto;">
         <canvas id="subscriptionTypesChart"></canvas>
     </div>
 
     <dl class="row mt-3">
         <!-- ... (existing code for other statistics) ... -->
-    </dl>
-</div>
+    </dl> *@
+
+
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    @* @Html.ActionLink("Edit", "Edit", new {  id = Model.PrimaryKey }) | *@
+
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    <a asp-action="Index" class="btn btn-primary m-2">Back to List</a>
 </div>
 
