@@ -62,43 +62,84 @@
                                     <img src="https://img.icons8.com/color/36/000000/visa.png">
                                     <img src="https://img.icons8.com/color/36/000000/mastercard.png">
                                     <img src="https://img.icons8.com/color/36/000000/amex.png">
-
                                 </div>
-
                             </div>
 
                             <div class="card-body" style="height: 350px">
+
                                 <div class="c-details">
+                                    <div>
                                     <h6>Card number</h6>
-                                    <div class="c-number" id="c-number">
                                         <input id="number" class="cc-number" placeholder="Card number" maxlength="19" style="width:100%" required>
                                     </div>
-                                    <br>
+                                        <br>
                                     <div>
-                                        <h6>Expiry date</h6>
-                                        <input id="e-date" class="cc-exp" placeholder="MM/YY" maxlength="5" style="width:100%" required>
-                                    </div>
-                                    <br>
-                                    <div>
-                                        <h6>CVV</h6>
-                                        <div class="cvv-box" id="cvv-box">
-                                            <input id="cvv" class="cc-cvv" placeholder="CVV" maxlength="3" style="width:100%" required>
+                                        <div class="input-row">
+                                            <fieldset class="form-group">
+                                                <h6>Expiry date</h6>
+                                                <div class="horizontal-input-stack">
+                                                    Month<select id="expiration-month" aria-label="Expiration Month" required>
+                                                        <option>01</option>
+                                                        <option>02</option>
+                                                        <option>03</option>
+                                                        <option>04</option>
+                                                        <option>05</option>
+                                                        <option>06</option>
+                                                        <option>07</option>
+                                                        <option>08</option>
+                                                        <option>09</option>
+                                                        <option>10</option>
+                                                        <option>11</option>
+                                                        <option>12</option>
+                                                    </select>
+
+                                                    Year<select id="expiration-year" aria-label="Expiration Year" required data-expiration-year>
+                                                        <option>23</option>
+                                                        <option>24</option>
+                                                        <option>25</option>
+                                                        <option>26</option>
+                                                        <option>27</option>
+                                                        <option>28</option>
+                                                        <option>29</option>
+                                                        <option>30</option>
+                                                    </select>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div>
+                                            <div class="cvv-box" id="cvv-box">
+                                            <h6>CVV</h6>
+                                            <input id="cvv" type="number" class="cc-cvv" placeholder="CVV" maxlength="3" oninput="if(value.length>3)value=value.slice(0,3)" style="width:100%" required>
+                                        </div>
                                         </div>
                                     </div>
-                                </div>
-                                <br>
-                                <br>
-                                <form asp-action="Create" method="post">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group">
-                                        <button type="submit" class=" btn btn-primary btn-lg form-control"
-                                                style="font-size: .8rem;">
-                                            Sbscribe Now
-                                        </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            <form id="subform" asp-action="Create" method="post" style="margin-bottom:50px">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <button id="subbtn" disabled="disabled" type="submit" class=" btn btn-primary btn-lg form-control"
+                                            onclick="openPopup()">
+                                        Subscribe Now
+                                    </button>
+                                </div>
+                            </form>
+                                <div class="col-xl-6 col-sm-8">
 
+                                    <div class="popup" id="popup">
+                                        <img src="~/image/tick.png" />
+                                        <h2>Thank you!</h2>
+                                        <p>Your subscribe has been successfully.Thanks!</p>
+                                        <form asp-controller="Home" asp-action="Index">
+                                            <div class="form-group">
+                                                <button type="submit" class=" btn btn-primary btn-lg form-control"
+                                                         onclick="closePopup()">
+                                                    Go back frontpage
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
                         </div>
 
                     </div>
@@ -110,10 +151,7 @@
 
     }
 
-
-</div>
-
-
+    </div>
 <script src="~/js/card.js"></script>
 
 

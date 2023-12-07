@@ -5,6 +5,21 @@
 }
 
 
+@if (User.IsInRole("Editor"))
+{
+    <p>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
 <section class="section">
     <div>
         <div class="container">
@@ -28,7 +43,7 @@
                                         <div class="card-body">
                                             <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
                                                 @*<h5 class="card-title">@item.LinkText</h5>*@
-                                                <h1 class="card-title mt-2">@item.Headline</h1>
+                                                <h2 class="card-title mt-2">@item.Headline</h2>
                                                 <p class="card-text mt-2">@TempData["ContentSummary"]</p>
                                                 @*<p class="card-text">@item.Content</p>*@
                                             </a>
