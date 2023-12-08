@@ -100,18 +100,34 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity Price</a>
-                        </li>
-                       @*  @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
-                        ViewContext.RouteData.Values["action"].ToString() == "News" &&
-                        ViewContext.RouteData.Values.ContainsKey("id") &&
-                        ViewContext.RouteData.Values["id"].ToString() == "Economy")
+                       
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li id="hover001" class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetYahooFinanceData">Yahoo Finance Data</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
                             </li>
-                        } *@
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+                        @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
+                            </li>
+                        }
+
+                        @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
+                            </li>
+                        }
                     </ul>
 
                     &nbsp;&nbsp; &nbsp;&nbsp;
