@@ -1,5 +1,6 @@
 ﻿using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace _23._1News.Services.Abstract
 {
@@ -27,7 +28,8 @@ namespace _23._1News.Services.Abstract
         IEnumerable<Subscription> GetWeeklySubscriptionData();
         List<SubscriptionType> GetSubscriptionTypes();
 
-       // object GetSubsByUserId(string? userId);
+        // object GetSubsByUserId(string? userId);
+        bool isEnteprise( string userId);
 
     }
 }
