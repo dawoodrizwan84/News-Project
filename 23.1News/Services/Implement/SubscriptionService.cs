@@ -3,8 +3,13 @@ using _23._1News.Models.Db;
 using _23._1News.Models.View_Models;
 using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
+using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.X86;
+using System.Security.Policy;
+using System;
+using System.Diagnostics;
 
 namespace _23._1News.Services.Implement
 {
@@ -144,7 +149,33 @@ namespace _23._1News.Services.Implement
         //{
         //    throw new NotImplementedException();
         //}
+        
+        public bool isEnteprise(string userId)
+        {
+            // Retrieve the active subscription for the user
+            var activeSubscription = GetActiveSubscriptionByUserId(userId);
+
+            //Check if the user has an active subscription of the specified type
+            //return activeSubscription != null &&
+            //       activeSubscription.SubscriptionType?.TypeName == "Enterprise";
+            return activeSubscription != null &&
+                   activeSubscription.SubscriptionTypeId == 11;
+        }
+
+        public Subscription GetActiveSubscriptionByUserId(string userId)
+        {
+            // Retrieve the active subscription for the given user
+            var activeSubscription = _db.Subscriptions
+                .Where(s => s.UserId == userId && s.IsActive)
+                .OrderByDescending(s => s.Created)
+                .FirstOrDefault();
+
+            return activeSubscription;
+        }
+
+        // ... other methods ...
+    }
 
     }
 
-}
+
