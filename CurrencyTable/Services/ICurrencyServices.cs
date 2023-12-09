@@ -1,11 +1,11 @@
-﻿using CurrencyTable.Properties.Model;
+﻿using CurrencyTable.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CurrencyTable.Properties.Services
+namespace CurrencyTable.Services
 {
     public interface ICurrencyServices
     {
@@ -13,7 +13,7 @@ namespace CurrencyTable.Properties.Services
 
         Task SaveDataAsync(CurrencyRates newtodaysRates);
 
-     
+
         //Task<CurrencyExchangeRates> GetRate();
     }
 }
