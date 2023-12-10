@@ -55,7 +55,7 @@ namespace _23._1News.Services.Implement
             return false;
         }
 
-       
+
         public List<IdentityRole> GetAllRoles()
         {
             return _roleManager.Roles.ToList();
@@ -77,18 +77,59 @@ namespace _23._1News.Services.Implement
             var result = await _roleManager.CreateAsync(newRole);
 
             // Check if the role creation was successful
-            
+
             return result.Succeeded;
         }
 
 
+        //public List<IdentityUserRole<string>> GetUserRoles()
+        //{
 
-        public List<IdentityUserRole<string>> GetUserRoles()
+        //    return _db.UserRoles.ToList();
+
+        //}
+
+        public List<UserRoleVM> GetUserRoles()
         {
-           
-            return _db.UserRoles.ToList();
+            var userRoleDetails = _db.UserRoles
+                .Join(
+                    _db.Users,
+                    ur => ur.UserId,
+                    u => u.Id,
+                    (ur, u) => new
+                    {
+                        ur.RoleId,
+                        ur.UserId,
+                        u.UserName, // Include user name
+                        u.FirstName, // Assuming FirstName and LastName are properties in your User model
+                        u.LastName
 
+                    })
+                .Join(_roleManager.Roles,
+                     ur => ur.RoleId,
+                     r => r.Id,
+                     (ur, r) => new 
+                     {
+                         ur.RoleId,
+                         ur.UserId,
+                         ur.FirstName,
+                         ur.LastName,
+                         RoleName = r.Name
+                     }).ToList();
+
+            var userRolesViewModel = userRoleDetails.Select(ur => new UserRoleVM
+            {
+                UserId = ur.UserId,
+                UserName = $"{ur.FirstName} {ur.LastName}", // Concatenate first and last name
+                RoleId = ur.RoleId,
+                RoleName = ur.RoleName
+
+                // Include other properties from UserRoles, if needed
+            }).ToList();
+
+            return userRolesViewModel;
         }
+
 
 
         public bool AddUserRole(UserRoleVM userRoleVM)
@@ -111,7 +152,7 @@ namespace _23._1News.Services.Implement
 
                 return false;
             }
-          
+
         }
     }
 }

@@ -14,9 +14,14 @@ namespace _23._1News.Services.Abstract
 
         List<IdentityRole> GetAllRoles();
 
-        List<IdentityUserRole<string>> GetUserRoles();
+        //List<IdentityUserRoleVM> GetUserRoles();
 
-        
+        //List<IdentityUserRole<string>> GetUserRoles();
+
+        List<UserRoleVM> GetUserRoles();
+
+
+
         bool AddUserRole(UserRoleVM userRoleVM);
 
         Task<bool> AddRole(string roleName);

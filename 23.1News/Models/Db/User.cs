@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 
 namespace _23._1News.Models.Db
 {
@@ -14,5 +15,6 @@ namespace _23._1News.Models.Db
         public string Address { get; set; } = string.Empty;
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+
     }
 }

@@ -3,10 +3,8 @@ using System.IO;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using _23._1News.Models.Db;
 
 namespace ExpireEmail
 {
@@ -52,4 +50,13 @@ namespace ExpireEmail
             }
         }
     }
+}
+
+
+
+public class User
+{
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 }
