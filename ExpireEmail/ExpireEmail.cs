@@ -15,39 +15,39 @@ namespace ExpireEmail
         {
             log.LogInformation($"C# Queue trigger function processed: {user.Email}");
 
-            var configuration = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("local.settings,json", true, true)
-               .AddEnvironmentVariables()
-               .Build();
+            //var configuration = new ConfigurationBuilder()
+            //   .SetBasePath(Directory.GetCurrentDirectory())
+            //   .AddJsonFile("local.settings,json", true, true)
+            //   .AddEnvironmentVariables()
+            //   .Build();
 
-            MailMessage mailMessage = new();
-            SmtpClient smtpClient = new SmtpClient(configuration["Host"]);
-            int port = int.Parse(configuration["port"]);
+            //MailMessage mailMessage = new();
+            //SmtpClient smtpClient = new SmtpClient(configuration["Host"]);
+            //int port = int.Parse(configuration["port"]);
 
-            try
-            {
-                mailMessage.From = new MailAddress(configuration["senderemailservice23.1@gmail.com"],
-                    configuration["23.1News"]);
-                mailMessage.To.Add(user.Email);
-                mailMessage.Subject = "Your subscription will expire soon";
-                mailMessage.Body = "<p>On"
-                    + DateTime.Now.AddDays(2).ToShortDateString()
-                    + "Your subscription will expire in two days. Continue to enjoy reading our news by subscribing again </p> ";
-                mailMessage.IsBodyHtml = true;
+            //try
+            //{
+            //    mailMessage.From = new MailAddress(configuration["senderemailservice23.1@gmail.com"],
+            //        configuration["23.1News"]);
+            //    mailMessage.To.Add(user.Email);
+            //    mailMessage.Subject = "Your subscription will expire soon";
+            //    mailMessage.Body = "<p>On"
+            //        + DateTime.Now.AddDays(2).ToShortDateString()
+            //        + "Your subscription will expire in two days. Continue to enjoy reading our news by subscribing again </p> ";
+            //    mailMessage.IsBodyHtml = true;
 
-                smtpClient.Port = port;
-                smtpClient.Credentials =
-                    new NetworkCredential(configuration["Server"], configuration["Password"]);
-                smtpClient.Send(mailMessage);
+            //    smtpClient.Port = port;
+            //    smtpClient.Credentials =
+            //        new NetworkCredential(configuration["Server"], configuration["Password"]);
+            //    smtpClient.Send(mailMessage);
 
                
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
         }
     }
 }

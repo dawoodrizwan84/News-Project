@@ -43,7 +43,7 @@ namespace NewsLetterToQueue
                     });
 
 
-            List<User> NewsLetterUsers = _applicationDbContext.Users.ToList();
+            List<User> NewsLetterUsers = _applicationDbContext.Users.Take(10).ToList();
 
 
             foreach (var user in NewsLetterUsers)

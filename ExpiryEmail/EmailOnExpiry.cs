@@ -1,29 +1,32 @@
+using System;
+using System.IO;
 using MailKit.Net.Smtp;
-using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 using MimeKit.Text;
-using System;
-using System.IO;
 
-namespace QueueTrigger
+namespace ExpiryEmail
 {
-    public class SendEmail
+    public class EmailOnExpiry
     {
-        private readonly ILogger<SendEmail> _logger;
+
+        private readonly ILogger<EmailOnExpiry> _logger;
         private readonly IConfiguration _configuration;
 
-        public SendEmail(ILogger<SendEmail> logger, IConfiguration configuration)
+        public EmailOnExpiry(ILogger<EmailOnExpiry> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
         }
 
-        [Function("SendEmail")]
-        public void Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")] User user)
+        [FunctionName("EmailOnExpiry")]
+        public void Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")]User user
+            , ILogger log)
         {
-            _logger.LogInformation($"C# Queue trigger function processed: {user.Email}");
+            log.LogInformation($"C# Queue trigger function processed: {user.Email}");
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -39,7 +42,9 @@ namespace QueueTrigger
                 message.Subject = "Weekly Newsletter";
                 message.Body = new TextPart(TextFormat.Html)
                 {
-                    Text = $"Hello {user.FirstName} {user.LastName},<br/><br/>Hello There!"
+                    Text = $"<p> On " + DateTime.Now.AddDays(2).ToLongDateString() +
+                            $" Hello {user.FirstName}! <br/>" + "\"Your subscription will expire in two days. " +
+                            "Continue to enjoy reading our news by subscribing again </p> \";!"
                 };
 
                 using (var emailClient = new SmtpClient())
@@ -54,14 +59,15 @@ namespace QueueTrigger
             {
                 // Handle exceptions (log or rethrow if necessary)
                 _logger.LogError($"An error occurred: {ex.Message}");
+                _logger.LogError($"Message Faile: {ex.Message}");
             }
         }
     }
-}
 
-public class User
-{
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
+    public class User
+    {
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
 }
