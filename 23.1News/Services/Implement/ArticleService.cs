@@ -96,12 +96,13 @@ namespace _23._1News.Services.Implement
         {
             var article = _db.Articles.Find(id);
 
-            //if (article != null)
-            //{
-            //    article.BlobLink = GetBlobImage(article.ImageLink);
-            //}
+            if (article != null)
+            {
+                article.BlobLink = GetBlobImage(article.ImageLink);
+            }
 
-            article!.BlobLink = GetBlobImage(article.ImageLink);
+            //article!.BlobLink = GetBlobImage(article.ImageLink);
+
             return article;
         }
 

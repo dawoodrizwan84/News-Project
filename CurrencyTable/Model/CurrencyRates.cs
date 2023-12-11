@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CurrencyTable.Properties.Model
+namespace CurrencyTable.Model
 {
 
     public class CurrencyRates
@@ -18,6 +18,6 @@ namespace CurrencyTable.Properties.Model
         public Dictionary<string, decimal> Rates { get; set; }
     }
 
-   
+
 
 }

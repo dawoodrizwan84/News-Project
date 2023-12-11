@@ -1,6 +1,5 @@
-﻿using _23._1News.Models.Db;
-using Azure.Data.Tables;
-using CurrencyTable.Properties.Model;
+﻿using Azure.Data.Tables;
+using CurrencyTable.Model;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CurrencyTable.Properties.Services
+namespace CurrencyTable.Services
 {
     public class CurrencyServices : ICurrencyServices
     {
@@ -75,9 +74,9 @@ namespace CurrencyTable.Properties.Services
 
             foreach (var (symbol, value) in todaysRates.Rates)
             {
-                
-                    
-                    
+
+
+
                 var newEntity = new TodaysRateEntity()
                 {
                     Currency = symbol,

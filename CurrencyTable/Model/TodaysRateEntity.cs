@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 
-namespace _23._1News.Models.Db
+namespace CurrencyTable.Model
 {
     public class TodaysRateEntity : ITableEntity
     {
@@ -13,7 +13,7 @@ namespace _23._1News.Models.Db
         public decimal Rate { get; set; }
 
 
-       
+
 
     }
 }

@@ -29,7 +29,7 @@ namespace ExpireEmail
 
             try
             {
-                mailMessage.From = new MailAddress(configuration["EmailAddress"],
+                mailMessage.From = new MailAddress(configuration["senderemailservice23.1@gmail.com"],
                     configuration["23.1News"]);
                 mailMessage.To.Add(user.Email);
                 mailMessage.Subject = "Your subscription will expire soon";

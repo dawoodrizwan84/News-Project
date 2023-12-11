@@ -1,5 +1,5 @@
-using CurrencyTable.Properties.Model;
-using CurrencyTable.Properties.Services;
+using CurrencyTable.Model;
+using CurrencyTable.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
