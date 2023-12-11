@@ -101,7 +101,7 @@ namespace _23._1News.Services.Implement
             //    article.BlobLink = GetBlobImage(article.ImageLink);
             //}
 
-            //article!.BlobLink = GetBlobImage(article.ImageLink);
+            article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
 
