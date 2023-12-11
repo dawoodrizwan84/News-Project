@@ -70,7 +70,8 @@
                                 <div class="c-details">
                                     <div>
                                     <h6>Card number</h6>
-                                        <input id="number" class="cc-number" placeholder="Card number" maxlength="19" style="width:100%" required>
+                                        <input id="number" class="cc-number" placeholder="Card number" maxlength="19"
+                                               onkeyup="this.value=this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');" style="width:100%" required>
                                     </div>
                                         <br>
                                     <div>
@@ -106,6 +107,7 @@
                                                 </div>
                                             </fieldset>
                                         </div>
+                                        <br>
                                         <div>
                                             <div class="cvv-box" id="cvv-box">
                                             <h6>CVV</h6>
