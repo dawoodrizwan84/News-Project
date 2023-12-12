@@ -97,9 +97,9 @@
                             </li>
                         }
 
-                        <li class="nav-item">
+                       @*  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li> *@
                        
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -107,9 +107,9 @@
                                 <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
                             </li>
                         }
-                        <li class="nav-item">
+                      @*   <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li> *@
 
                         @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
 
