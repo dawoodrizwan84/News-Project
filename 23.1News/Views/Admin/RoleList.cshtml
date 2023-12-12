@@ -1,0 +1,49 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+
+
+
+
+@{
+    ViewData["Title"] = "Role List";
+}
+
+<h1>Role List</h1>
+<hr />
+
+
+<p>
+   <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+</p>
+
+
+
+<table class="table table-bordered table-hover table-striped table-light">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>NormalizedName</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var counter = 1;
+        }
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@counter</td>
+                <td>@role.Name</td>
+                <td>@role.NormalizedName</td>
+                <td>
+                    <a asp-controller="YourControllerName" asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this role?')">Delete</a>
+                </td>
+            </tr>
+            counter++;
+        }
+    </tbody>
+</table>
+
+
+

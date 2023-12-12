@@ -1,0 +1,189 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<title>Adimin Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>@ViewData["Title"]-23.1News</title>
+	<link rel="icon" href="~/23_favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/styleadmin.css" rel="stylesheet" />
+    <link href="~/css/adminsite.css" rel="stylesheet" />
+</head>
+
+<body>
+@if (User.IsInRole("Admin"))
+{
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+				</div>
+				<div class="p-4">
+					<a asp-area="" asp-controller="Home" asp-action="Index">
+						<img src="~/image/logowhite.png" href="Home/Index" alt="23.1" class="img-fluid" />
+					</a>
+					<br />
+					<br />
+					<ul class="list-unstyled components mb-5">
+						<li class="active">
+							<a asp-controller="Home" asp-action="Index" aria-current="page">
+								<span class="fa fa-home mr-3"></span>
+								<strong> Home</strong>
+							</a>
+						</li>
+						<li>
+							<p style="margin-top:10px;"><small>Editor</small></p>
+							<a asp-controller="Article" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+								<span class="fa fa-sticky-note mr-3"></span> Add News
+							</a>
+							<a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-file-text mr-3"></span> News List
+							</a>
+							<a asp-controller="Category" asp-action="Create" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-book mr-3"></span> Add Category
+							</a>
+							<a asp-controller="Category" asp-action="Index" style="margin-top:-10px;">
+								<span class="fa fa-list mr-3"></span> Category List
+							</a>
+						</li>
+						<li>
+							<p style="margin-top:10px;"><small>Employee</small></p>
+							<a asp-controller="Employee" asp-action="CreateEmployee" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-address-book mr-3"></span> Add Employee
+							</a>
+							<a asp-controller="Employee" asp-action="EmployeeList" style="margin-top:-10px;">
+								<span class="fa fa-address-card mr-3"></span> Employee List
+							</a>
+						</li>
+						<li>
+							<p style="margin-top:10px;"><small>User</small></p>
+							<a asp-controller="Admin" asp-action="UserList" style="margin-top:-20px;border-bottom:none;">
+								<span class="fa fa-user-circle-o mr-3"></span> User List
+							</a>
+							<a asp-controller="Admin" asp-action="UserRoles" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-user mr-3"></span> User Roles
+							</a>
+							<a asp-controller="Admin" asp-action="CreateRoles" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-user-plus mr-3"></span> Create Roles
+							</a>
+							<a asp-controller="Admin" asp-action="RoleList" style="margin-top:-10px;">
+								<span class="fa fa-users mr-3"></span> Role List
+							</a>
+						</li>
+
+						<li>
+							<p style="margin-top:10px;"><small>Subscription</small></p>
+							<a asp-controller="SubscriptionType" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+								<span class="fa fa-envelope mr-3"></span> Add Plan
+							</a>
+							<a asp-controller="SubscriptionType" asp-action="List" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-envelope-square mr-3"></span> Plan List
+							</a>
+							<a asp-controller="Subscription" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-envelope-open mr-3"></span> Subscription List
+							</a>
+							<a asp-controller="Subscription" asp-action="SubscriptionStatistics" style="margin-top:-10px;">
+								<span class="fa fa-bar-chart mr-3"></span> Subscription Stats
+							</a>
+						</li>
+					</ul>
+					<div style="margin-top:-20px;">
+						<form class="d-flex justify-content-right" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
+							<input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit" style="background-color:#c71c22;">Search</button>
+						</form>
+					</div>
+
+				</div>
+			</nav>
+
+			<!-- Page Content  -->
+			<div id="content" class="p-4 p-md-5 pt-5">
+				<main role="main">
+					@RenderBody()
+				</main>
+			</div>
+		</div>
+}
+
+	else if (User.IsInRole("Editor"))
+{
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+				</div>
+				<div class="p-4">
+					<a asp-area="" asp-controller="Home" asp-action="Index">
+						<img src="~/image/logowhite.png" href="Home/Index" alt="23.1" class="img-fluid" />
+					</a>
+					<br />
+					<br />
+					<ul class="list-unstyled components mb-5">
+						<li class="active">
+							<a asp-controller="Home" asp-action="Index" aria-current="page">
+								<span class="fa fa-home mr-3"></span>
+								<strong> Home</strong>
+							</a>
+						</li>
+						<li>
+							<p style="margin-top:10px;"><small>Editor</small></p>
+							<a asp-controller="Article" asp-action="Create" style="margin-top:-20px;border-bottom:none;">
+								<span class="fa fa-sticky-note mr-3"></span> Add News
+							</a>
+							<a asp-controller="Article" asp-action="Index" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-list mr-3"></span> News List
+							</a>
+							<a asp-controller="Category" asp-action="Create" style="margin-top:-10px;border-bottom:none;">
+								<span class="fa fa-book mr-3"></span> Add Category
+							</a>
+							<a asp-controller="Category" asp-action="Index" style="margin-top:-10px;">
+								<span class="fa fa-list mr-3"></span> Category List
+							</a>
+						</li>
+					</ul>
+					<div style="margin-top:-20px;">
+						<form class="d-flex justify-content-right" asp-controller="Article" asp-action="Search" enctype="multipart/form-data" method="get">
+							<input name="search" class="form-control me-sm-2" type="search" placeholder="Search">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit" style="background-color:#c71c22;">Search</button>
+						</form>
+					</div>
+
+				</div>
+			</nav>
+
+			<!-- Page Content  -->
+			<div id="content" class="p-4 p-md-5 pt-5">
+				<main role="main">
+					@RenderBody()
+				</main>
+			</div>
+		</div>
+
+
+}
+	
+
+
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.min.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/js/popper.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	@*     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	*@
+	<script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/b-2.4.2/fc-4.3.0/sc-2.2.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+

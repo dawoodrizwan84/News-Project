@@ -1,5 +1,7 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,11 +10,127 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 100px;
+}
+
+.header-top {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+.header-top1 {
+    margin-top: 20px;
+    display: flex;
+
+    
+}
+
+
+a:link {
+
+    text-decoration: none;
+}
+
+.card-text {
+
+    color: black;
+}
+
+#sidebar {
+    width: 250px;
+    float: right;
+    margin-top: 40px;
+}
+
+.nav-item001:hover {
+    background-color: #2fa4e7;
+    color:white;
+    font-size: large;
+}
+
+
+
+#frontpagefooter {
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+}
+
+#hover002:hover {
+    color: grey;
+    font-size: large;
+}
+
+#hover001:hover {
+    font-size: large;
+}
+
+.payment{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#pay{
+   cursor:pointer;
+
+}
+
+.popup {
+    width: 90%;
+    height: 300px;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0%;
+    left: 5%;
+    transform: translate(-50%,-50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    visibility:hidden;
+    transition: transform 0.4s,top 0.4s;
+}
+.open-popup {
+    visibility: visible;
+    top:20%;
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.popup img{
+    width:100px;
+    margin-top:-50px;
+    border-radius:50%;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.popup h2{
+    font-size:38px;
+    font-weight:500;
+    margin:30px 0 10px;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #2fa4e7;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
 }

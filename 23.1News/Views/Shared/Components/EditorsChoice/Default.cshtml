@@ -1,0 +1,37 @@
+﻿@model IEnumerable<_23._1News.Models.Db.Article>
+
+
+<div id="editors">
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                <h6 class="card-title" style="color:#2fa4e7">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                         </svg>@item.LinkText
+                </h6>
+                <h5 class="card-title" style="color:grey">@item.Headline</h5>
+
+            </a>
+        </div>
+        <hr />
+
+    }
+
+
+    <br />
+    <div id="morechoice">
+
+        <button onclick="MoreEditorsArticles('10')" class="btn btn-link bg-light">More articles</button>
+        @*<button type="button" class="btn btn-primary">Primary</button>*@
+    </div>
+
+
+</div>
+
+
+
+
+

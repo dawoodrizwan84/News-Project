@@ -1,0 +1,254 @@
+﻿@model _23._1News.Models.Db.Article
+@{
+    ViewData["Title"] = "Home Page";
+    var test = @Model.BlobLink;
+}
+
+@if (User.IsInRole("Editor"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
+
+<section class="section">
+    <div>
+        <div class="container">
+            <div class="content">
+                <div class="row gx-5">
+                    <div class="col-xl-8 col-lg-7 col-md-12">
+                        <h1 style="margin-top:50px;">@Model.Headline</h1>
+                        <br />
+                        <img src="@test" class="card-img-top" alt="...">
+                        <br />
+                        <div class="card-body">
+                            <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
+                                @*<h5 class="card-title">mitem.LinkText</h5>*@
+                                <h7 class="card-text"><i>@Model.DateStamp.ToString("yyyy-MM-dd HH:mm")</i></h7>
+                                
+                                <p class="card-text"><i>@TempData["ContentSummary"]</i></p>
+                                <hr />
+                                <p class="card-text">@TempData["Content"]</p>
+
+                            </a>
+
+
+                        </div>
+
+                        <br/>
+
+                        @if (@TempData["Content"] == null)
+                        {
+
+                            <main style="margin-top:20px;">
+                                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                                            <div class="card-header py-3">
+                                                <h4 class="my-0 fw-normal">Free</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+                                                <ul class="list-unstyled mt-3 mb-4">
+                                                    <li>Free Membership Weekly Print edition Free Economist notebook</li>
+                                                </ul>
+                                                <a class="btn btn-lg btn-outline-primary m-2" href="/SubscriptionType/GotoStart/6">Sign up for free</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                                            <div class="card-header py-3 text-bg-primary border-primary">
+                                                <h4 class="my-0 fw-normal" style="color:white;">Pro</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
+                                                <ul class="list-unstyled mt-3 mb-4">
+                                                    <li>Free Membership Weekly Print edition Free Economist notebook</li>
+                                                </ul>
+                                                <a class="btn btn-lg btn-primary m-2" href="/SubscriptionType/GotoStart/9">Go to Start</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                                            <div class="card-header py-3 text-bg-primary border-primary">
+                                                <h4 class="my-0 fw-normal" style="color:white;">Enterprise</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <h1 class="card-title pricing-card-title">$39<small class="text-body-secondary fw-light">/mo</small></h1>
+                                                <ul class="list-unstyled mt-3 mb-4">
+                                                    <li>Free Membership Weekly Print edition Free Economist notebook </li>
+                                                </ul>
+                                                <a class="btn btn-lg btn-primary m-2" href="/SubscriptionType/GotoStart/11">Go to Start</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+
+
+
+                            <h2 class="display-6 text-center mb-4" style="margin-top:20px;">Compare plans</h2>
+
+                            <div class="table-responsive">
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 34%;"></th>
+                                            <th style="width: 22%;">Free</th>
+                                            <th style="width: 22%;">Pro</th>
+                                            <th style="width: 22%;">Enterprise</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="text-start">Free Membership</th>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="text-start">Weekly Print edition</th>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="text-start">Free Economist notebook</th>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="text-start">Packers News app</th>
+                                            <td></td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="text-start">The Economist app FOR IOS</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="text-start">Extra Service</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                </svg>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        }
+
+
+
+
+
+                    </div>
+
+
+
+
+                    <div class="col-xl-4 col-lg-5 col-md-12" style="margin-top:100px;">
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Latest News</h3>
+                            <div class="card-body">
+                                <vc:latest-news count="5"></vc:latest-news>
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card mb-3">
+                            <h3 class="card-header" style="color:white;background-color:#2fa4e7;">Editor choice</h3>
+                            <div class="card-body">
+                                <vc:editors-choice count="5"></vc:editors-choice>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

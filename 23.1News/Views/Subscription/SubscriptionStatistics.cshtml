@@ -1,0 +1,432 @@
+﻿
+
+
+      @*   @model _23._1News.Models.ViewModels.SubscriptionStatisticsVM
+
+@{
+    ViewData["Title"] = "SubscriptionStatistics";
+}
+
+@section scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('subscriptionChart').getContext('2d');
+
+            var data = {
+                labels: ['Total Subscribers', 'Active Subscribers', 'Inactive Subscribers'],
+                datasets: [{
+                    label: 'Subscription Statistics',
+                    data: [@Model.TotalSubscribers, @Model.ActiveSubscribers, @Model.InActiveSubscribers],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+}
+
+<div>
+    <h1>Subscription Statistics</h1>
+    <hr />
+    <div style="width: 80%; margin: auto;">
+        <canvas id="subscriptionChart"></canvas>
+    </div>
+    <dl class="row mt-3">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ActiveSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InActiveSubscribers)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+ *@
+
+
+ @* here is a doughnut chart *@
+
+@* 
+@model _23._1News.Models.ViewModels.SubscriptionStatisticsVM
+
+@{
+    ViewData["Title"] = "SubscriptionStatistics";
+}
+
+@section scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('subscriptionChart').getContext('2d');
+
+            var data = {
+                labels: ['Total Subscribers', 'Active Subscribers', 'Inactive Subscribers'],
+                datasets: [{
+                    label: 'Subscription Statistics',
+                    data: [@Model.TotalSubscribers, @Model.ActiveSubscribers, @Model.InActiveSubscribers],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+            };
+
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+}
+
+<div>
+    <h1>Subscription Statistics</h1>
+    <hr />
+    <div style="width: 80%; margin: auto;">
+        <canvas id="subscriptionChart"></canvas>
+    </div>
+    <dl class="row mt-3">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ActiveSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InActiveSubscribers)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+ *@
+
+
+
+@* @model _23._1News.Models.ViewModels.SubscriptionStatisticsVM
+
+@{
+    ViewData["Title"] = "SubscriptionStatistics";
+}
+
+@section scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('subscriptionChart').getContext('2d');
+
+            var data = {
+                labels: ['Total Subscribers', 'Active Subscribers', 'Inactive Subscribers'],
+                datasets: [{
+                    label: 'Subscription Statistics',
+                    data: [@Model.TotalSubscribers, @Model.ActiveSubscribers, @Model.InActiveSubscribers],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+            };
+
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+}
+
+<div>
+    <h1>Subscription Statistics</h1>
+    <hr />
+    <div style="width: 80%; margin: auto;">
+        <canvas id="subscriptionChart"></canvas>
+    </div>
+    <dl class="row mt-3">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ActiveSubscribers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InActiveSubscribers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InActiveSubscribers)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Weekly Labels
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var label in Model.WeeklyLabels)
+            {
+                <p>@label</p>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            Weekly Subscribers
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var subscriberCount in Model.WeeklySubscribers)
+            {
+                <p>@subscriberCount</p>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            Subscription Types
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var subscriptionType in Model.SubscriptionTypes)
+            {
+                <p>@subscriptionType.TypeName</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+ *@
+
+@model _23._1News.Models.ViewModels.SubscriptionStatisticsVM
+
+@{
+    ViewData["Title"] = "SubscriptionStatistics";
+}
+
+@section scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chart for Subscription Statistics
+            var ctx = document.getElementById('subscriptionChart').getContext('2d');
+            var data = {
+                labels: ['Total Subscribers', 'Active Subscribers', 'Inactive Subscribers'],
+                datasets: [{
+                    label: 'Subscription Statistics',
+                    data: [@Model.TotalSubscribers, @Model.ActiveSubscribers, @Model.InActiveSubscribers],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+            };
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+
+            // Chart for Weekly Subscribers
+            var weeklySubscribersCtx = document.getElementById('weeklySubscribersChart').getContext('2d');
+            var weeklySubscribersData = {
+                labels: @Html.Raw(Json.Serialize(Model.WeeklyLabels)),
+                datasets: [{
+                    label: 'Weekly Subscribers',
+                    data: @Html.Raw(Json.Serialize(Model.WeeklySubscribers)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+            var weeklySubscribersOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            var weeklySubscribersChart = new Chart(weeklySubscribersCtx, {
+                type: 'bar',
+                data: weeklySubscribersData,
+                options: weeklySubscribersOptions
+            });
+
+            // Chart for Subscription Types
+            var subscriptionTypesCtx = document.getElementById('subscriptionTypesChart').getContext('2d');
+            var subscriptionTypesData = {
+                labels: @Html.Raw(Json.Serialize(Model.SubscriptionTypes.Select(st => st.TypeName))),
+                datasets: [{
+                    label: 'Subscribers by Subscription Type',
+                    data: @Html.Raw(Json.Serialize(Model.SubscriptionTypes.Select(st => st.Id))),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+            var subscriptionTypesOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            var subscriptionTypesChart = new Chart(subscriptionTypesCtx, {
+                type: 'bar',
+                data: subscriptionTypesData,
+                options: subscriptionTypesOptions
+            });
+        });
+    </script>
+}
+
+<h1>Subscription Statistics</h1>
+<hr />
+
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Active Subscribers</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5">
+            <canvas id="subscriptionChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart for Weekly Subscribers -->
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Weekly Subscribers</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5" style="width: 80%; margin: auto;">
+            <canvas id="weeklySubscribersChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart for Subscription Types -->
+<div class="card border-primary mb-3 mt-5">
+    <div class="card-header"><h4>Subscription Types</h4></div>
+    <div class="card-body" style="align-items:center;justify-content:center">
+        <div class="mt-5" style="width: 80%; margin: auto;">
+            <canvas id="subscriptionTypesChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@* <!-- Chart for Weekly Subscribers -->
+    <div class="mt-5" style="width: 80%; margin: auto;">
+        <canvas id="weeklySubscribersChart"></canvas>
+    </div>
+
+    <!-- Chart for Subscription Types -->
+    <div class="mt-5" style="width: 80%; margin: auto;">
+        <canvas id="subscriptionTypesChart"></canvas>
+    </div>
+
+    <dl class="row mt-3">
+        <!-- ... (existing code for other statistics) ... -->
+    </dl> *@
+
+
+<div>
+    @* @Html.ActionLink("Edit", "Edit", new {  id = Model.PrimaryKey }) | *@
+
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    <a asp-action="Index" class="btn btn-primary m-2">Back to List</a>
+</div>
+
