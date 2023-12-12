@@ -16,6 +16,9 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.7.0" />
 		<PackageReference Include="Microsoft.Extensions.Azure" Version="1.5.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+		<PackageReference Include="MimeKit" Version="4.3.0" />
+		<PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
 	</ItemGroup>
 	<ItemGroup>

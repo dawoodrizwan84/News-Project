@@ -1,71 +1,63 @@
-using System.Net;
-using System.Net.Mail;
-
+using MailKit.Net.Smtp;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-
+using MimeKit;
+using MimeKit.Text;
+using System;
+using System.IO;
 
 namespace QueueTrigger
 {
     public class SendEmail
     {
-        private readonly ILogger _logger;
-      
-              
-        public SendEmail(ILoggerFactory loggerFactory)
+        private readonly ILogger<SendEmail> _logger;
+        private readonly IConfiguration _configuration;
+
+        public SendEmail(ILogger<SendEmail> logger, IConfiguration configuration)
         {
-            _logger = loggerFactory.CreateLogger<SendEmail>();
-          
+            _logger = logger;
+            _configuration = configuration;
         }
 
-        [Function("SendEmail")] 
-        public void Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")] User user, 
-            ILogger logger)
+        [Function("SendEmail")]
+        public void Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")] User user)
         {
             _logger.LogInformation($"C# Queue trigger function processed: {user.Email}");
 
             var configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("local.settings.json", true, true)
-                    .AddEnvironmentVariables()
-                    .Build();
-
-            MailMessage mailMessage = new MailMessage();
-
-            SmtpClient smtpClient = new SmtpClient(configuration["SmtpHost"]);
-
-
-            int port = int.Parse(configuration["SmtpPort"]);
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("local.settings.json", true, true)
+                .AddEnvironmentVariables()
+                .Build();
 
             try
             {
-                mailMessage.From = new MailAddress(configuration["EmailAddress"],
-                                configuration["23.1News"]);
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("23.1News", _configuration["EmailConfiguration:SmtpUsername"]));
+                message.To.Add(new MailboxAddress(user.FirstName, user.Email));
+                message.Subject = "Weekly Newsletter";
+                message.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = $"Hello {user.FirstName} {user.LastName},<br/><br/>Hello There!"
+                };
 
-                mailMessage.To.Add(user.Email);
-                mailMessage.Subject = "Your weekly Newsletter!";
-                mailMessage.Body = "<p> On " + DateTime.Now.AddDays(5).ToLongDateString()
-                                             + $"Good Afternoon {user.FirstName}!<br> " +
-                                             $"Article of your choice:";
-                mailMessage.IsBodyHtml = true;
-                smtpClient.Port = port;
-                smtpClient.Credentials = new NetworkCredential(configuration["SmtpServer"],
-                                        configuration["SmtpPassword"]);
-                //smtpClient.Send(mailMessage);
-
-
+                using (var emailClient = new SmtpClient())
+                {
+                    emailClient.Connect(_configuration["EmailConfiguration:SmtpServer"], int.Parse(_configuration["EmailConfiguration:SmtpPort"]), true);
+                    emailClient.Authenticate(_configuration["EmailConfiguration:SmtpUsername"], _configuration["EmailConfiguration:SmtpPassword"]);
+                    emailClient.Send(message);
+                    emailClient.Disconnect(true);
+                }
             }
             catch (Exception ex)
             {
-
-                _logger.LogError($"Error sending email: {ex}");
-                throw;
+                // Handle exceptions (log or rethrow if necessary)
+                _logger.LogError($"An error occurred: {ex.Message}");
             }
         }
     }
 }
-
 
 public class User
 {
