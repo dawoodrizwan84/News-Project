@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 using MimeKit.Text;
 
-namespace ExpiryEmail
+namespace SubscriptionExpiryEmail
 {
     public class EmailOnExpiry
     {
@@ -37,7 +38,7 @@ namespace ExpiryEmail
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("23.1News", _configuration["EmailConfiguration:SmtpUsername"]));
+                message.From.Add(new MailboxAddress("23.1News", _configuration["EmailAddress"]));
                 message.To.Add(new MailboxAddress(user.FirstName, user.Email));
                 message.Subject = "Weekly Newsletter";
                 message.Body = new TextPart(TextFormat.Html)
@@ -49,8 +50,8 @@ namespace ExpiryEmail
 
                 using (var emailClient = new SmtpClient())
                 {
-                    emailClient.Connect(_configuration["EmailConfiguration:SmtpServer"], int.Parse(_configuration["EmailConfiguration:SmtpPort"]), true);
-                    emailClient.Authenticate(_configuration["EmailConfiguration:SmtpUsername"], _configuration["EmailConfiguration:SmtpPassword"]);
+                    emailClient.Connect(_configuration["SmtpServer"], int.Parse(_configuration["SmtpPort"]), SecureSocketOptions.StartTls);
+                    emailClient.Authenticate(_configuration["EmailAddress"], _configuration["SmtpPassword"]);
                     emailClient.Send(message);
                     emailClient.Disconnect(true);
                 }

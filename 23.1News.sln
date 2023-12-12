@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SockeLabCode", "ExpireEmail
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyTable", "CurrencyTable\CurrencyTable.csproj", "{5B86FEAD-C783-44E2-A48A-434E90A1F66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendNewsLetterGmail", "SendNewsLetterGmail\SendNewsLetterGmail.csproj", "{C6119F1A-2462-4572-B445-3F8C34BA44A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendNewsLetterGmail", "SendNewsLetterGmail\SendNewsLetterGmail.csproj", "{C6119F1A-2462-4572-B445-3F8C34BA44A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpiryEmail", "ExpiryEmail\ExpiryEmail.csproj", "{06F2446D-FE2F-42CE-B654-D7D230382A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionExpiryEmail", "ExpiryEmail\SubscriptionExpiryEmail.csproj", "{06F2446D-FE2F-42CE-B654-D7D230382A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

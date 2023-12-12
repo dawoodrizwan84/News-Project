@@ -2,7 +2,7 @@ using System;
 using System.IO;
 
 using MailKit.Net.Smtp;
-
+using MailKit.Security;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
@@ -42,20 +42,20 @@ namespace SendNewsLetterGmail
                 try
                 {
                     var message = new MimeMessage();
-                    message.From.Add(new MailboxAddress("23.1News", _configuration["EmailConfiguration:SmtpUsername"]));
+                    message.From.Add(new MailboxAddress("23.1News", _configuration["EmailAddress"]));
                     message.To.Add(new MailboxAddress(user.FirstName, user.Email));
                     message.Subject = "Weekly Newsletter";
                     message.Body = new TextPart(TextFormat.Html)
                     {
-                        Text = $"<p> On " + DateTime.Now.AddDays(2).ToLongDateString() +
+                        Text = $"<p> On " + DateTime.Now.AddDays(5).ToLongDateString() +
                                 $" Hello {user.FirstName}! <br/>" + "\"Your Weekly Newsletter of Choice: " +
                                 "Thankyou for subscribing </p> \";!"
                     };
 
                     using (var emailClient = new SmtpClient())
                     {
-                        emailClient.Connect(_configuration["EmailConfiguration:SmtpServer"], int.Parse(_configuration["EmailConfiguration:SmtpPort"]), true);
-                        emailClient.Authenticate(_configuration["EmailConfiguration:SmtpUsername"], _configuration["EmailConfiguration:SmtpPassword"]);
+                        emailClient.Connect(_configuration["SmtpServer"], int.Parse(_configuration["SmtpPort"]), SecureSocketOptions.StartTls);
+                        emailClient.Authenticate(_configuration["EmailAddress"], _configuration["SmtpPassword"]);
                         emailClient.Send(message);
                         emailClient.Disconnect(true);
                     }

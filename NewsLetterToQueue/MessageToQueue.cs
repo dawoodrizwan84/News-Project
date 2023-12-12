@@ -28,7 +28,7 @@ namespace NewsLetterToQueue
         }
 
         [Function("MessageToQueue")]
-        public void Run([TimerTrigger("0 00 12 * * 5", RunOnStartup = true)] MyInfo myTimer)
+        public void Run([TimerTrigger("0 00 12 * * 5")] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -43,7 +43,7 @@ namespace NewsLetterToQueue
                     });
 
 
-            List<User> NewsLetterUsers = _applicationDbContext.Users.Take(10).ToList();
+            List<User> NewsLetterUsers = _applicationDbContext.Users.ToList();
 
 
             foreach (var user in NewsLetterUsers)
