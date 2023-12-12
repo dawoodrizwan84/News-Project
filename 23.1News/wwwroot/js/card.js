@@ -39,9 +39,13 @@ function check() {
     if (document.getElementById('number').value.length == 19 && document.getElementById('cvv').value.length == 3) {
         btn.removeAttribute('disabled');
     }
+    else {
+        btn.setAttribute('disabled','disabled');
+    }
 }
 
-
+document.getElementById('number').addEventListener('input', check);
+document.getElementById('cvv').addEventListener('input', check);
 
 
 let popup = document.getElementById("popup");
@@ -49,6 +53,16 @@ function openPopup() {
     popup.classList.add("open-popup");
 }
 
+
 function closePopup() {
     popup.classList.remove("open-popup");
 }
+
+//document.getElementById("subform").addEventListener("submit", function (event) {
+//    event.preventDefault();
+//    document.getElementById("subform").submit();
+    
+    
+//});
+
+
