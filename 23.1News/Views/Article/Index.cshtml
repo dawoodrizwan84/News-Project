@@ -26,68 +26,67 @@
 
 <div>
 
-    <table id="" class="table table-bordered table-striped table-hover table-sm" style="width:100%">
-        <thead>
+    <table id="myTable" class="table table-bordered table-striped table-hover table-sm" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateStamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Headline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentSummary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateStamp)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LinkText)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ImageLink)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Headline)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ContentSummary)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Content)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    Action
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateStamp)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LinkText)
-                    </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateStamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkText)
+                </td>
                     <td style="width:150px;">
                         <img src="@item.BlobLink" class="card-img-top" alt="...">
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Headline)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ContentSummary)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Content)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
-                    </td>
-                    <td>
-                        @if (User.IsInRole("Editor"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Headline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContentSummary)
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.Content) *@
+                    @Html.Raw(item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @if (User.IsInRole("Editor"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
 
                         @if (User.IsInRole("Admin"))
                         {
