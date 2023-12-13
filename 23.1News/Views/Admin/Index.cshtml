@@ -7,16 +7,14 @@
 	Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
+<main>
+
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
 @if (User.IsInRole("Admin"))
 {
-
-    <main>
-
-        <div class="navbar navbar-expand" style="margin-top:50px">
-            <partial name="_LoginPartial" />
-        </div>
-
 
         <div class="row">
             <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
@@ -120,30 +118,10 @@
 
         </div>
 
-        <br />
-        <br />
-
-        <div>
-            <p style="position:absolute;margin-left:30%">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:#2fa4e7">Privacy</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-        </div>
-
-    </main>
-
 }
 
 else if (User.IsInRole("Editor"))
 {
-
-    <main>
-
-        <div class="navbar navbar-expand" style="margin-top:50px">
-            <partial name="_LoginPartial" /> 
-        </div>
-
 
         <div class="row">
             <div class="card text-white border-primary col-lg-4 col-sm-6" style="max-width:25rem;margin-top:10px">
@@ -177,23 +155,11 @@ else if (User.IsInRole("Editor"))
             </div>
 
         </div>
-
-        <br />
-        <br />
-        
-        <div>
-            <p style="position:absolute;bottom:0;margin-left:30%;">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:#2fa4e7">Privacy</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-        </div>
-
-
-
-    </main>
+      
 }
 
+
+</main>
 			
 	
 

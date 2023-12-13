@@ -8,7 +8,6 @@ namespace _23._1News.Models.Db
 
         public string LastName { get; set; } = string.Empty;
 
-        //public bool Employee { get; set; }
         public int DOB { get; set; }
 
         public string Address { get; set; } = string.Empty;
@@ -17,8 +16,12 @@ namespace _23._1News.Models.Db
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
 
+
         //public virtual Category Category{ get; set; } // Navigation property to Category
 
+
+
+        public bool ReceiveNewsletters { get; set; } = true;
 
     }
 }

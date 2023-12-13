@@ -2,28 +2,18 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit Article</h1>
 
-<hr />
 
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
-
-}
+    <h1>Edit Article</h1>
+    <hr />
 
 <div class="row">
         <form id="new-articles-form" asp-action="Edit">
@@ -64,7 +54,7 @@
                 <span asp-validation-for="ImageLink" class="text-danger"></span>
             </div>
 
-            </br>
+            <br/>
 
             <div class="form-group">
                 <label asp-for="EdChoice" class="control-label">Editor's choice</label>
@@ -72,8 +62,10 @@
 
             </div>
 
-            </br>
- 
+
+            <br/>
+
+
                 <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -83,6 +75,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+</main>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

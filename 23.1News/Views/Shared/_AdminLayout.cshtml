@@ -30,9 +30,9 @@
 					<br />
 					<ul class="list-unstyled components mb-5">
 						<li class="active">
-							<a asp-controller="Home" asp-action="Index" aria-current="page">
+							<a asp-controller="Admin" asp-action="Index" aria-current="page">
 								<span class="fa fa-home mr-3"></span>
-								<strong> Home</strong>
+								<strong>Admin Page</strong>
 							</a>
 						</li>
 						<li>
@@ -101,6 +101,7 @@
 				</div>
 			</nav>
 
+
 			<!-- Page Content  -->
 			<div id="content" class="p-4 p-md-5 pt-5">
 				<main role="main">
@@ -108,6 +109,13 @@
 				</main>
 			</div>
 		</div>
+
+		<div class="container">
+			<footer class="py-3 my-4">
+				<p class="text-center text-body-secondary">© 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:#2fa4e7">Privacy</a></p>
+			</footer>
+		</div>
+
 }
 
 	else if (User.IsInRole("Editor"))
@@ -128,9 +136,9 @@
 					<br />
 					<ul class="list-unstyled components mb-5">
 						<li class="active">
-							<a asp-controller="Home" asp-action="Index" aria-current="page">
+							<a asp-controller="Admin" asp-action="Index" aria-current="page">
 								<span class="fa fa-home mr-3"></span>
-								<strong> Home</strong>
+								<strong>Editor Page</strong>
 							</a>
 						</li>
 						<li>
@@ -167,6 +175,11 @@
 			</div>
 		</div>
 
+		<div class="container">
+			<footer class="py-3 my-4">
+				<p class="text-center text-body-secondary">© 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:#2fa4e7">Privacy</a></p>
+			</footer>
+		</div>
 
 }
 	

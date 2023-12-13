@@ -282,6 +282,7 @@
 
 @{
     ViewData["Title"] = "SubscriptionStatistics";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 @section scripts
@@ -376,8 +377,14 @@
     </script>
 }
 
-<h1>Subscription Statistics</h1>
-<hr />
+
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Subscription Statistics</h1>
+
 
 <div class="card border-primary mb-3 mt-5">
     <div class="card-header"><h4>Active Subscribers</h4></div>
@@ -426,7 +433,7 @@
 <div>
     @* @Html.ActionLink("Edit", "Edit", new {  id = Model.PrimaryKey }) | *@
 
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
     <a asp-action="Index" class="btn btn-primary m-2">Back to List</a>
 </div>
+</main>
 
