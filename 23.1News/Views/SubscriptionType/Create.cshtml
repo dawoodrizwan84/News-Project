@@ -1,16 +1,19 @@
 ﻿@model _23._1News.Models.Db.SubscriptionType
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create SubscriptionType";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
-<h1>Add SubscriptionType</h1>
-<hr />
-<p>
-   <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+    <h1>Add SubscriptionType</h1>
+    <hr />
+
 
 <div class="row">
     <div class="col-md-4">
@@ -38,7 +41,7 @@
     </div>
 </div>
 
-
+</main>
 
 
 

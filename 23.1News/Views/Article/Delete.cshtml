@@ -2,11 +2,18 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Delete</h1>
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
-<h3>Are you sure you want to delete this?</h3>
+
+    <h1>Delete</h1>
+    <hr />
+    <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Article</h4>
     <hr />
@@ -55,3 +62,4 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+</main>

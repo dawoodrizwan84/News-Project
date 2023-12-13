@@ -2,13 +2,17 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
-<hr />
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>SubscriptionType Details</h1>
+    <hr />
 
 <div>
     <h4>SubscriptionType</h4>
@@ -38,3 +42,4 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+</main>

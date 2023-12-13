@@ -2,26 +2,20 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create Article</h1>
-<hr />
 
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
 
-}
+<main>
 
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Create Article</h1>
+    <hr />
 
 <form id="new-articles-form" asp-action="Create" enctype="multipart/form-data" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -87,7 +81,7 @@
     </div> *@
 </form>
 
-
+</main>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

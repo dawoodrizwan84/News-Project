@@ -3,15 +3,19 @@
 @{
     ViewData["Title"] = "CreateEmployee";
     var roles = ViewBag.Roles as List<SelectListItem>;
-
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create Employee</h1>
-<hr />
 
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-</p>
+
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Create Employee</h1>
+    <hr />
+
 
 <div class="row">
     <div class="col-md-4">
@@ -65,3 +69,4 @@
     <a asp-action="EmployeeList">Back to List</a>
 </div>
 
+</main>

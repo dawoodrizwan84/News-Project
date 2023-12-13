@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.Subscription>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Subscription List";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 
-<h1>Subscription List</h1>
-<hr />
-<p>
-   <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Subscription List</h1>
 
 <div class="table-responsive small">
     <table class="table" id="myTable">
@@ -61,15 +63,16 @@
                         @Html.DisplayFor(modelItem => item.SubscriptionTypeId)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" style="color:#2fa4e7">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" style="color:#2fa4e7">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" style="color:#2fa4e7">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+</main>
        
         
 

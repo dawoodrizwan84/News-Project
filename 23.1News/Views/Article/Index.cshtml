@@ -2,28 +2,18 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>News List</h1>
-<hr />
 
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Article" asp-action="Create" class="btn btn-primary m-2">Create New</a>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
-}
-
+    <h1>News List</h1>
+    <hr />
 <div>
 
     <table id="myTable" class="table table-bordered table-striped table-hover table-sm" style="width:100%">
@@ -68,31 +58,23 @@
                     <td style="width:150px;">
                         <img src="@item.BlobLink" class="card-img-top" alt="...">
                     </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Headline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContentSummary)
-                </td>
-                <td>
-                    @* @Html.DisplayFor(modelItem => item.Content) *@
-                    @Html.Raw(item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @if (User.IsInRole("Editor"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    }
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Headline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContentSummary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                <td>
+                      <a asp-action="Edit" asp-route-id="@item.Id" style="color:#2fa4e7">Edit </a>
+                      <a asp-action="Details" asp-route-id="@item.Id" style="color:#2fa4e7">Details</a>
+                      <a asp-action="Delete" asp-route-id="@item.Id" style="color:#2fa4e7">Delete</a>
 
                     </td>
                 </tr>
@@ -101,3 +83,4 @@
     </table>
 
 </div>
+</main>
