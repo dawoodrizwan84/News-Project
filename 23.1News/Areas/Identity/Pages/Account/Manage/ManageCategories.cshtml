@@ -1,0 +1,23 @@
+﻿
+@page
+@model _23._1News.Areas.Identity.Pages.Account.Manage.ManageCategoriesModel
+@using _23._1News.Models.Db
+
+<h2>Manage Categories</h2>
+
+<form method="post">
+    <label>Select Category:</label>
+    <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))">
+        <option value="">Select...</option>
+    </select>
+
+    <button type="submit">Save</button>
+</form>
+
+<h3>Existing Categories:</h3>
+<ul>
+    @foreach (var category in Model.Categories)
+    {
+        <li>@category.Name</li>
+    }
+</ul>

@@ -54,7 +54,7 @@ namespace _23._1News.Services.Implement
                 Category = _db.Categories
                                 .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
-                ImageLink = articleVM.File.Name,
+                ImageLink = articleVM.ImageLink,
                 EdChoice = articleVM.EdChoice
             };
 
@@ -101,7 +101,7 @@ namespace _23._1News.Services.Implement
                 article.BlobLink = GetBlobImage(article.ImageLink);
             }
 
-            //article!.BlobLink = GetBlobImage(article.ImageLink);
+            article!.BlobLink = GetBlobImage(article.ImageLink);
 
             return article;
         }
@@ -216,9 +216,10 @@ namespace _23._1News.Services.Implement
             return address;
         }
 
-        public string UploadImageFile(IFormFile file)
+        public string UploadImageFile(ArticleVM articleVM)
         {
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            IFormFile file = articleVM.File;
+            string uniqueFileName = articleVM.ImageLink;
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newsimages");

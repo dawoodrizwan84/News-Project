@@ -1,0 +1,65 @@
+﻿@model _23._1News.Models.ViewModels.ManageNewsletterVM
+
+@{
+    ViewData["Title"] = "Manage Newsletter";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Manage Newsletter</h1>
+
+    <div>
+        <h4>Newsletter Subscription Status</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsSubscribedToNewsletter)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsSubscribedToNewsletter)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsSubscribedFromNewsletter)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsSubscribedFromNewsletter)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NewsletterSubscriptionStatus)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NewsletterSubscriptionStatus)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="mt-4">
+        <h4>Manage Newsletter Subscription</h4>
+        <hr />
+
+        <!-- Subscribe to Newsletter Form -->
+        <form asp-action="SubscribeToNewsletter" method="post">
+            <div class="form-group">
+                <label>Subscribe to Newsletter:</label>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </div>
+        </form>
+
+        <!-- Unsubscribe from Newsletter Form -->
+        <form asp-action="UnsubscribeFromNewsletter" method="post">
+            <div class="form-group">
+                <label>Unsubscribe from Newsletter:</label>
+                <button type="submit" class="btn btn-danger">Unsubscribe</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="MyPage" class="btn btn-secondary">Back to MyPage</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

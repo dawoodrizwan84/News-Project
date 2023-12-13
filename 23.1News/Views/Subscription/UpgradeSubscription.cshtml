@@ -1,0 +1,47 @@
+﻿@model _23._1News.Models.ViewModels.UpgradeSubscriptionVM
+
+@{
+    ViewData["Title"] = "UpgradeSubscription";
+}
+
+<h1>UpgradeSubscription</h1>
+
+<h4></h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpgradeSubscription" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ActiveSubscription.SubscriptionType.TypeName" class="control-label">Current Subscription Type</label>
+                <input asp-for="ActiveSubscription.SubscriptionType.TypeName" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentSubscriptionType" class="control-label">Current Subscription Type</label>
+                <input asp-for="CurrentSubscriptionType" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewSubscriptionTypeId" class="control-label">Select New Subscription Type</label>
+                <select asp-for="NewSubscriptionTypeId" asp-items="@(new SelectList(Model.AvailableTypes, "Id", "TypeName"))" class="form-control">
+                    <option value="">Select...</option>
+                </select>
+                <span asp-validation-for="NewSubscriptionTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Upgrade Subscription" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="MyPage">Back to MyPage</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
