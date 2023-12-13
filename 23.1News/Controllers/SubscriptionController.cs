@@ -17,6 +17,10 @@ using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 using _23._1News.Models.ViewModels;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text.Encodings.Web;
+using System.Text;
 
 namespace _23._1News.Controllers
 {
@@ -301,8 +305,6 @@ namespace _23._1News.Controllers
 
             return RedirectToAction("Index");
         }
-
-
 
     }
 }

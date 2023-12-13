@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace _23._1News
 {
     public class Program
@@ -116,13 +117,15 @@ namespace _23._1News
                     builder.Configuration.GetSection("EmailConfiguration")
                     .Get<EmailConfiguration>());
 
-
+            
                 builder.Services.AddTransient<IEmailSender, EmailHelper>();
                 builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
+            
+           
 
 
-                var app = builder.Build();
+            var app = builder.Build();
 
                 //Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
