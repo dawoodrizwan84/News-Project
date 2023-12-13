@@ -12,14 +12,14 @@ using _23._1News.Data;
 namespace _23._1News.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231110093319_p")]
-    partial class p
+    [Migration("20231213144952_SelectedCategoryIdProp")]
+    partial class SelectedCategoryIdProp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.23")
+                .HasAnnotation("ProductVersion", "6.0.25")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -94,6 +94,40 @@ namespace _23._1News.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("_23._1News.Models.Db.HistoricalYahooData", b =>
+                {
+                    b.Property<decimal>("Close")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("High")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Low")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Open")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<float>("Score")
+                        .HasColumnType("real");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Volume")
+                        .HasColumnType("bigint");
+
+                    b.ToTable("HistoricalYahooData");
+                });
+
             modelBuilder.Entity("_23._1News.Models.Db.Subscription", b =>
                 {
                     b.Property<int>("Id")
@@ -105,9 +139,8 @@ namespace _23._1News.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("PaymentComplete")
                         .HasColumnType("bit");
@@ -115,11 +148,20 @@ namespace _23._1News.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("SubscriptionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SubscriberCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscriptionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionTypeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -155,6 +197,10 @@ namespace _23._1News.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -204,6 +250,9 @@ namespace _23._1News.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SelectedCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -222,6 +271,18 @@ namespace _23._1News.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("_23._1News.Models.Db.WeeklySubscriptionData", b =>
+                {
+                    b.Property<int>("SubscriberCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WeekLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("WeeklySubscriptionData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -378,6 +439,23 @@ namespace _23._1News.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("_23._1News.Models.Db.Subscription", b =>
+                {
+                    b.HasOne("_23._1News.Models.Db.SubscriptionType", "SubscriptionType")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_23._1News.Models.Db.User", "User")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("SubscriptionType");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -427,6 +505,11 @@ namespace _23._1News.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("_23._1News.Models.Db.User", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

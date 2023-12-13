@@ -1,16 +1,10 @@
 ﻿using _23._1News.Data;
-using _23._1News.Models;
 using _23._1News.Models.Db;
-using _23._1News.Models.View_Models;
 using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 
 namespace _23._1News.Controllers
 {
