@@ -1,23 +1,39 @@
-﻿
-@page
+﻿@page
 @model _23._1News.Areas.Identity.Pages.Account.Manage.ManageCategoriesModel
-@using _23._1News.Models.Db
+@{
+    ViewData["Title"] = "Manage Categories";
+}
 
-<h2>Manage Categories</h2>
+<h2>@ViewData["Title"]</h2>
 
 <form method="post">
-    <label>Select Category:</label>
-    <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))">
-        <option value="">Select...</option>
-    </select>
+    <div>
+        <label>Select Category:</label>
 
-    <button type="submit">Save</button>
+        @foreach (var category in Model.Categories)
+        {
+            <div>
+                <input type="radio" name="SelectCategoryId" value="@category.CategoryId" id="@($"category_{category.CategoryId}")">
+                <label for="@($"category_{category.CategoryId}")">@category.Name</label>
+            </div>
+        }
+    </div>
+
+    <div>
+        <input type="submit" value="Submit">
+    </div>
 </form>
 
-<h3>Existing Categories:</h3>
-<ul>
-    @foreach (var category in Model.Categories)
-    {
-        <li>@category.Name</li>
-    }
-</ul>
+<!-- Display validation errors -->
+@if (Model.ModelState.ErrorCount > 0)
+{
+    <div>
+        <p>Please fix the following errors:</p>
+        <ul>
+            @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
