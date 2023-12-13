@@ -102,11 +102,22 @@ a:link {
     visibility:hidden;
     transition: transform 0.4s,top 0.4s;
 }
+
+@media only screen and (max-width: 700px) {
+    .popup {
+        width: 100%;
+        margin-left: 45%;
+    }
+}
+
+
+
 .open-popup {
     visibility: visible;
     top:20%;
     transform:translate(-50%,-50%) scale(1);
 }
+
 
 .popup img{
     width:100px;
@@ -114,6 +125,7 @@ a:link {
     border-radius:50%;
     box-shadow:0 2px 5px rgba(0,0,0,0.2);
 }
+
 
 .popup h2{
     font-size:38px;

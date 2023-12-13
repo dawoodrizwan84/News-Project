@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "CreateRoles";
     var msg = TempData["msg"] as string;
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 
@@ -11,12 +12,14 @@
 }
 
 
-<h1>Assign Roles</h1>
-<hr />
 
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Assign Roles</h1>
+    <hr />
 
 <form asp-action="CreateRoles" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -39,6 +42,6 @@
         <a asp-action="Index">Back to Admin</a>
     </div>
 </form>
-
+</main>
 
 

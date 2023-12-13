@@ -1,40 +1,48 @@
 ﻿@model IEnumerable<_23._1News.Models.Db.User>
 
+@{
+    ViewData["Title"] = "User List";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
+}
 
-<h1>User List</h1>
-<hr />
 
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
 
-<table class="table table-bordered table-hover table-striped table-light">
-    <thead>
-        <tr>
-            <th>User-Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>User List</h1>
+    <hr />
+
+    <table class="table table-bordered table-hover table-striped table-light">
+        <thead>
             <tr>
-                <td>@user.Id</td>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Email</td>
-                <td>
-                    <a asp-action="DelUser" asp-route-id="@user.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                </td>
-
+                <th>User-Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <a asp-action="DelUser" asp-route-id="@user.Id" class="btn btn-danger" 
+                        onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                    </td>
 
+                </tr>
+            }
+        </tbody>
+    </table>
 
+</main>
 
 
