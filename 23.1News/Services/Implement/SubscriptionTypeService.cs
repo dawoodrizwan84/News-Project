@@ -66,6 +66,31 @@ namespace _23._1News.Services.Implement
                 return false;
             }
         }
+
+        public IEnumerable<SubscriptionType> GetSubscriptionTypesForUpgrade(int? subscriptionTypeId)
+        {
+            try
+            {
+                // Assuming you have some logic to determine available subscription types for an upgrade
+                // In this example, it returns all subscription types except the current one
+                var allSubscriptionTypes = _db.SubscriptionTypes.ToList();
+
+                if (subscriptionTypeId.HasValue)
+                {
+                    // Filter out the current subscription type
+                    return allSubscriptionTypes.Where(st => st.Id != subscriptionTypeId.Value);
+                }
+                else
+                {
+                    return allSubscriptionTypes;
+                }
+            }
+            catch (Exception)
+            {
+                // Log the exception or handle it as needed
+                throw;
+            }
+        }
     }
 }
 

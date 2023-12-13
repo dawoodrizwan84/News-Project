@@ -12,6 +12,7 @@ namespace _23._1News.Services.Abstract
         bool DeleteSubscriptionType(int id);
 
         SubscriptionType GetSubscriptionTypeById(int id);
+        IEnumerable<SubscriptionType> GetSubscriptionTypesForUpgrade(int? subscriptionTypeId);
     }
 }
 
