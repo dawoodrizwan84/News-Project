@@ -40,6 +40,7 @@ namespace _23._1News.Data
             base.OnModelCreating(modelBuilder);
         }
 
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<HistoricalYahooData>()

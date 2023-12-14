@@ -32,7 +32,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPost()
         {
             if (SelectCategoryId == 0)
             {
@@ -51,9 +51,10 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
             if (user == null)
             {
-                // Handle the case where the user is not found
+                
                 return NotFound("User not found");
             }
+
             Categories = _categoryService.GetAllCategories() ?? new List<Category>();
 
             var selectedCategory = Categories.FirstOrDefault(c => c.CategoryId == SelectCategoryId);
