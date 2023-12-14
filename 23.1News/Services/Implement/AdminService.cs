@@ -68,9 +68,6 @@ namespace _23._1News.Services.Implement
                 return true;
             }
 
-
-
-
             return false;
         }
 
