@@ -146,3 +146,10 @@ a:link {
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0,0,0,0.2);
 }
+
+
+
+#footer001:hover {
+    font-size: large;
+    color:white;
+}
