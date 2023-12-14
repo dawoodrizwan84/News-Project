@@ -103,7 +103,7 @@
                        
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
                             </li>
                         }
@@ -115,7 +115,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
                             </li>
                         }
@@ -124,7 +124,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
                             </li>
                         }
@@ -144,61 +144,40 @@
     </div>
 
 
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:20px">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto" style="margin-top:20px">
-                    <li id="hover002" class="nav-item ">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    @foreach (var category in categories)
-                    {
-                        <li id="hover002" class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
-                        </li>
-                    }
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
-                        </li>
-                    }
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-
-                    @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
-                        </li>
-                    }
-
-                    @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-
-            <div id="hover002" style="color:white;margin-top:20px">
-                &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:white">Privacy</a>
-            </div>
-        </div>
-
+    <footer class="py-3 bg-primary" style="margin-bottom:-100px;">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li id="footer001" class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            @foreach (var category in categories)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
+                </li>
+            }
+        </ul>
+        <p class="text-center text-light">© 2023 - _23._1News - <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </footer>
+    
+
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
