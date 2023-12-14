@@ -79,79 +79,82 @@ namespace _23._1News
                 config.DefaultRequestHeaders.Add("X-RapidAPI-Host", builder.Configuration["YahooApiHost"]);
 
             });
-          
-
-
-                builder.Services.AddScoped<IElectricityService, ElectricityService>();
-                builder.Services.AddHttpClient("electricityPrice", config =>
-                {
-
-                    config.BaseAddress = new(builder.Configuration["MyElectricityPriceAPIAddress"]);
-
-                });
-
-                builder.Services.AddScoped<IWeatherService, WeatherService>();
-                builder.Services.AddHttpClient("weatherForecast", config =>
-                {
-
-                    config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
-
-                });
-
-
-                builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServicve>();
-                builder.Services.AddHttpClient("dailyPrices", config =>
-                {
-                    config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
-                });
-
-
-                //builder.Services.AddScoped<ICategoryService, CategoryService>();
-                //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
-                //builder.Services.AddScoped<IWeatherService, WeatherService>();
-
-
-                builder.Services.AddSingleton<IEmailConfiguration>(
-                    builder.Configuration.GetSection("EmailConfiguration")
-                    .Get<EmailConfiguration>());
-
-
-                builder.Services.AddTransient<IEmailSender, EmailHelper>();
-                builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
 
 
-                var app = builder.Build();
+            builder.Services.AddScoped<IElectricityService, ElectricityService>();
+            builder.Services.AddHttpClient("electricityPrice", config =>
+            {
 
-                //Configure the HTTP request pipeline.
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseMigrationsEndPoint();
-                }
-                else
-                {
-                    app.UseExceptionHandler("/Home/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                    app.UseHsts();
-                }
+                config.BaseAddress = new(builder.Configuration["MyElectricityPriceAPIAddress"]);
 
-                app.UseHttpsRedirection();
-                app.UseStaticFiles();
+            });
 
-                app.UseRouting();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            builder.Services.AddHttpClient("weatherForecast", config =>
+            {
+
+                config.BaseAddress = new(builder.Configuration["MyWeatherAPIAddress"]);
+
+            });
 
 
-                app.UseAuthentication();
-                app.UseAuthorization();
+            builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServicve>();
+            builder.Services.AddHttpClient("dailyPrices", config =>
+            {
+                config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
+            });
 
-                app.MapControllerRoute(
+
+            //builder.Services.AddScoped<ICategoryService, CategoryService>();
+            //builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
+            //builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+
+            builder.Services.AddSingleton<IEmailConfiguration>(
+                builder.Configuration.GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>());
+
+
+            builder.Services.AddTransient<IEmailSender, EmailHelper>();
+            builder.Services.AddTransient<IEmailHelper, EmailHelper>();
+
+            //Sessions for weekly newsletter in my pages
+            builder.Services.AddSession();
+
+            var app = builder.Build();
+
+            //Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseMigrationsEndPoint();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSession();
+            app.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                app.MapRazorPages();
+            app.MapRazorPages();
 
-                app.Run();
-            }
+
+
+            app.Run();
+        }
     }
 
-    } 
+}
