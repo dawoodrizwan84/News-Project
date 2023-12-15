@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
 html {
     font-size: 14px;
     position: relative;
@@ -53,16 +59,30 @@ a:link {
     font-size: large;
 }
 
+.container {
+    height: 100%;
+    padding-bottom: 100px;
+}
 
+/*#content001 {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 50px;
+}*/
 
 #frontpagefooter {
+    bottom: 0;
+    position: absolute;
+    width:100%;
+    /* left: 0px;
     bottom: 0;
     height: 100px;
     width: 100%;
     display: block;
     position: absolute;
     text-align: center;
-    justify-content: center;
+    justify-content: center;*/
 }
 
 #hover002:hover {
