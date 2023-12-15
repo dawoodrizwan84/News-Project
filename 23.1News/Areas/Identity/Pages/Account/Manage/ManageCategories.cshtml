@@ -8,6 +8,8 @@
 
 <h2>@ViewData["Title"]</h2>
 
+  
+
 <form method="post">
     <div>
         <label>Select Category:</label>
@@ -20,10 +22,13 @@
                
             </div>
 
+        
+           
 
-            
         }
+
       
+     
     </div>
     <br>
     <div>
@@ -32,6 +37,19 @@
     </div>
 </form>
 
+<div>
+    <p>Your choosen: </p>
+
+    
+        <ul>
+            @foreach (var item in Model.Categories)
+            {
+                <li>@item.Name</li>
+            }
+        </ul>
+    
+
+</div>
 
 
 <!-- Display validation errors -->
@@ -51,7 +69,7 @@
 
 
 @* <div>
-    <p>Your selected category is: @cate</p>
+    <p>Your selected category is: @cate</p>§
 
 </div> *@
 

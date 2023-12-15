@@ -56,16 +56,16 @@ namespace NewsLetterToQueue
                     queueUser.FirstName = user.FirstName;
                     queueUser.LastName = user.LastName;
                     queueUser.Email = user.Email;
-                    queueUser.SelectedCategoryId = user.SelectedCategoryId;
-                    queueUser.SelectedCategory = _applicationDbContext.Categories
-                                        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
+                    //queueUser.SelectedCategoryId = user.SelectedCategoryId;
+                    //queueUser.SelectedCategory = _applicationDbContext.Categories
+                    //                    .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
 
                     //Category selectCategory = _applicationDbContext.Categories
                     //        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
 
 
                     queueClient.SendMessage(JsonConvert.SerializeObject(queueUser));
-                    _logger.LogInformation($"Message to {user.Email} sent to queue with newsletter category: {queueUser.SelectedCategory?.Name}");
+                    //_logger.LogInformation($"Message to {user.Email} sent to queue with newsletter category: {queueUser.SelectedCategory?.Name}");
                 }
                 catch (Exception ex)
                 {

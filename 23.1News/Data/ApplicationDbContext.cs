@@ -32,12 +32,19 @@ namespace _23._1News.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WeeklySubscriptionData>().HasNoKey();
+          
 
             // Add other configurations as needed
             modelBuilder.Entity<HistoricalYahooData>()
                 .HasNoKey();
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserCategories)
+                .WithMany(c => c.CategoryUsers)
+                .UsingEntity(j => j.ToTable("CategoryUser"));
+
             base.OnModelCreating(modelBuilder);
+           
         }
 
 
@@ -46,6 +53,9 @@ namespace _23._1News.Data
         //    modelBuilder.Entity<HistoricalYahooData>()
         //        .HasNoKey();
         //}
+
+
+            
 
 
 
