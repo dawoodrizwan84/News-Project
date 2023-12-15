@@ -28,7 +28,7 @@ namespace NewsLetterToQueue
         }
 
         [Function("MessageToQueue")]
-        public void Run([TimerTrigger("0 00 12 * * 5")] MyInfo myTimer)
+        public void Run([TimerTrigger("0 00 12 * * 5", RunOnStartup = true)] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -43,7 +43,8 @@ namespace NewsLetterToQueue
                     });
 
 
-            List<User> NewsLetterUsers = _applicationDbContext.Users.ToList();
+            List<User> NewsLetterUsers = _applicationDbContext.Users.Where(user => user.Id == "4a86219b-fd36-4d25-b0b3-634855bb1c38").ToList();
+           
 
 
             foreach (var user in NewsLetterUsers)
@@ -55,13 +56,16 @@ namespace NewsLetterToQueue
                     queueUser.FirstName = user.FirstName;
                     queueUser.LastName = user.LastName;
                     queueUser.Email = user.Email;
+                    queueUser.SelectedCategoryId = user.SelectedCategoryId;
+                    queueUser.SelectedCategory = _applicationDbContext.Categories
+                                        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
 
-                    Category selectCategory = _applicationDbContext.Categories
-                            .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
+                    //Category selectCategory = _applicationDbContext.Categories
+                    //        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
 
-                    
+
                     queueClient.SendMessage(JsonConvert.SerializeObject(queueUser));
-                    _logger.LogInformation($"Message to {user.Email} sent to queue with newsletter category: {selectCategory.Name}");
+                    _logger.LogInformation($"Message to {user.Email} sent to queue with newsletter category: {queueUser.SelectedCategory?.Name}");
                 }
                 catch (Exception ex)
                 {
