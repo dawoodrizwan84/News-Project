@@ -17,7 +17,7 @@ namespace _23._1News.Models.Db
         public virtual ICollection<Subscription> Subscriptions { get; set; }
 
 
-        public Category CategoryName { get; set; } = new Category();
+        //public Category SelectedCategoryName { get; set; } = new Category();
 
 
 
