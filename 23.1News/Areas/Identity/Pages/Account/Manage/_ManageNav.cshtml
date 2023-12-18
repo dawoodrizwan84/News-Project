@@ -18,4 +18,10 @@
     <li class="nav-item">
         <a class="nav-link @(ViewData["ActivePage"] as string == "ManageCategories" ? "active" : null)" asp-page="./ManageCategories">Select Weekly Newsletter</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Subscription/UpgradeSubscription">Upgrade Subscription</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Subscription/ManageNewsletter">Manage Newsletter</a>
+    </li>
 </ul>
