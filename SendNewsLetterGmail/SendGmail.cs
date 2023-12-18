@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using _23._1News.Models.Db;
+using _23._1News.Services.Abstract;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MimeKit;
@@ -18,12 +23,13 @@ namespace SendNewsLetterGmail
 
         private readonly ILogger<SendGmail> _logger;
         private readonly IConfiguration _configuration;
-
-
-        public SendGmail(ILogger<SendGmail> logger, IConfiguration configuration)
+      
+        public SendGmail(ILogger<SendGmail> logger, IConfiguration configuration
+            )
         {
             _logger = logger;
             _configuration = configuration;
+           
         }
 
         [FunctionName("SendGmail")]
@@ -42,20 +48,30 @@ namespace SendNewsLetterGmail
                     .Build();
 
 
-
             try
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("23.1News", _configuration["EmailAddress"]));
                 message.To.Add(new MailboxAddress(user.FirstName, user.Email));
                 message.Subject = "Weekly Newsletter";
-                message.Body = new TextPart(TextFormat.Html)
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = $"<img src=\"https://newsprojectstorage.blob.core.windows.net/newsimages/logo.png\" " +
+                    $"style=\"height: 40px; width: 150px;\"> </br></br>" +
+                    $"<p> On {DateTime.Now.AddDays(5).ToLongDateString()} Hello {user.FirstName}! <br/>";
+
+
+                foreach (var item in user.UserCategories)
                 {
-                    Text = $"<p> On " + DateTime.Now.AddDays(5).ToLongDateString() +
-                            $" Hello {user.FirstName}! <br/>" +
-                            $"\"Your Weekly Newsletter of Choice: {user.SelectedCategoryId} <br/>" +
-                            "Thankyou for subscribing. </p>"
-                };
+                    bodyBuilder.HtmlBody += $"Your Weekly Newsletter of Choice: {item.Name} <br/>";
+                }
+
+                bodyBuilder.HtmlBody += "Thank you for subscribing. </br></br>" +
+     "Please visit 23.1 News to read the latest news: <a href=\"https://231news20231115124158.azurewebsites.net/\">Link to News</a></p>";
+
+
+
+                message.Body = bodyBuilder.ToMessageBody();
 
                 using (var emailClient = new SmtpClient())
                 {
@@ -76,14 +92,14 @@ namespace SendNewsLetterGmail
         }
 
 
-
     }
 
-    public class User
-    {
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string SelectedCategoryId { get; set; }
-    }
+    //public class User
+    //{
+    //    public string FirstName { get; set; } = string.Empty;
+    //    public string LastName { get; set; } = string.Empty;
+    //    public string Email { get; set; } = string.Empty;
+     
+    //    public virtual ICollection<Category> UserCategories { get; set; } = new List<Category>();
+    //}
 }
