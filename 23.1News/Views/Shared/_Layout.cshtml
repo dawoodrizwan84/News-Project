@@ -21,6 +21,8 @@
     
 }
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +43,8 @@
 
 </head>
 <body>
-
     <header>
+
         <div class="header-top d-flex justify-content-between align-items-center p-2">
             <div>
                 <a asp-area="" asp-controller="Home" asp-action="Index">
@@ -93,9 +95,9 @@
                     </a>
                 }
                 @* <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2 btn-lg-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
-                    </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+                </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
 
                 </a> *@
             </div>
@@ -115,7 +117,7 @@
                         @foreach (var category in categories)
                         {
                             <li id="hover001" class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.CategoryId</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
                             </li>
                         }
 
@@ -166,7 +168,7 @@
     </div>
 
 
-    <footer id="frontpagefooter" class="py-3 bg-primary">
+    <footer class="py-3 bg-primary" style="margin-bottom:-100px;">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li id="footer001" class="nav-item">
                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -174,7 +176,7 @@
             @foreach (var category in categories)
             {
                 <li id="footer001" class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.CategoryId</a>
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
                 </li>
             }
             @if (User.Identity.IsAuthenticated)
@@ -198,7 +200,7 @@
         </ul>
         <p class="text-center text-light">© 2023 - _23._1News - <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </footer>
-
+    
 
 
 
