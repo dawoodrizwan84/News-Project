@@ -1,8 +1,11 @@
+using _23._1News.Data;
 using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Identity; // Update this namespace
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,59 +15,93 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
     {
         private readonly ICategoryService _categoryService;
         private readonly UserManager<User> _userManager;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public ManageCategoriesModel(ICategoryService categoryService, UserManager<User> userManager)
+
+        public ManageCategoriesModel(ICategoryService categoryService, UserManager<User> userManager,
+                    ApplicationDbContext applicationDbContext)
         {
             _categoryService = categoryService;
             _userManager = userManager;
+            _applicationDbContext = applicationDbContext;
         }
 
         [BindProperty]
         public int SelectCategoryId { get; set; }
 
+
         public List<Category> Categories { get; set; }
 
-     
+        //public Category category { get; set; }
+
+
+
+
 
         public async Task<IActionResult> OnGet()
         {
-            Categories = _categoryService.GetAllCategories() ?? new List<Category>();
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPost()
-        {
-            if (SelectCategoryId == 0)
-            {
-                // Handle the if no category is selected
-                ModelState.AddModelError(string.Empty, "Please select a category.");
-                return await OnGet();
-            }
-        
-
             var user = await _userManager.GetUserAsync(User);
-
-            //if (user != null)
-            //{
-            //    HttpContext.Session.SetInt32("SelectedCategoryId", user.SelectedCategoryId);
-            //}
 
             if (user == null)
             {
-                
                 return NotFound("User not found");
             }
 
             Categories = _categoryService.GetAllCategories() ?? new List<Category>();
 
-            var selectedCategory = Categories.FirstOrDefault(c => c.CategoryId == SelectCategoryId);
+            user = await _userManager.Users
+                .Include(u => u.UserCategories)
+                .FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            user!.UserCategories = user.UserCategories ?? new List<Category>();
+
+            var choosenCate = user.UserCategories.ToList();
+            //TempData["success"] = Categories;
+
+
+            return Page();
+
+        }
+
+
+
+        public async Task<IActionResult> OnPost()
+        {
+            if (SelectCategoryId == 0)
+            {
+                // Handle the case if no category is selected
+                ModelState.AddModelError(string.Empty, "Please select a category.");
+                return await OnGet();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var Categories = _categoryService.GetAllCategories() ?? new List<Category>();
+            var selectedCategory = Categories?.FirstOrDefault(c => c.CategoryId == SelectCategoryId);
 
             if (selectedCategory != null)
             {
-                user.SelectedCategoryId = SelectCategoryId;
-                await _userManager.UpdateAsync(user);
+                user.UserCategories = user.UserCategories ?? new List<Category>();
 
-                //HttpContext.Session.SetInt32("SelectedCategoryId", SelectCategoryId);
+                // Check if the user already has the selected category
+                user.UserCategories.Add(selectedCategory);
+
+                if (user.UserCategories.Any(c => c.CategoryId == selectedCategory.CategoryId))
+                {
+                    ModelState.AddModelError(string.Empty, "Selected category already chosen.");
+                    return await OnGet();
+                }
+
+                user.ReceiveNewsletters = true;
+
+                // Update the user
+                //await _userManager.UpdateAsync(user);
+
                 HttpContext.Session.SetString("SelectedCategoryName", selectedCategory.Name);
             }
             else
@@ -74,22 +111,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                 return await OnGet();
             }
 
-
-            //var selectedCategory = _categoryService.GetCategotyById(SelectCategoryId);
-
-            //user.SelectedCategoryId = SelectCategoryId;
-            //await _userManager.UpdateAsync(user);
-
-            //HttpContext.Session.SetInt32("SelectedCategoryId", SelectCategoryId);
-            //HttpContext.Session.SetString("SelectedCategoryName", Categories.FirstOrDefault(c => c.CategoryId == SelectCategoryId)?.Name);
-
-
-            //TempData["SelectedCategoryName"] = selectedCategory?.Name;
-            //TempData.Keep("SelectedCategoryName");
-
-
-            // Redirect to a success page or refresh the current page
-            return RedirectToPage("SuccessPage");
+            // Handle successful case or redirect as needed
+            return RedirectToPage("/SuccessPage");
         }
+
     }
 }

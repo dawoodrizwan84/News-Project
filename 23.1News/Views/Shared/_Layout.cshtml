@@ -93,7 +93,7 @@
                         @foreach (var category in categories)
                         {
                             <li id="hover001" class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.CategoryId</a>
                             </li>
                         }
 
@@ -152,7 +152,7 @@
             @foreach (var category in categories)
             {
                 <li id="footer001" class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.CategoryId</a>
                 </li>
             }
             @if (User.Identity.IsAuthenticated)
