@@ -23,13 +23,13 @@ namespace SendNewsLetterGmail
 
         private readonly ILogger<SendGmail> _logger;
         private readonly IConfiguration _configuration;
-      
+
         public SendGmail(ILogger<SendGmail> logger, IConfiguration configuration
             )
         {
             _logger = logger;
             _configuration = configuration;
-           
+
         }
 
         [FunctionName("SendGmail")]
@@ -60,16 +60,26 @@ namespace SendNewsLetterGmail
                     $"style=\"height: 40px; width: 150px;\"> </br></br>" +
                     $"<p> On {DateTime.Now.AddDays(5).ToLongDateString()} Hello {user.FirstName}! <br/>";
 
+                // Create a string to hold the concatenated categories
+                var categoriesString = "";
 
                 foreach (var item in user.UserCategories)
                 {
-                    bodyBuilder.HtmlBody += $"Your Weekly Newsletter of Choice: {item.Name} <br/>";
+                    categoriesString += $"{item.Name}, ";
                 }
 
+                // Remove the trailing comma and space if there are categories
+                if (!string.IsNullOrEmpty(categoriesString))
+                {
+                    categoriesString = categoriesString.TrimEnd(',', ' ');
+                }
+
+                // Add the categories to the HTML body
+                bodyBuilder.HtmlBody += $"Your Weekly Newsletter of Choice: <strong>{categoriesString}</strong> <br/>";
+
+                // Continue with the rest of your HTML body
                 bodyBuilder.HtmlBody += "Thank you for subscribing. </br></br>" +
-     "Please visit 23.1 News to read the latest news: <a href=\"https://231news20231115124158.azurewebsites.net/\">Link to News</a></p>";
-
-
+                    "Please visit 23.1 News to read the latest news: <a href=\"https://231news20231115124158.azurewebsites.net/\">Link to News</a></p>";
 
                 message.Body = bodyBuilder.ToMessageBody();
 
@@ -85,21 +95,18 @@ namespace SendNewsLetterGmail
             {
                 // Handle exceptions (log or rethrow if necessary)
                 _logger.LogError($"An error occurred: {ex.Message}");
-
-
             }
+
 
         }
 
+        //public class User
+        //{
+        //    public string FirstName { get; set; } = string.Empty;
+        //    public string LastName { get; set; } = string.Empty;
+        //    public string Email { get; set; } = string.Empty;
 
+        //    public virtual ICollection<Category> UserCategories { get; set; } = new List<Category>();
+        //}
     }
-
-    //public class User
-    //{
-    //    public string FirstName { get; set; } = string.Empty;
-    //    public string LastName { get; set; } = string.Empty;
-    //    public string Email { get; set; } = string.Empty;
-     
-    //    public virtual ICollection<Category> UserCategories { get; set; } = new List<Category>();
-    //}
 }
