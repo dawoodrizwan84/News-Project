@@ -131,9 +131,14 @@
                                     <h2>Thank you!</h2>
                                     <p>Your subscribe has been successfully.Thanks!</p>
                                     <form id="subform" asp-action="Create" method="post" >
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <div class="form-group">
-                                            <button class=" btn btn-primary btn-lg form-control"
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" asp-for="PaymentComplete" checked/> @Html.DisplayNameFor(model => model.PaymentComplete)
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                            <button class=" btn btn-primary btn-sm form-control"
                                                     onclick="closePopup()">
                                                 Home
                                             </button>
