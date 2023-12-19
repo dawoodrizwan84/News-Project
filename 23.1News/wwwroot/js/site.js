@@ -2,7 +2,8 @@
     $('#myTable').DataTable({
         "scrollY": "1000px",
         "scrollCollapse": true,
-        "paging": true
+        "paging": true,
+        "order": [[0, "desc"]]
 
     });
 });
