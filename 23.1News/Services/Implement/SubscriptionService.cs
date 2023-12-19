@@ -29,10 +29,27 @@ namespace _23._1News.Services.Implement
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _logger = logger;
         }
- 
-        public List<Subscription> GetAllSubs()
+
+        public List<SubscriptionListVM> GetAllSubs()
         {
-            return _db.Subscriptions.ToList();
+            var subscriptions = _db.Subscriptions
+                .Include(sub => sub.SubscriptionType)
+                .Include(sub => sub.User)
+                .OrderByDescending(sub => sub.Id)
+                .Select(sub => new SubscriptionListVM
+                {
+                    SubscriptionId = sub.Id,
+                    SubscriptionPrice = sub.Price,
+                    SubscriptionCreated = sub.Created,
+                    SubscriptionTypeId = sub.SubscriptionTypeId,
+                    SubscriptionTypeName = sub.SubscriptionType.TypeName,
+                    IsActive = sub.IsActive,
+                    PaymentComplete = sub.PaymentComplete,
+                    UserEmail = sub.User.Email
+                })
+                .ToList();
+
+            return subscriptions;
         }
 
         public void CreateSubs(Subscription newSub)

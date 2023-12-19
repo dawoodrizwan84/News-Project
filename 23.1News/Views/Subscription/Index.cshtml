@@ -1,4 +1,4 @@
-﻿@model IEnumerable<_23._1News.Models.Db.Subscription>
+﻿@model List<SubscriptionListVM>
 
 @{
     ViewData["Title"] = "Subscription List";
@@ -21,10 +21,7 @@
                     Id
                 </th>
                 <th>
-                    Price
-                </th>
-                <th>
-                    CreatedDate
+                    Date
                 </th>
                 <th>
                     Is Active
@@ -33,7 +30,16 @@
                     PaymentComplete
                 </th>
                 <th>
-                    SubscriptionTypeId
+                    Plan Id
+                </th>
+                <th>
+                Plan Name
+                </th>
+                    <th>
+                        Plan Price
+                    </th>
+                <th>
+                User Email
                 </th>
                 <th>
                     Action
@@ -45,13 +51,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.SubscriptionId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Created)
+                            @Html.DisplayFor(modelItem => item.SubscriptionCreated)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IsActive)
@@ -60,20 +63,31 @@
                         @Html.DisplayFor(modelItem => item.PaymentComplete)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SubscriptionTypeId)
+                            @Html.DisplayFor(modelItem => item.SubscriptionTypeId)
                     </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubscriptionTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubscriptionPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+                        </td>
                     <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" style="color:#2fa4e7">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id" style="color:#2fa4e7">Delete</a>
+                            <a asp-action="Details" asp-route-id="@item.SubscriptionId" style="color:#2fa4e7">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.SubscriptionId" style="color:#2fa4e7">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-</main>
+</main> 
        
-        
+
+
+
 
 
 
