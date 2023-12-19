@@ -2,10 +2,11 @@
 {
     public class WeeklySubscriptionData
     {
-            public string WeekLabel { get; set; }
-            public int SubscriberCount { get; set; }
-            // Add other properties as needed
-        
+        public string WeekLabel { get; set; }
+        public int SubscriberCount { get; set; }
+        public DateTime Date { get; set; }
+       
+
     }
 
 }

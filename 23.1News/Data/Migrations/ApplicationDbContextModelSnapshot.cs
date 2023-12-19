@@ -155,6 +155,10 @@ namespace _23._1News.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("WeekLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionTypeId");
@@ -276,6 +280,9 @@ namespace _23._1News.Data.Migrations
 
             modelBuilder.Entity("_23._1News.Models.Db.WeeklySubscriptionData", b =>
                 {
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("SubscriberCount")
                         .HasColumnType("int");
 
