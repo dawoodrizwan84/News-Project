@@ -1,7 +1,5 @@
 ﻿using _23._1News.Data;
 using _23._1News.Models.Db;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using NewsLetterToQueue.Model;
 
 namespace NewsLetterToQueue.Services
 {

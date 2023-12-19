@@ -44,7 +44,7 @@ namespace NewsLetterToQueue
 
             List<User> NewsLetterUsers = _applicationDbContext.Users
                 .Include(x => x.UserCategories).ToList();
-                //.Where(user => user.Id == "4a86219b-fd36-4d25-b0b3-634855bb1c38").ToList();
+            //.Where(user => user.Id == "4a86219b-fd36-4d25-b0b3-634855bb1c38").ToList();
 
 
 
@@ -67,7 +67,7 @@ namespace NewsLetterToQueue
 
                     //Category selectCategory = _applicationDbContext.Categories
                     //        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
-
+                        
 
                     queueClient.SendMessage(JsonConvert.SerializeObject(user, new JsonSerializerSettings
                     {

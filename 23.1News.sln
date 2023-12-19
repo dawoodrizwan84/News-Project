@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendNewsLetterGmail", "Send
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionExpiryEmail", "ExpiryEmail\SubscriptionExpiryEmail.csproj", "{06F2446D-FE2F-42CE-B654-D7D230382A36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrigger", "TimeTrigger\TimeTrigger.csproj", "{BA8EBD9E-EB67-4971-B9E7-202931115CB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{06F2446D-FE2F-42CE-B654-D7D230382A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F2446D-FE2F-42CE-B654-D7D230382A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F2446D-FE2F-42CE-B654-D7D230382A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA8EBD9E-EB67-4971-B9E7-202931115CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA8EBD9E-EB67-4971-B9E7-202931115CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA8EBD9E-EB67-4971-B9E7-202931115CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA8EBD9E-EB67-4971-B9E7-202931115CB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
