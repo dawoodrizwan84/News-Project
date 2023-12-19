@@ -228,7 +228,7 @@ namespace _23._1News.Controllers
                 InActiveSubscribers = totalSubscribers - activeSubscribers,
 
                 // Populate these based on your weekly data
-                //WeeklyLabels = weeklySubscriptionData.Select(entry => entry.WeekLabel).ToList(),
+                WeeklyLabels = weeklySubscriptionData.Select(entry => entry.WeekLabel).ToList(),
                 WeeklySubscribers = weeklySubscriptionData.Select(entry => entry.SubscriberCount).ToList(),
 
                 SubscriptionTypes = _subscriptionService.GetSubscriptionTypes()

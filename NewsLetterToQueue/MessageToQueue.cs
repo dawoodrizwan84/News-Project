@@ -53,6 +53,12 @@ namespace NewsLetterToQueue
                 queueClient.CreateIfNotExists();
                 try
                 {
+
+                    User queueUser = new User();
+                    queueUser.FirstName = user.FirstName;
+                    queueUser.LastName = user.LastName;
+                    queueUser.Email = user.Email;
+
                     //User queueUser = new User();
                     //queueUser.FirstName = user.FirstName;
                     //queueUser.LastName = user.LastName;
@@ -60,6 +66,7 @@ namespace NewsLetterToQueue
                     //queueUser.UserCategories = _applicationDbContext.Categories
                     //    .Where(category => category.CategoryUsers.Any(user => user.Id == user.Id))
                     //     .ToList();
+
 
                     //queueUser.SelectedCategoryId = user.SelectedCategoryId;
                     //queueUser.SelectedCategory = _applicationDbContext.Categories
@@ -69,11 +76,13 @@ namespace NewsLetterToQueue
                     //        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
 
 
+
                     queueClient.SendMessage(JsonConvert.SerializeObject(user, new JsonSerializerSettings
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     }));
                     //_logger.LogInformation($"Message to {user.Email} sent to queue with newsletter category: {queueUser.SelectedCategory?.Name}");
+
                 }
                 catch (Exception ex)
                 {

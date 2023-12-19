@@ -120,22 +120,42 @@ namespace _23._1News.Services.Implement
             return activeSubscription;
         }
 
+        //public IEnumerable<Subscription> GetWeeklySubscriptionData()
+        //{
+        //    var weeklyData = _db.WeeklySubscriptionData.ToList();
+
+        //    var subscriptions = weeklyData.Select(weekly =>
+        //        new Subscription
+        //        {
+        //            // Map properties from WeeklySubscriptionData to Subscription
+        //            // For example:
+        //            // Id = weekly.Id,
+        //            // SubscriptionType = weekly.SubscriptionType,
+        //            // Price = weekly.Price,
+        //            // ...
+
+        //            // Assign properties specific to Subscription, adapt this to your needs
+        //            //WeekLabel = weekly.WeekLabel,
+        //            SubscriberCount = weekly.SubscriberCount,
+        //            // ...
+        //        });
+
+        //    return subscriptions;
+        //}
+
         public IEnumerable<Subscription> GetWeeklySubscriptionData()
         {
-            var weeklyData = _db.WeeklySubscriptionData.ToList();
+            DateTime lastWeekStartDate = DateTime.Today.AddDays(-7);
+
+            var weeklyData = _db.WeeklySubscriptionData
+                .Where(weekly => weekly.Date >= lastWeekStartDate)
+                .ToList();
 
             var subscriptions = weeklyData.Select(weekly =>
                 new Subscription
                 {
-                    // Map properties from WeeklySubscriptionData to Subscription
-                    // For example:
-                    // Id = weekly.Id,
-                    // SubscriptionType = weekly.SubscriptionType,
-                    // Price = weekly.Price,
-                    // ...
-
                     // Assign properties specific to Subscription, adapt this to your needs
-                    //WeekLabel = weekly.WeekLabel,
+                    WeekLabel = weekly.WeekLabel,
                     SubscriberCount = weekly.SubscriberCount,
                     // ...
                 });
@@ -235,7 +255,18 @@ namespace _23._1News.Services.Implement
 
         public bool isEnteprise(string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userSubscription = GetActiveSubscriptionByUserId(userId);
+
+                // Assuming there is a property like SubscriptionType in your Subscription model
+                return userSubscription?.SubscriptionType?.TypeName.ToLower() == "enterprise";
+            }
+            catch (Exception)
+            {
+                // Log the exception or handle it as needed
+                throw;
+            }
         }
 
         bool ISubscriptionService.CanUpgradeSubscription(int subscriptionTypeId, int newSubscriptionTypeId)
