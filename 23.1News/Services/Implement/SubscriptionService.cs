@@ -45,7 +45,7 @@ namespace _23._1News.Services.Implement
                     SubscriptionTypeName = sub.SubscriptionType.TypeName,
                     IsActive = sub.IsActive,
                     PaymentComplete = sub.PaymentComplete,
-                    UserEmail = sub.User.Email
+                    UserId = sub.UserId
                 })
                 .ToList();
 
