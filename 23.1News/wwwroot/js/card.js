@@ -12,8 +12,8 @@ cNumber.addEventListener('keyup', function (e) {
     }
 
     let ccNum = document.getElementById('number');
-    if (document.getElementById('number').value.length == 16) {
-        ccNum.style.border = "1px solid greenyellow";
+    if (document.getElementById('number').value.length == 19) {
+        document.getElementById('number').style.border = "1px solid greenyellow";
         check();
     } else {
         ccNum.style.border = "1px solid red";
@@ -36,12 +36,16 @@ cvv.addEventListener('keyup', function (e) {
 
 var btn = document.getElementById("subbtn");
 function check() {
-    if (document.getElementById('number').value.length == 16 && document.getElementById('cvv').value.length == 3) {
+    if (document.getElementById('number').value.length == 19 && document.getElementById('cvv').value.length == 3) {
         btn.removeAttribute('disabled');
+    }
+    else {
+        btn.setAttribute('disabled','disabled');
     }
 }
 
-
+document.getElementById('number').addEventListener('input', check);
+document.getElementById('cvv').addEventListener('input', check);
 
 
 let popup = document.getElementById("popup");
@@ -49,6 +53,16 @@ function openPopup() {
     popup.classList.add("open-popup");
 }
 
+
 function closePopup() {
     popup.classList.remove("open-popup");
 }
+
+//document.getElementById("subform").addEventListener("submit", function (event) {
+//    event.preventDefault();
+//    document.getElementById("subform").submit();
+    
+    
+//});
+
+

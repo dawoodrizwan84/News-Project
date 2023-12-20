@@ -2,28 +2,22 @@
 
 @{
     ViewData["Title"] = "Create";
-}
-
-<h1>Create Article</h1>
-<hr />
-
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
-
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
-
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
 
-<form asp-action="Create" enctype="multipart/form-data" method="post">
+
+
+<main>
+
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
+
+    <h1>Create Article</h1>
+    <hr />
+
+<form id="new-articles-form" asp-action="Create" enctype="multipart/form-data" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
@@ -52,8 +46,8 @@
 
     <div class="form-group">
         <label asp-for="Content" class="control-label">Content</label>
-        <input asp-for="Content" type="text" id="content" name="Content" class="form-control" />
-        <span asp-validation-for="Content" class="text-danger"></span>
+        <div id="QuillEditor">
+        </div>
     </div>
 
     <div class="form-group">
@@ -76,7 +70,7 @@
 
             </dd>
         </dl>
-        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload" onclick="typevalfunc()" />
+        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload and Save" onclick="typevalfunc()" />
 
 
     </div>
@@ -87,7 +81,7 @@
     </div> *@
 </form>
 
-
+</main>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

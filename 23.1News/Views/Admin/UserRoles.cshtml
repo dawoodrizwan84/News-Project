@@ -1,22 +1,27 @@
-﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUserRole<string>>
+﻿@model IEnumerable<_23._1News.Models.ViewModels.UserRoleVM>
 
 @{
     ViewData["Title"] = "UserRoles";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>UserRoles</h1>
-<hr />
 
-<p>
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-</p>
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
+    <h1>User Roles</h1>
+    <hr />
 
 <table class="table">
     <thead>
         <tr>
             <th>User Id</th>
+            <th>User Name</th>
             <th>Role Id</th>
+            <th>Role Name</th> <!-- Add this line -->
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -24,17 +29,15 @@
         {
             <tr>
                 <td>@userRole.UserId</td>
+                <td>@userRole.UserName</td>
                 <td>@userRole.RoleId</td>
+                <td>@userRole.RoleName</td> <!-- Add this line -->
                 <td>
-                    <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                        <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger" 
+                        onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-
-
-
-
+</main>

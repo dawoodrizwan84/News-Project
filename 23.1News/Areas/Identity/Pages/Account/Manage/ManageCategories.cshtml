@@ -1,0 +1,39 @@
+﻿@page
+@model _23._1News.Areas.Identity.Pages.Account.Manage.ManageCategoriesModel
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div>
+        <label>Select Category:</label>
+
+        @foreach (var category in Model.Categories)
+        {
+            <div>
+                <input type="radio" name="SelectCategoryId" value="@category.CategoryId" id="@($"category_{category.CategoryId}")">
+                <label for="@($"category_{category.CategoryId}")">@category.Name</label>
+            </div>
+        }
+    </div>
+
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+<!-- Display validation errors -->
+@if (Model.ModelState.ErrorCount > 0)
+{
+    <div>
+        <p>Please fix the following errors:</p>
+        <ul>
+            @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}

@@ -70,7 +70,8 @@
                                 <div class="c-details">
                                     <div>
                                     <h6>Card number</h6>
-                                        <input id="number" class="cc-number" placeholder="Card number" maxlength="19" style="width:100%" required>
+                                        <input id="number" class="cc-number" placeholder="Card number" maxlength="19"
+                                               onkeyup="this.value=this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');" style="width:100%" required>
                                     </div>
                                         <br>
                                     <div>
@@ -106,6 +107,7 @@
                                                 </div>
                                             </fieldset>
                                         </div>
+                                        <br>
                                         <div>
                                             <div class="cvv-box" id="cvv-box">
                                             <h6>CVV</h6>
@@ -115,30 +117,31 @@
                                     </div>
                                     </div>
                                 </div>
-                            <form id="subform" asp-action="Create" method="post" style="margin-bottom:50px">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
+                                <div class="container">
+
+                                    <div class="form-group" style="margin-bottom:50px">
                                     <button id="subbtn" disabled="disabled" type="submit" class=" btn btn-primary btn-lg form-control"
                                             onclick="openPopup()">
                                         Subscribe Now
                                     </button>
                                 </div>
-                            </form>
-                                <div class="col-xl-6 col-sm-8">
-
-                                    <div class="popup" id="popup">
-                                        <img src="~/image/tick.png" />
-                                        <h2>Thank you!</h2>
-                                        <p>Your subscribe has been successfully.Thanks!</p>
-                                        <form asp-controller="Home" asp-action="Index">
-                                            <div class="form-group">
-                                                <button type="submit" class=" btn btn-primary btn-lg form-control"
-                                                         onclick="closePopup()">
-                                                    Go back frontpage
-                                                </button>
-                                            </div>
+                            <div class="col-xl-6 col-sm-8">
+                                <div class="popup" id="popup">
+                                    <img src="~/image/tick.png" />
+                                    <h2>Thank you!</h2>
+                                    <p>Your subscribe has been successfully.Thanks!</p>
+                                    <form id="subform" asp-action="Create" method="post" >
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <button class=" btn btn-primary btn-lg form-control"
+                                                    onclick="closePopup()">
+                                                Home
+                                            </button>
+                                        </div>
                                         </form>
-                                    </div>
+                                        </div>
+                                </div>
+
                             </div>
                         </div>
 

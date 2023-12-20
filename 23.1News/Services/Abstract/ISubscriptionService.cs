@@ -6,6 +6,7 @@ namespace _23._1News.Services.Abstract
 {
     public interface ISubscriptionService
     {
+
         List<Subscription> GetAllSubs();
 
         void CreateSubs(Subscription newSub);
@@ -23,13 +24,24 @@ namespace _23._1News.Services.Abstract
         int GetActiveSubscribersCount();
 
         Subscription GetActiveSubscriptionByUser(string Id);
+
         //IEnumerable<object> GetWeeklySubscriptionData();
 
         IEnumerable<Subscription> GetWeeklySubscriptionData();
         List<SubscriptionType> GetSubscriptionTypes();
 
         // object GetSubsByUserId(string? userId);
-        bool isEnteprise( string userId);
+        bool isEnteprise(string userId);
+        Task<bool> UpgradeSubscriptionAsync(string userId, int newSubscriptionTypeId);
+        IEnumerable<SubscriptionType> GetSubscriptionTypesForUpgrade(int SubscriptionTypeId);
+        bool IsSubscribedToNewsletter(string userId);
+        bool IsEnterpriseUser(string userId);
+        bool CanUpgradeSubscription(int subscriptionTypeId, int newSubscriptionTypeId);
+        Task<bool> ResetPasswordAsync(string userId, string oldPassword, string newPassword);
+        bool SubscribeToNewsletter(string userId);
+        bool UnsubscribeFromNewsletter(string userId);
+        bool IsUnSubscribedFromNewsletter(string userId);
+        //bool NewsletterSubscriptionStatus(string userId);
 
     }
 }

@@ -1,29 +1,20 @@
 ﻿@model _23._1News.Models.Db.Category
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Category";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>Add Category</h3>
 
 
-<hr />
+<main>
+    <div class="navbar navbar-expand" style="margin-top:50px">
+        <partial name="_LoginPartial" />
+    </div>
 
+    <h1>Add Category</h1>
+    <hr />
 
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
-
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
-
-}
 
 <div class="row">
     <div class="col-md-4">
@@ -44,4 +35,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+    
+</main>
 

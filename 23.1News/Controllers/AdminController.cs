@@ -1,14 +1,10 @@
 ﻿using _23._1News.Data;
-using _23._1News.Models;
 using _23._1News.Models.Db;
-using _23._1News.Models.View_Models;
 using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Data;
 
 namespace _23._1News.Controllers
 {
@@ -19,16 +15,22 @@ namespace _23._1News.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IAdminService _adminService;
         private readonly IArticleService _articleService;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<User> _userManager;
+
 
 
         public AdminController(ILogger<AdminController> logger,
             IArticleService articleService, IAdminService adminService,
-            ApplicationDbContext applicationDbContext)
+            ApplicationDbContext applicationDbContext,
+            RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _logger = logger;
             _adminService = adminService;
             _applicationDbContext = applicationDbContext;
             _articleService = articleService;
+            _roleManager = roleManager;
+            _userManager = userManager;
 
 
         }
@@ -80,7 +82,7 @@ namespace _23._1News.Controllers
         public IActionResult AddNewRole()
         {
 
-            
+
             return View();
 
 
@@ -110,8 +112,11 @@ namespace _23._1News.Controllers
         public IActionResult UserRoles()
         {
             var userRoles = _adminService.GetUserRoles();
+                              
             return View("UserRoles", userRoles);
         }
+
+
 
 
         public IActionResult CreateRoles()

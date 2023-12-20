@@ -68,18 +68,6 @@ namespace _23._1News.Controllers
         }
 
 
-        //[HttpPost]
-        //public IActionResult Create(Subscription newSubscription)
-        //{
-        //    var subTypeId = (int)TempData["subTypeId"]!;
-        //    newSubscription.SubscriptionTypeId = subTypeId;
-        //    newSubscription.User = _userManager.GetUserAsync(User).Result;
-        //    _subscriptionService.CreateSubs(newSubscription);
-        //    SendEmail(newSubscription);
-        //    return RedirectToAction("Index",new {id=newSubscription.Id});
-        //}
-
-
         [HttpPost]
         public IActionResult Create(Subscription newSubscription)
         {
@@ -88,14 +76,6 @@ namespace _23._1News.Controllers
 
             // Check if the user is already subscribed
             var existingSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
-
-            //if (existingSubscription != null)
-            //{
-            //    // User is already subscribed, you may want to handle this case (e.g., display an error message)
-            //    // For now, redirect to the existing subscription details
-            //    return RedirectToAction("Details", new { id = existingSubscription.Id });
-            //}
-          
 
             // If the user is not already subscribed, proceed with creating a new subscription
             var subTypeId = (int)TempData["subTypeId"]!;
@@ -112,11 +92,6 @@ namespace _23._1News.Controllers
             //return RedirectToAction("Index", new { id = newSubscription.Id });
             return RedirectToAction("Index", "Home", new { id = newSubscription.Id });
         
-
-           
-
-
-
         }
 
 
@@ -242,21 +217,6 @@ namespace _23._1News.Controllers
 
 
         [Authorize(Roles = "Editor, Admin")]
-
-        //public IActionResult SubscriptionStatistics()
-        //{
-        //    var totalSubscribers = _subscriptionService.GetAllSubs().Count();
-        //    var activeSubscribers = _subscriptionService.GetActiveSubscribersCount(); // You need to implement this method in your SubscriptionService
-
-        //    var viewModel = new SubscriptionStatisticsVM
-        //    {
-        //        TotalSubscribers = totalSubscribers,
-        //        ActiveSubscribers = activeSubscribers
-        //    };
-
-        //    return View(viewModel);
-        //}
-
         public IActionResult SubscriptionStatistics()
         {
             var totalSubscribers = _subscriptionService.GetAllSubs().Count();
@@ -284,6 +244,23 @@ namespace _23._1News.Controllers
             return View(viewModel);
         }
 
+
+        [Authorize]
+        public IActionResult MyPage()
+        {
+            var userId = _userManager.GetUserId(User);
+            var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(userId);
+
+            var viewModel = new MyPageVM
+            {
+                IsEnterpriseUser = _subscriptionService.IsEnterpriseUser(userId),
+                IsSubscribedToNewsletter = _subscriptionService.IsSubscribedToNewsletter(userId),
+                ActiveSubscriptionType = activeSubscription?.SubscriptionType?.TypeName // Include the active subscription type
+            };
+
+            return View(viewModel);
+        }
+
         public IActionResult SubscribeToType(int subscriptionTypeId)
         {
             // Get the current user
@@ -304,6 +281,206 @@ namespace _23._1News.Controllers
             // ...
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult UpgradeSubscription()
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
+
+            // Ensure _subscriptionTypeService is injected and available
+            if (_subscriptionTypeService != null)
+            {
+                var availableTypes = _subscriptionTypeService.GetSubscriptionTypesForUpgrade(activeSubscription?.SubscriptionTypeId);
+                var viewModel = new UpgradeSubscriptionVM
+                {
+                    ActiveSubscription = activeSubscription,
+                    AvailableTypes = availableTypes
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                // Handle the case where _subscriptionTypeService is not available
+                // You can log an error, return an error view, or take other appropriate actions
+                return View("Error");
+            }
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpgradeSubscription(int newSubscriptionTypeId)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            // Get the active subscription
+            var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
+
+            if (activeSubscription != null)
+            {
+                // Check if the upgrade is valid
+                if (_subscriptionService.CanUpgradeSubscription(activeSubscription.SubscriptionTypeId, newSubscriptionTypeId))
+                {
+                    // Deactivate the current subscription
+                    activeSubscription.IsActive = false;
+                    _applicationDbContext.Subscriptions.Update(activeSubscription);
+                    await _applicationDbContext.SaveChangesAsync();
+
+                    // Create a new subscription with the specified type
+                    var newSubscription = new Subscription
+                    {
+                        SubscriptionTypeId = newSubscriptionTypeId,
+                        User = currentUser,
+                        Created = DateTime.Now,
+                        Price = _applicationDbContext.SubscriptionTypes.Find(newSubscriptionTypeId)?.Price ?? 0,
+                        IsActive = true
+                    };
+
+                    _applicationDbContext.Subscriptions.Add(newSubscription);
+                    await _applicationDbContext.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Subscription upgraded successfully!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Invalid upgrade. Please try again.";
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "User does not have an active subscription.";
+            }
+
+            return RedirectToAction("MyPage");
+        }
+
+
+        [Authorize]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = _userManager.GetUserId(User);
+            var result = _subscriptionService.ResetPasswordAsync(userId, model.OldPassword, model.NewPassword).Result;
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Password successfully changed!";
+                return RedirectToAction("MyPage");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Failed to reset password. Please check your old password.");
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        public IActionResult ManageNewsletter()
+        {
+            var userId = _userManager.GetUserId(User);
+            var isSubscribed = _subscriptionService.IsSubscribedToNewsletter(userId);
+            var isUnSubscribed = _subscriptionService.IsUnSubscribedFromNewsletter(userId);
+
+            var viewModel = new ManageNewsletterVM
+            {
+                IsSubscribedToNewsletter = isSubscribed,
+                IsSubscribedFromNewsletter = isUnSubscribed
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult SendNewsletterSubscriptionEmail(User user, bool isSubscribed)
+        {
+            EmailMessage email = new EmailMessage()
+            {
+                FromAddress = new EmailAddress()
+                {
+                    Address = "senderemailservice23.1@gmail.com",
+                    Name = "23.1News"
+                },
+                Subject = isSubscribed ? "Welcome to Our Newsletter" : "Unsubscribed from Our Newsletter"
+            };
+
+            string subscriptionMessage = isSubscribed
+                ? "Thank you for subscribing to our newsletter! Stay tuned for the latest updates."
+                : "You have unsubscribed from our newsletter. We're sorry to see you go.";
+
+            // Include user's name in the email content
+            string userName = $"{user.FirstName} {user.LastName}";
+            email.Content = $"{subscriptionMessage} Thank you, {userName}, for your continued support.";
+
+            email.ToAddresses.Add(new EmailAddress()
+            {
+                Address = user.Email,
+                Name = userName
+            });
+
+            // Additional logic or customization can be added here
+
+            _emailHelper.SendEmail(email);
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SubscribeToNewsletter()
+        {
+            var userId = _userManager.GetUserId(User);
+            var result = _subscriptionService.SubscribeToNewsletter(userId);
+
+            if (result)
+            {
+                // Send subscription email
+                var user = _userManager.FindByIdAsync(userId).Result;
+                SendNewsletterSubscriptionEmail(user, isSubscribed: true);
+
+                TempData["SuccessMessage"] = "Subscribed to the newsletter!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to subscribe to the newsletter.";
+            }
+
+            return RedirectToAction("ManageNewsletter");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult UnsubscribeFromNewsletter()
+        {
+            var userId = _userManager.GetUserId(User);
+            var result = _subscriptionService.UnsubscribeFromNewsletter(userId);
+
+            if (result)
+            {
+                // Send unsubscription email
+                var user = _userManager.FindByIdAsync(userId).Result;
+                SendNewsletterSubscriptionEmail(user, isSubscribed: false);
+
+                TempData["SuccessMessage"] = "Unsubscribed from the newsletter!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to unsubscribe from the newsletter.";
+            }
+
+            return RedirectToAction("ManageNewsletter");
         }
 
     }

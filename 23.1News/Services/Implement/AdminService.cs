@@ -4,6 +4,13 @@ using _23._1News.Models.ViewModels;
 using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
+
+
+
+
+
 
 namespace _23._1News.Services.Implement
 {
@@ -24,12 +31,14 @@ namespace _23._1News.Services.Implement
         }
         public List<Article> GetAllArticles()
         {
+
             return _db.Articles.ToList();
         }
 
         public List<User> GetAllUsers()
         {
-            return _db.Users.ToList();
+            var userCate = _db.Users.ToList();
+            return userCate;
         }
 
         //public User GetUserById(string id)
@@ -45,6 +54,12 @@ namespace _23._1News.Services.Implement
 
         public bool DeleteUser(string userId)
         {
+            var userSubscriptions = _db.Subscriptions.Where(s => s.UserId == userId).ToList();
+
+            // delete subscription
+            _db.Subscriptions.RemoveRange(userSubscriptions);
+            _db.SaveChanges();
+
             var user = _db.Users.Find(userId);
             if (user != null)
             {
@@ -52,10 +67,14 @@ namespace _23._1News.Services.Implement
                 _db.SaveChanges();
                 return true;
             }
+
+
+
+
             return false;
         }
 
-       
+
         public List<IdentityRole> GetAllRoles()
         {
             return _roleManager.Roles.ToList();
@@ -77,18 +96,59 @@ namespace _23._1News.Services.Implement
             var result = await _roleManager.CreateAsync(newRole);
 
             // Check if the role creation was successful
-            
+
             return result.Succeeded;
         }
 
 
+        //public List<IdentityUserRole<string>> GetUserRoles()
+        //{
 
-        public List<IdentityUserRole<string>> GetUserRoles()
+        //    return _db.UserRoles.ToList();
+
+        //}
+
+        public List<UserRoleVM> GetUserRoles()
         {
-           
-            return _db.UserRoles.ToList();
+            var userRoleDetails = _db.UserRoles
+                .Join(
+                    _db.Users,
+                    ur => ur.UserId,
+                    u => u.Id,
+                    (ur, u) => new
+                    {
+                        ur.RoleId,
+                        ur.UserId,
+                        u.UserName, // Include user name
+                        u.FirstName, // Assuming FirstName and LastName are properties in your User model
+                        u.LastName
 
+                    })
+                .Join(_roleManager.Roles,
+                     ur => ur.RoleId,
+                     r => r.Id,
+                     (ur, r) => new
+                     {
+                         ur.RoleId,
+                         ur.UserId,
+                         ur.FirstName,
+                         ur.LastName,
+                         RoleName = r.Name
+                     }).ToList();
+
+            var userRolesViewModel = userRoleDetails.Select(ur => new UserRoleVM
+            {
+                UserId = ur.UserId,
+                UserName = $"{ur.FirstName} {ur.LastName}", // Concatenate first and last name
+                RoleId = ur.RoleId,
+                RoleName = ur.RoleName
+
+                // Include other properties from UserRoles, if needed
+            }).ToList();
+
+            return userRolesViewModel;
         }
+
 
 
         public bool AddUserRole(UserRoleVM userRoleVM)
@@ -111,7 +171,7 @@ namespace _23._1News.Services.Implement
 
                 return false;
             }
-          
+
         }
     }
 }
