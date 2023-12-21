@@ -275,8 +275,8 @@ namespace _23._1News.Services.Implement
             try
             {
                 var userSubscription = GetActiveSubscriptionByUserId(userId);
-
                 // Assuming there is a property like SubscriptionType in your Subscription model
+
                 return userSubscription?.SubscriptionType?.TypeName.ToLower() == "enterprise";
             }
             catch (Exception)
