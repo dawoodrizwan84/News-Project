@@ -1,7 +1,9 @@
-﻿@model IEnumerable<_23._1News.Models.Db.Article>
+﻿@inject _23._1News.Services.Abstract.IArticleService _articleService
+@model IEnumerable<_23._1News.Models.Db.Article>
 @{
     ViewData["Title"] = "Front Page";
-
+    int n = 0;
+    var categoryarticles = _articleService.GetFirstArticleInCategory();
 }
 
 
@@ -16,6 +18,101 @@
                             <h1 class="display-4"><strong>Welcome to 23 News</strong></h1>
                             <br />
                             <div>
+
+                                <div class="card col-lg-11">
+                                     <div class="card-body">
+
+                                        <div id="demo" class="carousel slide" data-bs-ride="carousel" style="margin:-17px;">
+
+
+                                            <div class="carousel-indicators">
+
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="4"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="5"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="6"></button>
+                                                <button type="button" data-bs-target="#demo" data-bs-slide-to="7"></button>
+
+                                            </div>
+
+                                            <div class="carousel-inner" style="border-radius: 10px;">
+
+
+                                                @foreach (var item in categoryarticles)
+                                                {
+
+                                                    if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+
+                                                    {
+
+                                                        TempData["ContentSummary"] = item.ContentSummary;
+
+                                                    }
+
+
+                                                    @if (n == 0)
+                                                    {
+                                                        <div class="carousel-item active">
+                                                            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                                <img src="@item.BlobLink" class="d-block" alt="" style="width:760px; height:420px; filter: brightness(0.9);">
+                                                            </a>
+                                                            <div class="carousel-caption d-md-block">
+                                                                <a asp-controller="Home" asp-action="News" asp-route-id="@item.Category.CategoryId">
+                                                                    <h2 style="color: white;">@item.Category.Name</h2>
+                                                                </a>
+                                                                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                                    <h5 style="color: white;">@item.Headline</h5>
+                                                                    <p style="color: white;">@TempData["ContentSummary"]</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+
+                                                    else
+                                                    {
+
+                                                        <div class="carousel-item">
+                                                            <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                                <img src="@item.BlobLink" class="d-block" alt="" style="width:760px; height:420px; filter: brightness(0.8);">
+                                                            </a>
+                                                            <div class="carousel-caption d-md-block">
+                                                                <a asp-controller="Home" asp-action="News" asp-route-id="@item.Category.CategoryId">
+                                                                    <h2 style="color: white">@item.Category.Name</h2>
+                                                                </a>
+                                                                <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                                    <h5 style="color: white;">@item.Headline</h5>
+                                                                    <p style="color: white;">@TempData["ContentSummary"]</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    n++;
+                                                }
+
+                                            </div>
+
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon"></span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon"></span>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                                </br></br>
+
+
                                 @foreach (var item in Model)
                                 {
 
