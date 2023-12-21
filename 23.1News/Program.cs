@@ -125,7 +125,6 @@ namespace _23._1News
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
-            var app = builder.Build();
             //Sessions for weekly newsletter in my pages
             builder.Services.AddSession();
 
