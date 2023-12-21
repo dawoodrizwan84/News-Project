@@ -21,6 +21,7 @@ namespace HighestLowestElectricityPrice
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             var spotPrices=_spotService.GetSpotMetrics().Result;
+            _spotService.SaveSportData(spotPrices);
             if (myTimer.ScheduleStatus is not null ) 
             {
                 _logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next}");

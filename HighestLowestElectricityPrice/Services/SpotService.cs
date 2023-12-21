@@ -21,6 +21,8 @@ namespace HighestLowestElectricityPrice.Services
         {
             _configuration = configuration;
             _tableServiceClient = new TableServiceClient(_configuration["AzureWebJobsStorage"]);
+            
+
         }
 
         public async Task<TodaysSpotData> GetSpotMetrics()
@@ -47,8 +49,9 @@ namespace HighestLowestElectricityPrice.Services
                     HourLowest = d.MinBy(d => Convert.ToDecimal(d.Price)/1000).DateTime.Hour,
                 })
                 .ToList();
+
             TableClient tableClient = _tableServiceClient.GetTableClient
-            (tableName: "Elspothighlowtable");
+            (tableName: "spothighlowtable");
             tableClient.CreateIfNotExistsAsync();
             Random rnd = new();
             foreach (var item in groupedSpotData) 

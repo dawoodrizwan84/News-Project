@@ -12,6 +12,7 @@ var host = new HostBuilder()
     .ConfigureServices(s =>
     {
         s.AddScoped<ISpotService, SpotService>();
+        //s.AddHttpClient();
     })
     //.ConfigureServices(services =>
     //{
