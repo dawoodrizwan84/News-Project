@@ -66,10 +66,10 @@
                         @Html.DisplayFor(modelItem => item.ContentSummary)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Content)
+                        @Html.Raw(item.Content)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
+                        @Html.DisplayFor(modelItem => item.Category.CategoryId)
                     </td>
                 <td>
                       <a asp-action="Edit" asp-route-id="@item.Id" style="color:#2fa4e7">Edit </a>

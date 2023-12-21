@@ -17,6 +17,7 @@
     <h1>Category List</h1>
     <hr />
 
+    <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover table-sm" style="width:200px">
         <thead>
             <tr>
@@ -27,7 +28,7 @@
                 </th>
                 <th>
 
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.CategoryId)
 
                 </th>
                 <th>
@@ -46,7 +47,7 @@
                     </td>
                     <td>
 
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.CategoryId)
                     </td>
                     <td>
                         @* <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
@@ -59,4 +60,5 @@
             }
         </tbody>
     </table>
+    </div>
 </main>

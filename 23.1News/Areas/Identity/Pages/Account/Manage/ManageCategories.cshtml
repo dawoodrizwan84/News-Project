@@ -1,10 +1,27 @@
 ﻿@page
 @model _23._1News.Areas.Identity.Pages.Account.Manage.ManageCategoriesModel
+@using _23._1News.Models.Db
+
 @{
     ViewData["Title"] = "Manage Categories";
+    // var cate = TempData["success"];
+    
+
 }
 
 <h2>@ViewData["Title"]</h2>
+
+
+<p>Choosen: </p>
+@* <ul>
+    <li>
+        @cate
+      
+    </li>
+</ul> *@
+
+
+
 
 <form method="post">
     <div>
@@ -14,15 +31,25 @@
         {
             <div>
                 <input type="radio" name="SelectCategoryId" value="@category.CategoryId" id="@($"category_{category.CategoryId}")">
-                <label for="@($"category_{category.CategoryId}")">@category.Name</label>
-            </div>
-        }
-    </div>
+                <label for="@($"category_{category.CategoryId}")">@category.CategoryId</label>
+               
+           </div>
+      
+           
 
+        }
+      
+     
+    </div>
+    <br>
     <div>
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn btn-primary" value="Submit">
+        
     </div>
 </form>
+
+
+
 
 <!-- Display validation errors -->
 @if (Model.ModelState.ErrorCount > 0)
@@ -32,8 +59,27 @@
         <ul>
             @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
             {
-                <li>@error.ErrorMessage</li>
+                <li style="color: red">@error.ErrorMessage</li>
             }
         </ul>
     </div>
 }
+
+
+
+@* <div>
+    <p>Your selected category is: @cate</p>§
+
+</div> *@
+
+<div>
+    @* <p>Your selected category(Session) is: @HttpContext.Session.GetInt32("SelectedCategoryId")</p> *@
+    <p>
+        Your selected Newsletter category: <span style="color: orange"><strong> @HttpContext.Session.GetString("SelectedCategoryName")</strong></span>
+    </p>
+
+</div>
+
+
+
+

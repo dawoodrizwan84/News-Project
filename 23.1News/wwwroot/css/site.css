@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
 html {
     font-size: 14px;
     position: relative;
@@ -53,16 +59,30 @@ a:link {
     font-size: large;
 }
 
+.container {
+    height: 100%;
+    padding-bottom: 100px;
+}
 
+/*#content001 {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 50px;
+}*/
 
 #frontpagefooter {
+    bottom: 0;
+    position: absolute;
+    width:100%;
+    /* left: 0px;
     bottom: 0;
     height: 100px;
     width: 100%;
     display: block;
     position: absolute;
     text-align: center;
-    justify-content: center;
+    justify-content: center;*/
 }
 
 #hover002:hover {
@@ -135,7 +155,7 @@ a:link {
 
 .popup button {
     width: 100%;
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 10px 0;
     background: #2fa4e7;
     color: #fff;
@@ -145,4 +165,11 @@ a:link {
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
+
+
+
+#footer001:hover {
+    font-size: large;
+    color:white;
 }

@@ -9,8 +9,8 @@
 <h4></h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="UpgradeSubscription" method="post">
+    <div class="col-md-6">
+        <form id="payment-form" asp-action="UpgradeSubscription" method="post" class="card p-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -23,16 +23,73 @@
             </div>
             <div class="form-group">
                 <label asp-for="NewSubscriptionTypeId" class="control-label">Select New Subscription Type</label>
-                <select asp-for="NewSubscriptionTypeId" asp-items="@(new SelectList(Model.AvailableTypes, "Id", "TypeName"))" class="form-control">
+                <select id="subscriptionTypeSelect" asp-for="NewSubscriptionTypeId" asp-items="@(new SelectList(Model.AvailableTypes, "Id", "TypeName"))" class="form-control">
                     <option value="">Select...</option>
                 </select>
                 <span asp-validation-for="NewSubscriptionTypeId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Upgrade Subscription" class="btn btn-primary" />
+            <!-- Payment-related fields -->
+            <div id="paymentFields" style="display: none;">
+                <!-- Add any payment-related fields here -->
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element" class="mb-3">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-errors" role="alert" class="text-danger"></div>
             </div>
+
+            <button id="submit-payment" class="btn btn-primary btn-block">Upgrade Subscription</button>
         </form>
+    </div>
+
+    <!-- Additional HTML for subscription plans and descriptions -->
+    <div class="col-md-6">
+        <h4 class="mb-4">Subscription Plans</h4>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Your Current Plan</h5>
+                <!-- Add your current plan details here -->
+            </div>
+        </div>
+
+        <!-- Upgrade Options -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Upgrade Options</h5>
+
+                <!-- Upgrade to Basic -->
+                <div class="mb-3">
+
+                    
+                    <h6 class="my-0 fw-normal">Upgrade to BASIC</h6>
+
+                    <p class="text-muted">$9.99/mo</p>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>Access to premium content</li>
+                        <li>Ad-free experience</li>
+                        <!-- Add any additional features for the Basic plan -->
+                    </ul>
+                </div>
+
+                <!-- Upgrade to Premium -->
+                <div>
+
+                    <h6 class="my-0 fw-normal">Upgrade to PREMIUM</h6>
+                  
+                    <p class="text-muted">$19.99/mo</p>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>Access to all features</li>
+                        <li>Priority customer support</li>
+                        <li>Exclusive events and content</li>
+                        <!-- Add any additional features for the Premium plan -->
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

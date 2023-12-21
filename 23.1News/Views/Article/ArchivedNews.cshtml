@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.ContentSummary)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @Html.Raw(item.Content)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageLink)
@@ -82,3 +82,4 @@
 }
     </tbody>
 </table>
+

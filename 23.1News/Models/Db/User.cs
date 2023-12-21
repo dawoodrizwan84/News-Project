@@ -12,16 +12,18 @@ namespace _23._1News.Models.Db
 
         public string Address { get; set; } = string.Empty;
 
-        public int SelectedCategoryId { get; set; }  // For the selection of Newsletter categories 
+        //public int SelectedCategoryId { get; set; }  // For the selection of Newsletter categories 
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
 
 
-        //public virtual Category Category{ get; set; } // Navigation property to Category
+        //public virtual Category SelectedCategoryName { get; set; } 
 
 
 
         public bool ReceiveNewsletters { get; set; } = true;
+
+        public virtual ICollection<Category> UserCategories { get; set; }
 
     }
 }

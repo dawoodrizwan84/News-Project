@@ -155,6 +155,9 @@ namespace _23._1News.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("WeekLabel")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionTypeId");
@@ -251,9 +254,6 @@ namespace _23._1News.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SelectedCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -276,6 +276,9 @@ namespace _23._1News.Data.Migrations
 
             modelBuilder.Entity("_23._1News.Models.Db.WeeklySubscriptionData", b =>
                 {
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("SubscriberCount")
                         .HasColumnType("int");
 
@@ -284,6 +287,21 @@ namespace _23._1News.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("WeeklySubscriptionData");
+                });
+
+            modelBuilder.Entity("CategoryUser", b =>
+                {
+                    b.Property<string>("CategoryUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserCategoriesCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryUsersId", "UserCategoriesCategoryId");
+
+                    b.HasIndex("UserCategoriesCategoryId");
+
+                    b.ToTable("CategoryUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -455,6 +473,21 @@ namespace _23._1News.Data.Migrations
                     b.Navigation("SubscriptionType");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CategoryUser", b =>
+                {
+                    b.HasOne("_23._1News.Models.Db.User", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_23._1News.Models.Db.Category", null)
+                        .WithMany()
+                        .HasForeignKey("UserCategoriesCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,61 +1,28 @@
 ﻿@model _23._1News.Models.Db.Article
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Home Page";
     var test = @Model.BlobLink;
-    if(User.IsInRole("Editor") || User.IsInRole("Admin"))
-{
-        Layout = "/Views/Shared/_AdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "/Views/Shared/_Layout.cshtml";
-    }
 }
 
-@if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+@if (User.IsInRole("Editor"))
 {
-    <main>
-    <div class="navbar navbar-expand" style="margin-top:50px">
-        <partial name="_LoginPartial" />
-    </div>
-
-    <h1>News Details</h1>
-    <hr />
-   <section class="section">
-    <div>
-        <div class="container">
-            <div class="content">
-                <div class="row gx-5">
-                    <div class="col-xl-10 col-lg-7 col-md-12">
-                        <h1 style="margin-top:50px;">@Model.Headline</h1>
-                        <br />
-                        <img src="@test" class="card-img-top" alt="...">
-                        <br />
-                        <div class="card-body">
-                            <a asp-controller="Article" asp-action="Details" asp-route-id="@Model.Id">
-                                @*<h5 class="card-title">mitem.LinkText</h5>*@
-                                <h7 class="card-text" style="color:#2fa4e7"><i>@Model.DateStamp.ToString("yyyy-MM-dd HH:mm")</i></h7>
-
-                                <p class="card-text" style="color:black"><i>@TempData["ContentSummary"]</i></p>
-                                <hr />
-                                <p class="card-text" style="color:black">@TempData["Content"]</p>
-                            </a>
-
-
-                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
+    <p>
+        <a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary m-2">Edit</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
+    </p>
 }
 
-else
+@if (User.IsInRole("Admin"))
 {
-   
+    <p>
+        <a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary m-2">Edit</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
+    </p>
+
+}
+
+
 <section class="section">
     <div>
         <div class="container">
@@ -76,6 +43,7 @@ else
                                 <p class="card-text">@Html.Raw(@TempData["Content"])</p>
 
                             </a>
+
 
                         </div>
 
@@ -103,7 +71,7 @@ else
                                     <div class="col">
                                         <div class="card mb-4 rounded-3 shadow-sm border-primary">
                                             <div class="card-header py-3 text-bg-primary border-primary">
-                                                <h4 class="my-0 fw-normal" style="color:white;">Pro</h4>
+                                                <h4 class="my-0 fw-normal" style="color:white;">Basic</h4>
                                             </div>
                                             <div class="card-body">
                                                 <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
@@ -117,7 +85,7 @@ else
                                     <div class="col">
                                         <div class="card mb-4 rounded-3 shadow-sm border-primary">
                                             <div class="card-header py-3 text-bg-primary border-primary">
-                                                <h4 class="my-0 fw-normal" style="color:white;">Enterprise</h4>
+                                                <h4 class="my-0 fw-normal" style="color:white;">Premium</h4>
                                             </div>
                                             <div class="card-body">
                                                 <h1 class="card-title pricing-card-title">$39<small class="text-body-secondary fw-light">/mo</small></h1>
@@ -131,6 +99,8 @@ else
                                 </div>
                             </main>
 
+
+
                             <h2 class="display-6 text-center mb-4" style="margin-top:20px;">Compare plans</h2>
 
                             <div class="table-responsive">
@@ -139,8 +109,8 @@ else
                                         <tr>
                                             <th style="width: 34%;"></th>
                                             <th style="width: 22%;">Free</th>
-                                            <th style="width: 22%;">Pro</th>
-                                            <th style="width: 22%;">Enterprise</th>
+                                            <th style="width: 22%;">Basic</th>
+                                            <th style="width: 22%;">Premium</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -238,9 +208,18 @@ else
                                     </tbody>
                                 </table>
                             </div>
+
+
                         }
 
+
+
+
+
                     </div>
+
+
+
 
                     <div class="col-xl-4 col-lg-5 col-md-12" style="margin-top:100px;">
                         <div class="card mb-3">
@@ -259,12 +238,17 @@ else
                         </div>
                     </div>
 
+
+
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-}
 
 
 

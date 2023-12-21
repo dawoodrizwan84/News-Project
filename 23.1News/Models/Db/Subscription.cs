@@ -12,8 +12,7 @@ namespace _23._1News.Models.Db
         public DateTime Created { get; set; }
         public bool IsActive { get; set; }
         public bool PaymentComplete { get; set; }
-
-        //public string WeekLabel { get; set; }   
+        public string? WeekLabel { get; set; }   
         public int SubscriberCount { get; set; }    
 
         //public User User { get; set; }

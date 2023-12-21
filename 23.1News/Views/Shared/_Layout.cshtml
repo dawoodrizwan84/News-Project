@@ -10,16 +10,18 @@
     DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
     var dateTime = unixStart.AddSeconds(weatherForecast.UnixTime).ToLocalTime().ToShortTimeString();
 
-    if (Context.Request.Cookies.TryGetValue("user_id", out string value))
-    {
-        TempData["Subscription"] = "Subscribed";
-    }
-    else
-    {
-        TempData["Subscription"] = "Subscribe";
-    }
+    // if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+    // {
+    //     TempData["Subscription"] = "Subscribed";
+    // }
+    // else
+    // {
+    //     TempData["Subscription"] = "Subscribe";
+    // }
     
 }
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,12 +72,34 @@
 
             <div style="margin-right:20px;">
 
-                <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2  btn-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
-                    </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
+                @if (Context.Request.Cookies.TryGetValue("user_id", out string value))
+                {
+                    TempData["Subscription"] = "Subscribed";
 
-                </a>
+                    <a asp-controller="Subscription" asp-action="UpgradeSubscription" class="btn btn-primary m-2 btn-lg-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+                        </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
+
+                    </a>
+                }
+                else
+                {
+                    TempData["Subscription"] = "Subscribe";
+
+                    <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2 btn-lg-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+                        </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
+
+                    </a>
+                }
+                @* <a asp-controller="SubscriptionType" asp-action="Index" class="btn btn-primary m-2 btn-lg-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+                </svg>&nbsp;&nbsp;<strong>@TempData["Subscription"]</strong>
+
+                </a> *@
             </div>
         </div>
 
@@ -103,7 +127,7 @@
                        
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
                             </li>
                         }
@@ -115,7 +139,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
                             </li>
                         }
@@ -124,7 +148,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
                             </li>
                         }
@@ -144,61 +168,40 @@
     </div>
 
 
-    <footer id="frontpagefooter" class="navbar navbar-expand-lg bg-primary navbar-fixed-bottom" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Home/Index" style="margin-top:20px">23.1News</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:20px">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto" style="margin-top:20px">
-                    <li id="hover002" class="nav-item ">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    @foreach (var category in categories)
-                    {
-                        <li id="hover002" class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
-                        </li>
-                    }
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
-                        </li>
-                    }
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-
-                    @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
-                        </li>
-                    }
-
-                    @*  @if (User.IsInRole("Admin") || User.IsInRole("Editor")) *@
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-
-            <div id="hover002" style="color:white;margin-top:20px">
-                &copy; 2023 - _23._1News - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:white">Privacy</a>
-            </div>
-        </div>
-
+    <footer class="py-3 bg-primary" style="margin-bottom:-100px;">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li id="footer001" class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            @foreach (var category in categories)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@category.CategoryId">@category.Name</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="ElectricityPrice" asp-action="GetElectricityPrice">Electricity </a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="footer001" class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
+                </li>
+            }
+        </ul>
+        <p class="text-center text-light">© 2023 - _23._1News - <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </footer>
+    
+
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

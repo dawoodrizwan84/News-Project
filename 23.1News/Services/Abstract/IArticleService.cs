@@ -23,9 +23,10 @@ namespace _23._1News.Services.Abstract
 
         string UploadImageFile(ArticleVM articleVM);
 
-
         List<Article> GetArchiveNews();
         List<Article> SearchArhivedNews(string Headline);
+
+        public List<Article> GetFirstArticleInCategory();
 
     }
 }

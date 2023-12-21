@@ -29,10 +29,27 @@ namespace _23._1News.Services.Implement
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _logger = logger;
         }
- 
-        public List<Subscription> GetAllSubs()
+
+        public List<SubscriptionListVM> GetAllSubs()
         {
-            return _db.Subscriptions.ToList();
+            var subscriptions = _db.Subscriptions
+                .Include(sub => sub.SubscriptionType)
+                .Include(sub => sub.User)
+                .OrderByDescending(sub => sub.Id)
+                .Select(sub => new SubscriptionListVM
+                {
+                    SubscriptionId = sub.Id,
+                    SubscriptionPrice = sub.Price,
+                    SubscriptionCreated = sub.Created,
+                    SubscriptionTypeId = sub.SubscriptionTypeId,
+                    SubscriptionTypeName = sub.SubscriptionType.TypeName,
+                    IsActive = sub.IsActive,
+                    PaymentComplete = sub.PaymentComplete,
+                    UserId = sub.UserId
+                })
+                .ToList();
+
+            return subscriptions;
         }
 
         public void CreateSubs(Subscription newSub)
@@ -120,22 +137,42 @@ namespace _23._1News.Services.Implement
             return activeSubscription;
         }
 
+        //public IEnumerable<Subscription> GetWeeklySubscriptionData()
+        //{
+        //    var weeklyData = _db.WeeklySubscriptionData.ToList();
+
+        //    var subscriptions = weeklyData.Select(weekly =>
+        //        new Subscription
+        //        {
+        //            // Map properties from WeeklySubscriptionData to Subscription
+        //            // For example:
+        //            // Id = weekly.Id,
+        //            // SubscriptionType = weekly.SubscriptionType,
+        //            // Price = weekly.Price,
+        //            // ...
+
+        //            // Assign properties specific to Subscription, adapt this to your needs
+        //            //WeekLabel = weekly.WeekLabel,
+        //            SubscriberCount = weekly.SubscriberCount,
+        //            // ...
+        //        });
+
+        //    return subscriptions;
+        //}
+
         public IEnumerable<Subscription> GetWeeklySubscriptionData()
         {
-            var weeklyData = _db.WeeklySubscriptionData.ToList();
+            DateTime lastWeekStartDate = DateTime.Today.AddDays(-7);
+
+            var weeklyData = _db.WeeklySubscriptionData
+                .Where(weekly => weekly.Date >= lastWeekStartDate)
+                .ToList();
 
             var subscriptions = weeklyData.Select(weekly =>
                 new Subscription
                 {
-                    // Map properties from WeeklySubscriptionData to Subscription
-                    // For example:
-                    // Id = weekly.Id,
-                    // SubscriptionType = weekly.SubscriptionType,
-                    // Price = weekly.Price,
-                    // ...
-
                     // Assign properties specific to Subscription, adapt this to your needs
-                    //WeekLabel = weekly.WeekLabel,
+                    WeekLabel = weekly.WeekLabel,
                     SubscriberCount = weekly.SubscriberCount,
                     // ...
                 });
@@ -238,6 +275,7 @@ namespace _23._1News.Services.Implement
             try
             {
                 var userSubscription = GetActiveSubscriptionByUserId(userId);
+                // Assuming there is a property like SubscriptionType in your Subscription model
 
                 return userSubscription?.SubscriptionType?.TypeName.ToLower() == "enterprise";
             }
