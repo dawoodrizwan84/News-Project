@@ -7,7 +7,7 @@
     ViewData["Title"] = "Manage Categories";
     // var cate = TempData["success"];
 
-    var ok = TempData["selected"];
+    var ok = TempData["data"];
           
 
 
@@ -18,25 +18,10 @@
 
 <p>Choosen: </p>
 
-@if (Model.category.CategoryUsers != null)
-{
-    <ul>
-        @foreach (var item in Model.Users)
-        {
-            <li>
-               
-            </li>
-        }
-    </ul>
-   
-}
+    
 
-@* <ul>
-    <li>
-        @ok
-      
-    </li>
-</ul> *@
+
+
 
 
 
@@ -50,6 +35,8 @@
             <div>
                 <input type="radio" name="SelectCategoryId" value="@category.CategoryId" id="@($"category_{category.CategoryId}")">
                 <label for="@($"category_{category.CategoryId}")">@category.Name</label>
+
+              
                
            </div>
                 
@@ -60,7 +47,9 @@
     </div>
     <br>
     <div>
+       
         <input type="submit" class="btn btn-primary" value="Submit">
+        
         
     </div>
 </form>

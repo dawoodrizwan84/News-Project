@@ -56,9 +56,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             user!.UserCategories = user.UserCategories ?? new List<Category>();
 
             var que = user.UserCategories
-                .Where(wh => wh.CategoryUsers.Any(an => an.Id == user.Id)).ToList();  
+                .Where(wh => wh.Name == wh.Name).ToList();
 
-            var que2 = que.ToString();
+            var que2 = que;
             TempData["data"] = que2;
 
             //var choosenCate = user.UserCategories.ToList();
@@ -73,7 +73,6 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             return Page();
 
         }
-
 
 
         public async Task<IActionResult> OnPost()
@@ -108,10 +107,11 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                     return await OnGet();
                 }
 
+                
                 user.ReceiveNewsletters = true;
 
                 // Update the user
-                //await _userManager.UpdateAsync(user);
+              
 
                 HttpContext.Session.SetString("SelectedCategoryName", selectedCategory.Name);
             }
@@ -122,12 +122,19 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                 return await OnGet();
             }
 
+            //user.UserCategories.Remove(selectedCategory);
+            await _userManager.UpdateAsync(user);
+
             // Handle successful case or redirect as needed
-            return RedirectToPage("/SuccessPage");
+            return RedirectToPage(OnGet);
         }
 
     }
 
-    
+  
+
+
+
+
 
 }
