@@ -13,13 +13,13 @@
 
 
 
-<main>
+
     <div class="navbar navbar-expand" style="margin-top:50px">
         <partial name="_LoginPartial" />
     </div>
 
-    <h1>Assign Roles</h1>
-    <hr />
+    <h1 style="text-align:center;margin-bottom:10px">Assign Roles</h1>
+
 
 <form asp-action="CreateRoles" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,10 +38,8 @@
 
     <button type="submit" class="btn btn-primary mt-3">Insert User Role</button>
 
-    <div>
-        <a asp-action="Index">Back to Admin</a>
-    </div>
+
 </form>
-</main>
+
 
 

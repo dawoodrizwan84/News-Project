@@ -6,21 +6,20 @@
 }
 
 
-<main>
+
     <div class="navbar navbar-expand" style="margin-top:50px">
         <partial name="_LoginPartial" />
     </div>
 
-    <h1>User Roles</h1>
-    <hr />
+    <h1 style="text-align:center;margin-bottom:10px">User Roles</h1>
 
-<table class="table">
+<table id="myTable" class="table table-bordered table-hover table-striped table-light">
     <thead>
         <tr>
             <th>User Id</th>
             <th>User Name</th>
             <th>Role Id</th>
-            <th>Role Name</th> <!-- Add this line -->
+            <th>Role Name</th> 
             <th>Action</th>
         </tr>
     </thead>
@@ -31,13 +30,13 @@
                 <td>@userRole.UserId</td>
                 <td>@userRole.UserName</td>
                 <td>@userRole.RoleId</td>
-                <td>@userRole.RoleName</td> <!-- Add this line -->
+                <td>@userRole.RoleName</td> 
                 <td>
-                        <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger" 
-                        onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                    <a asp-action="DelUser" asp-route-id="@userRole.UserId" class="btn btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-</main>
+
