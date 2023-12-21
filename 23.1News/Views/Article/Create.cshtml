@@ -8,14 +8,13 @@
 
 
 
-<main>
+
 
     <div class="navbar navbar-expand" style="margin-top:50px">
         <partial name="_LoginPartial" />
     </div>
 
-    <h1>Create Article</h1>
-    <hr />
+<h1 style="text-align:center;margin-bottom:10px">Create Article</h1>
 
 <form id="new-articles-form" asp-action="Create" enctype="multipart/form-data" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -70,7 +69,7 @@
 
             </dd>
         </dl>
-        <input asp-page-handler="Upload" class="btn btn-success" type="submit" value="Upload and Save" onclick="typevalfunc()" />
+        <input asp-page-handler="Upload" class="btn btn-primary" type="submit" value="Upload and Save" onclick="typevalfunc()" />
 
 
     </div>
@@ -81,10 +80,8 @@
     </div> *@
 </form>
 
-</main>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 
 <script>
