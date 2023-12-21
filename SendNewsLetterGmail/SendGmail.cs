@@ -63,33 +63,37 @@ namespace SendNewsLetterGmail
                 // Create a string to hold the concatenated categories
                 var categoriesString = "";
 
-                foreach (var item in user.UserCategories)
+                if (user.UserCategories != null)
                 {
-                    categoriesString += $"{item.Name}, ";
+                    foreach (var item in user.UserCategories)
+                    {
+                        categoriesString += $"{item.Name}, ";
+                    }
+
+                    // Remove the trailing comma and space if there are categories
+                    if (!string.IsNullOrEmpty(categoriesString))
+                    {
+                        categoriesString = categoriesString.TrimEnd(',', ' ');
+                    }
+
+                    // Add the categories to the HTML body
+                    bodyBuilder.HtmlBody += $"Your Weekly Newsletter of Choice: <strong>{categoriesString}</strong> <br/>";
+
+                    // Continue with the rest of your HTML body
+                    bodyBuilder.HtmlBody += "Thank you for subscribing. </br></br>" +
+                        "Please visit 23.1 News to read the latest news: <a href=\"https://231news20231115124158.azurewebsites.net/\">Link to News</a></p>";
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    using (var emailClient = new SmtpClient())
+                    {
+                        emailClient.Connect(_configuration["SmtpServer"], int.Parse(_configuration["SmtpPort"]), SecureSocketOptions.StartTls);
+                        emailClient.Authenticate(_configuration["EmailAddress"], _configuration["SmtpPassword"]);
+                        emailClient.Send(message);
+                        emailClient.Disconnect(true);
+                    }
                 }
-
-                // Remove the trailing comma and space if there are categories
-                if (!string.IsNullOrEmpty(categoriesString))
-                {
-                    categoriesString = categoriesString.TrimEnd(',', ' ');
-                }
-
-                // Add the categories to the HTML body
-                bodyBuilder.HtmlBody += $"Your Weekly Newsletter of Choice: <strong>{categoriesString}</strong> <br/>";
-
-                // Continue with the rest of your HTML body
-                bodyBuilder.HtmlBody += "Thank you for subscribing. </br></br>" +
-                    "Please visit 23.1 News to read the latest news: <a href=\"https://231news20231115124158.azurewebsites.net/\">Link to News</a></p>";
-
-                message.Body = bodyBuilder.ToMessageBody();
-
-                using (var emailClient = new SmtpClient())
-                {
-                    emailClient.Connect(_configuration["SmtpServer"], int.Parse(_configuration["SmtpPort"]), SecureSocketOptions.StartTls);
-                    emailClient.Authenticate(_configuration["EmailAddress"], _configuration["SmtpPassword"]);
-                    emailClient.Send(message);
-                    emailClient.Disconnect(true);
-                }
+               
             }
             catch (Exception ex)
             {

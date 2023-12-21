@@ -18,8 +18,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
         private readonly ApplicationDbContext _applicationDbContext;
 
 
-        public ManageCategoriesModel(ICategoryService categoryService, UserManager<User> userManager,
-                    ApplicationDbContext applicationDbContext)
+
+        public ManageCategoriesModel(ICategoryService categoryService,
+            UserManager<User> userManager, ApplicationDbContext applicationDbContext)
         {
             _categoryService = categoryService;
             _userManager = userManager;
@@ -32,10 +33,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
         public List<Category> Categories { get; set; }
 
-        //public Category category { get; set; }
+        public List<User> Users { get; set; }
 
-
-
+        public Category category { get; set; }
 
 
         public async Task<IActionResult> OnGet()
@@ -55,7 +55,18 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
             user!.UserCategories = user.UserCategories ?? new List<Category>();
 
-            var choosenCate = user.UserCategories.ToList();
+            var que = user.UserCategories
+                .Where(wh => wh.CategoryUsers.Any(an => an.Id == user.Id)).ToList();  
+
+            var que2 = que.ToString();
+            TempData["data"] = que2;
+
+            //var choosenCate = user.UserCategories.ToList();
+            //var slect = user.UserCategories.Where(user => choosenCate.Any());
+
+            //ViewData["selected"] = select;
+            //TempData.Keep("selected");
+
             //TempData["success"] = Categories;
 
 
@@ -116,4 +127,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
         }
 
     }
+
+    
+
 }
