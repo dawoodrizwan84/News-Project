@@ -349,6 +349,20 @@ namespace _23._1News.Services.Implement
         //    return searchResults;
         //}
 
+        public List<Article> GetFirstArticleInCategory()
+        {
+
+            var articles = _db.Articles.GroupBy(x => x.CategoryId)
+            .Select(g => g.OrderByDescending(x => x.DateStamp).First()).ToList();
+
+
+            foreach (var item in articles)
+            {
+                item.BlobLink = GetBlobImage(item.ImageLink);
+            }
+
+            return articles;
+        }
 
 
     }
