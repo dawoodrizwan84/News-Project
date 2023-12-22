@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace _23._1News
 {
     public class Program
@@ -111,17 +112,22 @@ namespace _23._1News
 
             //builder.Services.AddScoped<IWeatherService, WeatherService>();
 
-
-            builder.Services.AddSingleton<IEmailConfiguration>(
+            
+               
+           
+          builder.Services.AddSingleton<IEmailConfiguration>(
                 builder.Configuration.GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>());
 
+
+                     
 
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 
             //Sessions for weekly newsletter in my pages
             builder.Services.AddSession();
+
 
             var app = builder.Build();
 

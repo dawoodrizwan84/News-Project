@@ -7,17 +7,16 @@
 
 
 
-<main>
+
     <div class="navbar navbar-expand" style="margin-top:50px">
         <partial name="_LoginPartial" />
     </div>
 
-    <h1>Add Category</h1>
-    <hr />
+    <h1 style="text-align:center;margin-bottom:10px">Add Category</h1>
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -25,6 +24,15 @@
                 <input asp-for="CategoryId" class="form-control" />
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.Name" class="control-label"></label>
+                    <input asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+
+               
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary mt-3" />
             </div>
@@ -36,5 +44,5 @@
     <a asp-action="Index">Back to List</a>
 </div>
     
-</main>
+
 

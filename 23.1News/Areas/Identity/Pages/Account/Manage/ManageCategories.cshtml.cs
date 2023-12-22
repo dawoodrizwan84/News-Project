@@ -18,8 +18,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
         private readonly ApplicationDbContext _applicationDbContext;
 
 
-        public ManageCategoriesModel(ICategoryService categoryService, UserManager<User> userManager,
-                    ApplicationDbContext applicationDbContext)
+
+        public ManageCategoriesModel(ICategoryService categoryService,
+            UserManager<User> userManager, ApplicationDbContext applicationDbContext)
         {
             _categoryService = categoryService;
             _userManager = userManager;
@@ -32,10 +33,9 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
         public List<Category> Categories { get; set; }
 
-        //public Category category { get; set; }
+        public List<User> Users { get; set; }
 
-
-
+        public Category category { get; set; }
 
 
         public async Task<IActionResult> OnGet()
@@ -55,14 +55,24 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
             user!.UserCategories = user.UserCategories ?? new List<Category>();
 
-            var choosenCate = user.UserCategories.ToList();
-            //TempData["success"] = Categories;
+            var que = user.UserCategories
+                .Where(wh => wh.Name == wh.Name).ToList();
+
+            var que2 = que;
+            TempData["data"] = que2;
+
+            //var choosenCate = user.UserCategories.ToList();
+            //var slect = user.UserCategories.Where(user => choosenCate.Any());
+
+            //ViewData["selected"] = select;
+            //TempData.Keep("selected");
+
+          
 
 
             return Page();
 
         }
-
 
 
         public async Task<IActionResult> OnPost()
@@ -97,10 +107,11 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                     return await OnGet();
                 }
 
+                
                 user.ReceiveNewsletters = true;
 
                 // Update the user
-                //await _userManager.UpdateAsync(user);
+              
 
                 HttpContext.Session.SetString("SelectedCategoryName", selectedCategory.Name);
             }
@@ -111,9 +122,19 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                 return await OnGet();
             }
 
+            //user.UserCategories.Remove(selectedCategory);
+            await _userManager.UpdateAsync(user);
+
             // Handle successful case or redirect as needed
-            return RedirectToPage("/SuccessPage");
+            return RedirectToPage(OnGet);
         }
 
     }
+
+  
+
+
+
+
+
 }

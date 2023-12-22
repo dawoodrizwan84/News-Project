@@ -23,6 +23,8 @@ namespace _23._1News.Data
 
         public DbSet<Category> Categories { get; set; }
 
+        
+
         //public DbSet<Employee> Employees { get; set; }
 
 

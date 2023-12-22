@@ -13,6 +13,7 @@ namespace _23._1News.Services.Abstract
 
         Category GetCategotyById(int id);
 
+       
 
     }
 }
