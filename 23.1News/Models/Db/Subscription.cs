@@ -12,7 +12,7 @@ namespace _23._1News.Models.Db
         public DateTime Created { get; set; }
         public bool IsActive { get; set; }
         public bool PaymentComplete { get; set; }
-        public string? WeekLabel { get; set; }   
+        public string WeekLabel { get; set; }   
         public int SubscriberCount { get; set; }    
 
         //public User User { get; set; }
@@ -23,5 +23,6 @@ namespace _23._1News.Models.Db
 
         [NotMapped] // Add this attribute to exclude the property from being mapped to the database
         public ICollection<WeeklySubscriptionData> WeeklyData { get; set; }
+        //public DateTime ExpiryDate { get; set; }
     }
 }

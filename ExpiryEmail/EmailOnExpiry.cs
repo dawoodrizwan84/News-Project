@@ -24,7 +24,7 @@ namespace SubscriptionExpiryEmail
         }
 
         [FunctionName("EmailOnExpiry")]
-        public void Run([QueueTrigger("newsletterqueue", Connection = "AzureWebJobsStorage")]User user
+        public void Run([QueueTrigger("expirequeue", Connection = "AzureWebJobsStorage")]User user
             , ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed: {user.Email}");
@@ -34,7 +34,7 @@ namespace SubscriptionExpiryEmail
                 .AddJsonFile("local.settings.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
-
+                
             try
             {
                 var message = new MimeMessage();
