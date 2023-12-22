@@ -17,9 +17,9 @@ html {
 }
 
 
-body {
+/*body {
     margin-bottom: 100px;
-}
+}*/
 
 .header-top {
     margin-top: 20px;
@@ -75,14 +75,6 @@ a:link {
     bottom: 0;
     position: absolute;
     width:100%;
-    /* left: 0px;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    display: block;
-    position: absolute;
-    text-align: center;
-    justify-content: center;*/
 }
 
 #hover002:hover {
