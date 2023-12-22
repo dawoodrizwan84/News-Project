@@ -27,7 +27,7 @@ namespace NewsLetterToQueue
         }
 
         [Function("MessageToQueue")]
-        public void Run([TimerTrigger("0 00 12 * * 5")] MyInfo myTimer)
+        public void Run([TimerTrigger("0 00 12 * * 5", RunOnStartup = true)] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -43,7 +43,10 @@ namespace NewsLetterToQueue
 
 
             List<User> NewsLetterUsers = _applicationDbContext.Users
-                .Include(x => x.UserCategories).ToList();
+            .Include(user => user.UserCategories)
+            .Where(user => user.UserCategories.Count > 0)
+            .ToList();
+
             //.Where(user => user.Id == "4a86219b-fd36-4d25-b0b3-634855bb1c38").ToList();
 
 
@@ -54,16 +57,12 @@ namespace NewsLetterToQueue
                 try
                 {
 
-                    User queueUser = new User();
-                    queueUser.FirstName = user.FirstName;
-                    queueUser.LastName = user.LastName;
-                    queueUser.Email = user.Email;
-
                     //User queueUser = new User();
                     //queueUser.FirstName = user.FirstName;
                     //queueUser.LastName = user.LastName;
                     //queueUser.Email = user.Email;
-                    //queueUser.UserCategories = _applicationDbContext.Categories
+
+                    //user.UserCategories = _applicationDbContext.Categories
                     //    .Where(category => category.CategoryUsers.Any(user => user.Id == user.Id))
                     //     .ToList();
 
@@ -74,7 +73,7 @@ namespace NewsLetterToQueue
 
                     //Category selectCategory = _applicationDbContext.Categories
                     //        .FirstOrDefault(c => c.CategoryId == user.SelectedCategoryId);
-                        
+
 
 
                     queueClient.SendMessage(JsonConvert.SerializeObject(user, new JsonSerializerSettings

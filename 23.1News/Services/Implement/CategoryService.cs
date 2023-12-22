@@ -2,6 +2,7 @@
 using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
 using Azure.Storage.Blobs.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace _23._1News.Services.Implement
 {
@@ -66,6 +67,11 @@ namespace _23._1News.Services.Implement
                 return false;
             }
         }
+
+      
+
+
+
 
     }
 }

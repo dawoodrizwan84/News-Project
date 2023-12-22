@@ -1,11 +1,15 @@
 ﻿@page
 @model _23._1News.Areas.Identity.Pages.Account.Manage.ManageCategoriesModel
+
 @using _23._1News.Models.Db
 
 @{
     ViewData["Title"] = "Manage Categories";
     // var cate = TempData["success"];
-    
+
+    var ok = TempData["data"];
+          
+
 
 }
 
@@ -13,12 +17,11 @@
 
 
 <p>Choosen: </p>
-@* <ul>
-    <li>
-        @cate
-      
-    </li>
-</ul> *@
+
+    
+
+
+
 
 
 
@@ -31,11 +34,12 @@
         {
             <div>
                 <input type="radio" name="SelectCategoryId" value="@category.CategoryId" id="@($"category_{category.CategoryId}")">
-                <label for="@($"category_{category.CategoryId}")">@category.CategoryId</label>
+                <label for="@($"category_{category.CategoryId}")">@category.Name</label>
+
+              
                
            </div>
-      
-           
+                
 
         }
       
@@ -43,7 +47,9 @@
     </div>
     <br>
     <div>
+       
         <input type="submit" class="btn btn-primary" value="Submit">
+        
         
     </div>
 </form>
