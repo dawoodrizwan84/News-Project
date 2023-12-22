@@ -67,7 +67,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             //ViewData["selected"] = select;
             //TempData.Keep("selected");
 
-            //TempData["success"] = Categories;
+          
 
 
             return Page();
