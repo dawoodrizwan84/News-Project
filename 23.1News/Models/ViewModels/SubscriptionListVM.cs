@@ -11,5 +11,5 @@ public class SubscriptionListVM
     public string SubscriptionTypeName { get; set; }
     public bool IsActive { get; set; }
     public bool PaymentComplete { get; set; }
-    public string UserEmail { get; set; }
+    public string? UserId { get; set; }
 }

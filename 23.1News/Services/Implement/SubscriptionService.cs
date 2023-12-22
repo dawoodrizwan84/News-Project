@@ -45,7 +45,7 @@ namespace _23._1News.Services.Implement
                     SubscriptionTypeName = sub.SubscriptionType.TypeName,
                     IsActive = sub.IsActive,
                     PaymentComplete = sub.PaymentComplete,
-                    UserEmail = sub.User.Email
+                    UserId = sub.UserId
                 })
                 .ToList();
 
@@ -275,8 +275,8 @@ namespace _23._1News.Services.Implement
             try
             {
                 var userSubscription = GetActiveSubscriptionByUserId(userId);
-
                 // Assuming there is a property like SubscriptionType in your Subscription model
+
                 return userSubscription?.SubscriptionType?.TypeName.ToLower() == "enterprise";
             }
             catch (Exception)

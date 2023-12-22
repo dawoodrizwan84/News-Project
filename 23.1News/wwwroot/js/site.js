@@ -3,10 +3,12 @@
         "scrollY": "1000px",
         "scrollCollapse": true,
         "paging": true,
-        "order": [[0, "desc"]]
+        "order": [[0, "desc"]],
+        "searching": false
 
     });
 });
+
 
 function MoreNewsArticles(count) {
     $.ajax({

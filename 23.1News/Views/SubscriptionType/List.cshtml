@@ -7,61 +7,51 @@
 
 
 
-<main>
+
     <div class="navbar navbar-expand" style="margin-top:50px">
         <partial name="_LoginPartial" />
     </div>
 
-    <h1>SubscriptionType List</h1>
+    <h1 style="text-align:center;margin-bottom:10px">SubscriptionType List</h1>
 
-<div class="table-responsive small">
-    <table class="table" id="myTable">
-        <thead>
+<table class="table table-bordered table-hover table-striped table-light">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>TypeName</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TypeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    Action
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" style="width:30%">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="width:30%">Details</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" style="width:30%">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" style="color:#2fa4e7">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id" style="color:#2fa4e7">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id" style="color:#2fa4e7">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
 
-</main>
+
+
+
 
 
