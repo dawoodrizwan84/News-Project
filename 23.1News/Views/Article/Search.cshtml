@@ -5,20 +5,7 @@
 }
 
 
-@if (User.IsInRole("Editor"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Editor Page</a>
-    </p>
-}
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-controller="Admin" asp-action="Index" class="btn btn-primary m-2">Back to Admin Page</a>
-    </p>
-
-}
 
 <section class="section">
     <div>
@@ -26,6 +13,20 @@
             <div class="content">
                 <div class="row gx-5">
                     <div class="col-xl-8 col-lg-7 col-md-12">
+                        @if (User.IsInRole("Editor"))
+                        {
+                            <p>
+                                <a asp-controller="Admin" asp-action="Index" class="btn btn-primary mt-5">Back to Editor Page</a>
+                            </p>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <p>
+                                <a asp-controller="Admin" asp-action="Index" class="btn btn-primary mt-5">Back to Admin Page</a>
+                            </p>
+
+                        }
                         <div class="text-center">
                             <h1 class="display-4"><strong>Search results</strong></h1>
                             <br />
