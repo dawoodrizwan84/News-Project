@@ -30,12 +30,12 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public int SelectCategoryId { get; set; }
 
-
+        [BindProperty]
         public List<Category> Categories { get; set; }
 
-        public List<User> Users { get; set; }
+        //public List<User> Users { get; set; }
 
-        public Category category { get; set; }
+        //public Category category { get; set; }
 
 
         public async Task<IActionResult> OnGet()
@@ -67,7 +67,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             //ViewData["selected"] = select;
             //TempData.Keep("selected");
 
-          
+
 
 
             return Page();
@@ -79,7 +79,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
         {
             if (SelectCategoryId == 0)
             {
-                // Handle the case if no category is selected
+
                 ModelState.AddModelError(string.Empty, "Please select a category.");
                 return await OnGet();
             }
@@ -94,24 +94,25 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
             var Categories = _categoryService.GetAllCategories() ?? new List<Category>();
             var selectedCategory = Categories?.FirstOrDefault(c => c.CategoryId == SelectCategoryId);
 
+
             if (selectedCategory != null)
             {
                 user.UserCategories = user.UserCategories ?? new List<Category>();
 
-                // Check if the user already has the selected category
                 user.UserCategories.Add(selectedCategory);
 
-                if (user.UserCategories.Any(c => c.CategoryId == selectedCategory.CategoryId))
+                var existingRelationship = _applicationDbContext.Users
+                .Any(u => u.Id == user.Id && u.UserCategories
+                .Any(uc => uc.CategoryId == selectedCategory.CategoryId));
+
+                if (existingRelationship)
                 {
                     ModelState.AddModelError(string.Empty, "Selected category already chosen.");
+                    // Handle the case where the category is already chosen, e.g., return a view or perform other actions.
                     return await OnGet();
                 }
 
-                
-                user.ReceiveNewsletters = true;
 
-                // Update the user
-              
 
                 HttpContext.Session.SetString("SelectedCategoryName", selectedCategory.Name);
             }
@@ -122,6 +123,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
                 return await OnGet();
             }
 
+
             //user.UserCategories.Remove(selectedCategory);
             await _userManager.UpdateAsync(user);
 
@@ -131,7 +133,7 @@ namespace _23._1News.Areas.Identity.Pages.Account.Manage
 
     }
 
-  
+
 
 
 
