@@ -34,7 +34,7 @@ namespace SubscriptionExpiryEmail
                 .AddJsonFile("local.settings.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
-
+                
             try
             {
                 var message = new MimeMessage();
