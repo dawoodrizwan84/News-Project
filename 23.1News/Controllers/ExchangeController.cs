@@ -16,7 +16,8 @@ namespace _23._1News.Controllers
             _subscriptionService = subscriptionService;
         }
 
-        [Route("lr")]
+       
+     
         public async Task<IActionResult> LatestRates()
         {
             // Get the user ID of the logged-in user
@@ -31,6 +32,15 @@ namespace _23._1News.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [Route("nr")]
+        public async Task<IActionResult> NewRates() 
+        {
+            var newR = await _exchangeRatesService.GetRateAsync(); 
+            var filter = newR.Rates.Take(10).Distinct().ToList();
+           
+            return View(filter);
+        }
 
     }
 }
