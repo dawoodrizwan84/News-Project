@@ -100,7 +100,7 @@ namespace _23._1News
             });
 
 
-            builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServicve>();
+            builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServices>();
             builder.Services.AddHttpClient("dailyPrices", config =>
             {
                 config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
