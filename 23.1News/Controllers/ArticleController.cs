@@ -366,12 +366,9 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("arc")]
-
+        
         public IActionResult ArchivedNews()
-
         {
-
             var archives = _articleService.GetArchiveNews();
 
             return View(archives);

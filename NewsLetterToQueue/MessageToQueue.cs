@@ -27,7 +27,7 @@ namespace NewsLetterToQueue
         }
 
         [Function("MessageToQueue")]
-        public void Run([TimerTrigger("0 00 12 * * 5", RunOnStartup = true)] MyInfo myTimer)
+        public void Run([TimerTrigger("0 00 12 * * 5")] MyInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 

@@ -122,7 +122,7 @@ namespace _23._1News.Services.Implement
                 item.BlobLink = GetBlobImage(item.ImageLink);
             }
 
-          
+
             var searchResults = Articles
                 .Where(article =>
 
@@ -130,12 +130,12 @@ namespace _23._1News.Services.Implement
                     article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                    (datestamp != null && article.DateStamp.Date == datestamp) 
+                    (datestamp != null && article.DateStamp.Date == datestamp)
 
                     )
                   .ToList();
 
-           
+
             return searchResults;
         }
 
@@ -251,7 +251,7 @@ namespace _23._1News.Services.Implement
 
         //public List<Article> GetArchiveNews()
         //{
-        //    var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
+        //    var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Today
         //                                .AddDays(-30)).ToList();
 
         //    foreach (var item in archiveNews)
@@ -259,24 +259,26 @@ namespace _23._1News.Services.Implement
         //        item.Archived = true;
         //    }
 
+
         //    _db.SaveChanges();
         //    return archiveNews;
         //}
 
 
-        //[Authorize("Admin")]
+        [Authorize("Admin")]
         public List<Article> GetArchiveNews()
         {
             var thirtyDaysAgo = DateTime.Today.AddDays(-30);
 
             var archiveNews = _db.Articles
-                .Where(a => a.DateStamp.Date <= thirtyDaysAgo && !a.Archived)
-                .ToList();
+             .Where(a => a.DateStamp.Date <= thirtyDaysAgo && !a.Archived)
+             .ToList();
 
             foreach (var item in archiveNews)
             {
                 item.Archived = true;
             }
+
 
             _db.SaveChanges();
             return archiveNews;

@@ -1,0 +1,29 @@
+﻿@model _23._1News.Models.Db.CurrencyPrice
+
+<h2>Currency Exchange Rates</h2>
+<h3>Base Currency = USD</h3>
+
+<hr />
+
+<table class="table table-bordered table-striped table-hover table-sm table-light">
+    <thead>
+        <tr>
+            <th>Date and Time</th>
+            <th>Currency</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var todaysRate in Model.TodaysRate)
+        {
+            foreach (var exchangeRate in todaysRate.ExchangeRates)
+            {
+                <tr>
+                    <td>@exchangeRate.DateAndTIme</td>
+                    <td>TODO: Add Currency Symbol</td>
+                    <td>@exchangeRate.Rates.Values.FirstOrDefault()</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
