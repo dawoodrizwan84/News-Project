@@ -126,39 +126,27 @@ namespace _23._1News.Services.Implement
         }
 
 
+        //public Subscription GetActiveSubscriptionByUser(string userId)
+        //{
+        //    // Retrieve the active subscription for the given user
+        //    var activeSubscription = _db.Subscriptions
+        //        .Where(s => s.User.Id == userId && s.IsActive)
+        //        .OrderByDescending(s => s.Created)
+        //        .FirstOrDefault();
+
+        //    return activeSubscription;
+        //}
+
         public Subscription GetActiveSubscriptionByUser(string userId)
         {
-            // Retrieve the active subscription for the given user
             var activeSubscription = _db.Subscriptions
-                .Where(s => s.User.Id == userId && s.IsActive)
+                .Include(s => s.User) 
+                .Where(s => s.User != null && s.User.Id == userId && s.IsActive)
                 .OrderByDescending(s => s.Created)
                 .FirstOrDefault();
 
             return activeSubscription;
         }
-
-        //public IEnumerable<Subscription> GetWeeklySubscriptionData()
-        //{
-        //    var weeklyData = _db.WeeklySubscriptionData.ToList();
-
-        //    var subscriptions = weeklyData.Select(weekly =>
-        //        new Subscription
-        //        {
-        //            // Map properties from WeeklySubscriptionData to Subscription
-        //            // For example:
-        //            // Id = weekly.Id,
-        //            // SubscriptionType = weekly.SubscriptionType,
-        //            // Price = weekly.Price,
-        //            // ...
-
-        //            // Assign properties specific to Subscription, adapt this to your needs
-        //            //WeekLabel = weekly.WeekLabel,
-        //            SubscriberCount = weekly.SubscriberCount,
-        //            // ...
-        //        });
-
-        //    return subscriptions;
-        //}
 
         public IEnumerable<Subscription> GetWeeklySubscriptionData()
         {
