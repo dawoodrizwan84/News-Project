@@ -1,4 +1,4 @@
-﻿@model IEnumerable<_23._1News.Models.Db.ExchangeHistoricalEntity>
+﻿@model IEnumerable<_23._1News.Models.Db.ExchangeRates>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
                 <tr>
                     <td>@item.Currency</td>
                     <td>@item.Rate</td>
-                    <td>@item.Timestamp</td>
+                    <td>@item.DateAndTime</td>
                     <!-- Add additional columns based on your ExchangeHistoricalEntity properties -->
                 </tr>
             }

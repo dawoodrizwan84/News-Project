@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace _23._1News.Models.Db
 {
-    public class ExchangeHistoricalEntity : ITableEntity
+    public class ExchangeRateEntity : ITableEntity
     {
         public string RowKey { get; set; } = string.Empty;
         public string PartitionKey { get; set; } = string.Empty;

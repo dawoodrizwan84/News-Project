@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.CodeAnalysis.CSharp;
+using _23._1News.Models.Db;
 
 namespace _23._1News.Controllers
 {
@@ -53,15 +54,12 @@ namespace _23._1News.Controllers
 
         
         [Route("gh")]
-        
-        public async Task<IActionResult> GetHistoricalData(DateTime startDate, DateTime endDate)
+
+        public async Task<ActionResult> GetHostorical()
         {
-          
-            
-                var data = await _exchangeRatesService.GetAllHistoricalData(startDate, endDate);
-                return Ok(new OkObjectResult(data));
-            
-          
+            var history = _exchangeRatesService.SaveExchangeRateData();
+            return View(history);
+
         }
 
     }

@@ -2,6 +2,7 @@
 using _23._1News.Services.Abstract;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.CodeAnalysis;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
@@ -33,31 +34,31 @@ namespace _23._1News.Services.Implement
         }
 
 
-        public async Task<List<ExchangeHistoricalEntity>> GetAllHistoricalData(DateTime startDate, DateTime endDate)
+        public void SaveExchangeRateData(Dictionary<string, decimal> exchangeRates, DateTime date)
         {
-            try
+            var connectionString = "AzureWebJobsStorage";
+            var tableName = "exchangeprices";
+
+            var storageAccount = CloudStorageAccount.Parse(connectionString);
+            var tableClient = storageAccount.CreateCloudTableClient();
+            var table = tableClient.GetTableReference(tableName);
+
+            foreach (var currency in exchangeRates.Keys)
             {
-                var result = new List<ExchangeHistoricalEntity>();
-                var table = _tableServiceClient.GetTableClient("exchangeprices");
-
-                var days = DateTime.UtcNow.AddDays(-7);
-
-                await foreach (var item in table.QueryAsync<ExchangeHistoricalEntity>())
+                var entity = new ExchangeRateEntity
                 {
-                    if (item.Timestamp.HasValue && item.Timestamp.Value.UtcDateTime >= startDate && item.Timestamp.Value.UtcDateTime <= days)
-                    {
-                        result.Add(item);
-                    }
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that occurred during the retrieve operation.
-                throw ex;
-            }
-        }
+                    PartitionKey = currency,
+                    RowKey = date.ToString("yyyyMMdd"),
+                    Currency = currency,
+                    Timestamp = DateTime.UtcNow,
 
+                };
+
+                var insertOrReplaceOperation = Microsoft.Azure.Cosmos.Table.TableOperation.InsertOrReplace((Microsoft.Azure.Cosmos.Table.ITableEntity)entity);
+                table.Execute(insertOrReplaceOperation);
+            }
+
+        }
     }
 }
 

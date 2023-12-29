@@ -11,11 +11,13 @@ namespace _23._1News.Models.Db
     public class ExchangeRates
     {
 
-        public DateTime DateAndTIme { get; set; } = DateTime.Now;
+        public DateTime DateAndTime { get; set; } = DateTime.Now;
 
         public string Base { get; set; }
 
         public Dictionary<string, decimal> Rates { get; set; }
+        public string Currency { get; set; }
+        public decimal Rate { get; set; }
 
 
     }
