@@ -125,9 +125,9 @@
 
 
                                     <div class="card col-md-11">
-                                        <img src="@item.BlobLink" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                <img src="@item.BlobLink" class="card-img-top" alt="...">
                                                 @*<h5 class="card-title">@item.LinkText</h5>*@
                                                 <h1 class="card-title mt-2">@item.Headline</h1>
                                                 <p class="card-text mb-2">@TempData["ContentSummary"]</p>
