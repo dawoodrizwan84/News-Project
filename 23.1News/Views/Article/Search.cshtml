@@ -29,7 +29,7 @@
                         }
                         <div class="text-center">
                             <h1 class="display-4"><strong>Search results</strong></h1>
-                            <br />
+                            <br/>
                             <div>
                                 @foreach (var item in Model)
                                 {
@@ -40,10 +40,10 @@
                                     }
 
                                     <div class="card col-md-11">
-                                        <img src="@item.BlobLink" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
                                                 @*<h5 class="card-title">@item.LinkText</h5>*@
+                                                <img src="@item.BlobLink" class="card-img-top" alt="...">
                                                 <h2 class="card-title mt-2">@item.Headline</h2>
                                                 <p class="card-text mt-2">@TempData["ContentSummary"]</p>
                                                 @*<p class="card-text">@item.Content</p>*@
@@ -51,6 +51,7 @@
                                         </div>
 
                                     </div>
+                                    <br/>
                                 }
                             </div>
                         </div>
