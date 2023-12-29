@@ -46,18 +46,23 @@ namespace CurrencyTable.Services
         public async Task SaveDataAsync(CurrencyRates todaysRates)
         {
 
-            //var queryRateEntities = todaysRates.Rates
-            //                     .SelectMany(s => s.Value)
-            //                    .Take(10)
-            //                    .Select((rate, index) => new TodaysRateEntity()
-            //                    {
-            //                        PartitionKey = rate.Key,
-            //                        RowKey = $"{rate.Key}_{index}",
+            var top10Currencies = new List<string> { "KWD", "BHD", "OMR", "JOD", "GIP", "GBP", "KYD", "CHF", "EUR", "USD" };
 
-            //                        Timestamp = DateTime.UtcNow
-            //                    })
-            //                    .ToList();
+            var top10Rates = new Dictionary<string, decimal>();
 
+            foreach (var currency in top10Currencies)
+            {
+
+                if (todaysRates.Rates.ContainsKey(currency))
+                {
+
+                    top10Rates.Add(currency, todaysRates.Rates[currency]);
+                }
+
+
+            }
+
+            // Create the table client
             TableClient tableClient = _tableServiceClient.GetTableClient(tableName: "exchangeprices");
             try
             {
@@ -69,28 +74,21 @@ namespace CurrencyTable.Services
 
                 Console.WriteLine($"Error: {ex.Message}");
             }
-
-
-
-            foreach (var (symbol, value) in todaysRates.Rates)
+                        
+            foreach (var (currency, rate) in top10Rates)
             {
-
-
-
-                var newEntity = new TodaysRateEntity()
+                var entity = new TodaysRateEntity()
                 {
-                    Currency = symbol,
-                    Rate = value,
+                    Currency = currency,
+                    Rate = rate,
                     Timestamp = DateTime.UtcNow,
-                    RowKey = /*DateTime.UtcNow + " " + symbol*/  $"{symbol}_{DateTime.UtcNow.Ticks}",
-                    PartitionKey = symbol
-
-
+                    RowKey = $"{currency}_{DateTime.UtcNow.Ticks}",
+                    PartitionKey = currency
                 };
 
                 try
                 {
-                    await tableClient.AddEntityAsync(newEntity);
+                    await tableClient.AddEntityAsync(entity);
 
                 }
                 catch (Exception ex)
@@ -98,18 +96,12 @@ namespace CurrencyTable.Services
 
                     Console.WriteLine($"Error adding entity: {ex.Message}");
                 }
-
-
-                var tableRows = tableClient.Query<TodaysRateEntity>().ToList();
             }
-
-
-
-
-
-
         }
 
 
     }
+
+
 }
+

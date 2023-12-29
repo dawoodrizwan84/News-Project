@@ -21,7 +21,7 @@ namespace _23._1News.Services.Implement
         {
             _configuration = configuration;
             _tableServiceClient = new TableServiceClient(_configuration["AzureWebJobsStorage"]);
-            _httpClient = httpClientFactory.CreateClient("exchangeprices");
+            //_httpClient = httpClientFactory.CreateClient("exchangeprices");
 
         }
 
