@@ -103,7 +103,7 @@ namespace _23._1News
             builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesServices>();
             builder.Services.AddHttpClient("dailyPrices", config =>
             {
-                config.BaseAddress = new(builder.Configuration["NewExchangeRateAPIAddress"]);
+                config.BaseAddress = new(builder.Configuration["ExchangeRateAPIAddress"]);
             });
 
 
@@ -142,7 +142,7 @@ namespace _23._1News
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

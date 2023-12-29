@@ -162,10 +162,9 @@ namespace _23._1News.Controllers
 
             //}
 
-             articleVM.ImageLink = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
+            articleVM.ImageLink = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
 
             _articleService.UploadImageFile(articleVM);
-
 
             var userId = _userManager.GetUserId(User);
 
@@ -366,7 +365,7 @@ namespace _23._1News.Controllers
         }
 
 
-        
+
         public IActionResult ArchivedNews()
         {
             var archives = _articleService.GetArchiveNews();
