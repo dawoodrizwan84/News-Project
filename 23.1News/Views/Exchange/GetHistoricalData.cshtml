@@ -1,0 +1,33 @@
+﻿@model IEnumerable<_23._1News.Models.Db.ExchangeHistoricalEntity>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Historical Data</title>
+</head>
+<body>
+    <h1>All Historical Data</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Rate</th>
+                <th>Timestamp</th>
+                <!-- Add additional columns based on your ExchangeHistoricalEntity properties -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Currency</td>
+                    <td>@item.Rate</td>
+                    <td>@item.Timestamp</td>
+                    <!-- Add additional columns based on your ExchangeHistoricalEntity properties -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
