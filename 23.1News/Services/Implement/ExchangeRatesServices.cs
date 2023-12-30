@@ -1,8 +1,13 @@
 ﻿using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis;
+
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,8 +26,8 @@ namespace _23._1News.Services.Implement
         {
             _configuration = configuration;
             _tableServiceClient = new TableServiceClient(_configuration["AzureWebJobsStorage"]);
+            _httpClient = httpClientFactory.CreateClient("dailyPrices");
             //_httpClient = httpClientFactory.CreateClient("exchangeprices");
-
         }
 
         public async Task<ExchangeRates> GetRateAsync()
