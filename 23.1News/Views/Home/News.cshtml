@@ -26,9 +26,10 @@
                                         <div class="card col-md-11" style="margin-bottom:20px;">
                                     <a asp-route-id="@item.Category.CategoryId"><h5 style="margin:10px;">@item.Category.Name</h5></a>
                                             <h2 class="mt-2">@item.Headline</h2>
-                                            <img src="@item.BlobLink" class="card-img-top" alt="...">
+                                           
                                             <div class="card-body">
                                                 <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                <img src="@item.BlobLink" class="card-img-top" alt="...">
                                                     @*<h5 class="card-title">@item.LinkText</h5>*@
 
                                                     <p class="card-text mt-2">@TempData["ContentSummary"]</p>

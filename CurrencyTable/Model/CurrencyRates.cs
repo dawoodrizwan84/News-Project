@@ -16,6 +16,7 @@ namespace CurrencyTable.Model
         public string Date { get; set; }
         public int time_last_updated { get; set; }
         public Dictionary<string, decimal> Rates { get; set; }
+
     }
 
 
