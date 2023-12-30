@@ -1,6 +1,5 @@
 ﻿using _23._1News.Models.Db;
 using _23._1News.Services.Abstract;
-using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -20,13 +19,7 @@ namespace _23._1News.Services.Implement
             _configuration = configuration;
             _httpClient = httpClientFactory.CreateClient("dailyPrices");
 
-            //Initialize the CouldTable with connection details
-            var cloudStorageAccount = Microsoft.Azure.Cosmos.Table.CloudStorageAccount.Parse(_configuration["AzureWebJobsStorage"]);
-            var tableClient = cloudStorageAccount.CreateCloudTableClient(new TableClientConfiguration());
-
-            //_table = tableClient.GetTableReference("exchangeprices");
-            _table.CreateIfNotExistsAsync();
-
+           
         }
 
         public async Task<ExchangeRates> GetRateAsync()
