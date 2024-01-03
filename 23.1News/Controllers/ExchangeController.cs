@@ -43,14 +43,14 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("nr")]
-        public async Task<IActionResult> NewRates()
-        {
-            var newR = await _exchangeRatesService.GetRateAsync();
+        //[Route("nr")]
+        //public async Task<IActionResult> NewRates()
+        //{
+        //    var newR = await _exchangeRatesService.GetRateAsync();
 
 
-            return View(newR);
-        }
+        //    return View(newR);
+        //}
 
 
         

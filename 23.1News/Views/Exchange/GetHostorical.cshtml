@@ -2,7 +2,7 @@
 
 <h2>Historical Data</h2>
 
-<table>
+@* <table>
     <thead>
         <tr>
             <th>Date and Time</th>
@@ -27,4 +27,56 @@
             }
         }
     </tbody>
-</table>
+</table> *@
+
+
+
+
+
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Create an array to hold the data
+            var data = [];
+
+            // Add column headers
+            data.push(['Currency', 'Rate']);
+            
+
+            // Add rows from the model data
+        @foreach (var group in Model.GroupBy(x => new {x.Currency, x.Timestamp }))
+        {
+            @foreach (var exchangeRate in group)
+            {
+                <text>data.push(['@exchangeRate.Currency', @exchangeRate.Rate]); </text>
+               
+            }
+        }
+
+                    // Convert the array to a DataTable
+                    var chartData = google.visualization.arrayToDataTable(data);
+
+            // Set chart options
+            var options = {
+                title: 'Exchange Rate Performance of last 48 Hours',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            // Create and draw the chart
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(chartData, options);
+        }
+    </script>
+</head>
+<body>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+</body>
+</html>
+
