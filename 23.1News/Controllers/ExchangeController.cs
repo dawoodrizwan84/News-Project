@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.CodeAnalysis.CSharp;
 using _23._1News.Models.Db;
+using Microsoft.Extensions.Logging;
 
 namespace _23._1News.Controllers
 {
@@ -55,10 +56,19 @@ namespace _23._1News.Controllers
         
         [Route("gh")]
 
-        public async Task<ActionResult> GetHostorical()
+        public async Task<ActionResult> GetHostorical(Dictionary<string, decimal> exchangeRates, DateTime date)
         {
-            var history = _exchangeRatesService.SaveExchangeRateData();
-            return View(history);
+            try
+            {
+                var data = await _exchangeRatesService.HistoricalData(exchangeRates, date);
+                return View(data);
+            }
+            catch (FormatException ex)
+            {
+                // Log the exception details for debugging
+                _logger.LogError(ex, "Error parsing connection string");
+                throw; // Rethrow the exception if needed
+            }
 
         }
 

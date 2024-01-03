@@ -3,7 +3,9 @@ using _23._1News.Services.Abstract;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Azure.Cosmos.Table;
+using Microsoft.Azure.Documents;
 using Microsoft.CodeAnalysis;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,17 +15,17 @@ namespace _23._1News.Services.Implement
     public class ExchangeRatesServices : IExchangeRatesService
     {
         private readonly IConfiguration _configuration;
-        private HttpClient _newHttpClient = new HttpClient();
-        TableServiceClient _tableServiceClient;
+        private readonly TableClient _tableClient;
         private readonly HttpClient _httpClient;
 
-        public ExchangeRatesServices(IConfiguration configuration,
-           IHttpClientFactory httpClientFactory)
+        public ExchangeRatesServices(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _configuration = configuration;
-            _tableServiceClient = new TableServiceClient(_configuration["AzureWebJobsStorage"]);
-            //_httpClient = httpClientFactory.CreateClient("exchangeprices");
 
+            var connectionString = _configuration["AzureWebJobsStorage"];
+            //var storageAccount = StorageAccount.Parse(connectionString);
+            _tableClient = new TableClient(connectionString, "exchangeprices");
+            _httpClient = httpClientFactory.CreateClient("exchangeprices");
         }
 
         public async Task<ExchangeRates> GetRateAsync()
@@ -34,33 +36,36 @@ namespace _23._1News.Services.Implement
         }
 
 
-        public void SaveExchangeRateData(Dictionary<string, decimal> exchangeRates, DateTime date)
+        public async Task<IEnumerable<ExchangeRateEntity>> HistoricalData(Dictionary<string, decimal> exchangeRates, DateTime date)
         {
-            var connectionString = "AzureWebJobsStorage";
-            var tableName = "exchangeprices";
+            //var connectionString = _configuration["AzureWebJobsStorage"];
+            //var tableName = "exchangeprices";
+            //var table = _tableClient.GetTableReference(tableName);
 
-            var storageAccount = CloudStorageAccount.Parse(connectionString);
-            var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference(tableName);
+            await _tableClient.CreateIfNotExistsAsync();
 
-            foreach (var currency in exchangeRates.Keys)
-            {
-                var entity = new ExchangeRateEntity
-                {
-                    PartitionKey = currency,
-                    RowKey = date.ToString("yyyyMMdd"),
-                    Currency = currency,
-                    Timestamp = DateTime.UtcNow,
+            var result = _tableClient.Query<ExchangeRateEntity>(filter: "Timestamp ge datetime'2024-01-01T00:00:00.000Z' and Timestamp le datetime'2024-01-01T23:59:59.000Z'");
+            return result;
 
-                };
+            //foreach (var currency in exchangeRates.Keys)
+            //{
+            //    var entity = new ExchangeRateEntity
+            //    {
+            //        PartitionKey = currency,
+            //        RowKey = $"{currency}_{date.Ticks}",
+            //        Currency = currency,
+            //        Timestamp = DateTime.UtcNow,
+            //    };
 
-                var insertOrReplaceOperation = Microsoft.Azure.Cosmos.Table.TableOperation.InsertOrReplace((Microsoft.Azure.Cosmos.Table.ITableEntity)entity);
-                table.Execute(insertOrReplaceOperation);
-            }
+            //    _tableClient.AddEntity(entity);
 
+            //    //var insertOrReplaceOperation = Microsoft.Azure.Cosmos.Table.TableOperation.InsertOrReplace((Microsoft.Azure.Cosmos.Table.ITableEntity)entity);
+            //    //await table.ExecuteAsync(insertOrReplaceOperation);
+            //}
         }
     }
-}
+    }
+
 
 
 
