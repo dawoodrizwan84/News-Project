@@ -1,0 +1,30 @@
+﻿@model IEnumerable<_23._1News.Models.Db.ExchangeRateEntity>
+
+<h2>Historical Data</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date and Time</th>
+            <th>Currency</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model.GroupBy(x => x.Currency))
+        {
+            <tr>
+                <td colspan="3">@group.Key</td>
+            </tr>
+            @foreach (var exchangeRate in group)
+            {
+                <tr>
+                    <td>@exchangeRate.Timestamp</td>
+
+                    <td>@exchangeRate.Currency</td>
+                    <td>@exchangeRate.Rate</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

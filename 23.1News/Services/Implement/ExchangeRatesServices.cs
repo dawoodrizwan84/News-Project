@@ -6,7 +6,13 @@ using Microsoft.WindowsAzure.Storage;
 
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Azure.Cosmos.Table;
+using Microsoft.Azure.Documents;
 using Microsoft.CodeAnalysis;
+
+using Microsoft.WindowsAzure.Storage;
+
+
 
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
@@ -17,17 +23,18 @@ namespace _23._1News.Services.Implement
     public class ExchangeRatesServices : IExchangeRatesService
     {
         private readonly IConfiguration _configuration;
-        private HttpClient _newHttpClient = new HttpClient();
-        TableServiceClient _tableServiceClient;
+        private readonly TableClient _tableClient;
         private readonly HttpClient _httpClient;
 
-        public ExchangeRatesServices(IConfiguration configuration,
-           IHttpClientFactory httpClientFactory)
+        public ExchangeRatesServices(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _configuration = configuration;
-            _tableServiceClient = new TableServiceClient(_configuration["AzureWebJobsStorage"]);
-            _httpClient = httpClientFactory.CreateClient("dailyPrices");
-            //_httpClient = httpClientFactory.CreateClient("exchangeprices");
+
+            var connectionString = _configuration["AzureWebJobsStorage"];
+            //var storageAccount = StorageAccount.Parse(connectionString);
+            _tableClient = new TableClient(connectionString, "exchangeprices");
+            _httpClient = httpClientFactory.CreateClient("exchangeprices");
+
         }
 
         public async Task<ExchangeRates> GetRateAsync()
@@ -38,33 +45,20 @@ namespace _23._1News.Services.Implement
         }
 
 
-        public async Task<List<ExchangeHistoricalEntity>> GetAllHistoricalData(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<ExchangeRateEntity>> HistoricalData(Dictionary<string, decimal> exchangeRates, DateTime date)
         {
-            try
-            {
-                var result = new List<ExchangeHistoricalEntity>();
-                var table = _tableServiceClient.GetTableClient("exchangeprices");
+            
 
-                var days = DateTime.UtcNow.AddDays(-7);
+            await _tableClient.CreateIfNotExistsAsync();
 
-                await foreach (var item in table.QueryAsync<ExchangeHistoricalEntity>())
-                {
-                    if (item.Timestamp.HasValue && item.Timestamp.Value.UtcDateTime >= startDate && item.Timestamp.Value.UtcDateTime <= days)
-                    {
-                        result.Add(item);
-                    }
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that occurred during the retrieve operation.
-                throw ex;
-            }
+            var result = _tableClient.Query<ExchangeRateEntity>(filter: "Timestamp ge datetime'2024-01-01T00:00:00.000Z' and Timestamp le datetime'2024-01-01T23:59:59.000Z'");
+            return result;
+
+          
         }
-
     }
-}
+    }
+
 
 
 
