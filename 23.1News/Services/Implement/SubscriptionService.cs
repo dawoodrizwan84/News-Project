@@ -125,18 +125,6 @@ namespace _23._1News.Services.Implement
             return _db.Subscriptions.Count(s => s.Created >= thirtyDaysAgo);
         }
 
-
-        //public Subscription GetActiveSubscriptionByUser(string userId)
-        //{
-        //    // Retrieve the active subscription for the given user
-        //    var activeSubscription = _db.Subscriptions
-        //        .Where(s => s.User.Id == userId && s.IsActive)
-        //        .OrderByDescending(s => s.Created)
-        //        .FirstOrDefault();
-
-        //    return activeSubscription;
-        //}
-
         public Subscription GetActiveSubscriptionByUser(string userId)
         {
             var activeSubscription = _db.Subscriptions
@@ -159,10 +147,10 @@ namespace _23._1News.Services.Implement
             var subscriptions = weeklyData.Select(weekly =>
                 new Subscription
                 {
-                    // Assign properties specific to Subscription, adapt this to your needs
+                    
                     WeekLabel = weekly.WeekLabel,
                     SubscriberCount = weekly.SubscriberCount,
-                    // ...
+                   
                 });
 
             return subscriptions;
@@ -178,8 +166,18 @@ namespace _23._1News.Services.Implement
             try
             {
                 var userSubscription = GetActiveSubscriptionByUserId(userId);
+            //.Where(s => s.UserId == userId && s.IsActive)
+            //.OrderByDescending(s => s.Created)
+            //.FirstOrDefault();
 
-                return userSubscription?.SubscriptionType?.TypeName.ToLower() == "enterprise";
+                if (userSubscription != null && userSubscription.SubscriptionType != null &&
+                    userSubscription.SubscriptionType.TypeName.ToLower() == "premium")
+                {
+                    return true; // User has an active enterprise subscription
+                }
+                //var userSubscription = GetActiveSubscriptionByUserId(userId);
+
+                return userSubscription?.SubscriptionType?.TypeName.ToLower() == "premium";
             }
             catch (Exception)
             {

@@ -289,7 +289,7 @@ namespace _23._1News.Controllers
             var currentUser = _userManager.GetUserAsync(User).Result;
             var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
 
-            // Ensure _subscriptionTypeService is injected and available
+            
             if (_subscriptionTypeService != null)
             {
                 var availableTypes = _subscriptionTypeService.GetSubscriptionTypesForUpgrade(activeSubscription?.SubscriptionTypeId);
@@ -314,48 +314,102 @@ namespace _23._1News.Controllers
         [Authorize]
         public async Task<IActionResult> UpgradeSubscription(int newSubscriptionTypeId)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            // Get the active subscription
-            var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
-
-            if (activeSubscription != null)
+            try
             {
-                // Check if the upgrade is valid
-                if (_subscriptionService.CanUpgradeSubscription(activeSubscription.SubscriptionTypeId, newSubscriptionTypeId))
+                var currentUser = await _userManager.GetUserAsync(User);
+
+                // Get the active subscription
+                var activeSubscription = _subscriptionService.GetActiveSubscriptionByUser(currentUser.Id);
+
+                if (activeSubscription != null)
                 {
-                    // Deactivate the current subscription
-                    activeSubscription.IsActive = false;
-                    _applicationDbContext.Subscriptions.Update(activeSubscription);
-                    await _applicationDbContext.SaveChangesAsync();
-
-                    // Create a new subscription with the specified type
-                    var newSubscription = new Subscription
+                    // Check if the upgrade is valid
+                    if (_subscriptionService.CanUpgradeSubscription(activeSubscription.SubscriptionTypeId, newSubscriptionTypeId))
                     {
-                        SubscriptionTypeId = newSubscriptionTypeId,
-                        User = currentUser,
-                        Created = DateTime.Now,
-                        Price = _applicationDbContext.SubscriptionTypes.Find(newSubscriptionTypeId)?.Price ?? 0,
-                        IsActive = true
-                    };
+                        // Deactivate the current subscription
+                        activeSubscription.IsActive = false;
+                        _applicationDbContext.Subscriptions.Update(activeSubscription);
+                        await _applicationDbContext.SaveChangesAsync();
 
-                    _applicationDbContext.Subscriptions.Add(newSubscription);
-                    await _applicationDbContext.SaveChangesAsync();
+                        // Create a new subscription with the specified type
+                        var newSubscription = new Subscription
+                        {
+                            SubscriptionTypeId = newSubscriptionTypeId,
+                            User = currentUser,
+                            Created = DateTime.Now,
+                            Price = _applicationDbContext.SubscriptionTypes.Find(newSubscriptionTypeId)?.Price ?? 0,
+                            IsActive = true
+                        };
 
-                    TempData["SuccessMessage"] = "Subscription upgraded successfully!";
+                        _applicationDbContext.Subscriptions.Add(newSubscription);
+                        await _applicationDbContext.SaveChangesAsync();
+
+                        TempData["SuccessMessage"] = "Subscription upgraded successfully!";
+
+                        // Send email notification
+                        SendSubscriptionUpgradeEmail(currentUser, activeSubscription, newSubscription);
+
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Invalid upgrade. Please try again.";
+                    }
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Invalid upgrade. Please try again.";
+                    TempData["ErrorMessage"] = "User does not have an active subscription.";
                 }
+
+                return RedirectToAction("MyPage");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error upgrading subscription");
+                TempData["ErrorMessage"] = "An error occurred while upgrading the subscription.";
+                return RedirectToAction("MyPage");
+            }
+        }
+
+        private void SendSubscriptionUpgradeEmail(User user, Subscription oldSubscription, Subscription newSubscription)
+        {
+           
+            EmailMessage upgradeEmail = new EmailMessage
+            {
+                FromAddress = new EmailAddress
+                {
+                    Address = "senderemailservice23.1@gmail.com",
+                    Name = "23.1News"
+                },
+                Subject = "Subscription Upgrade Notification"
+            };
+
+
+            string upgradeMessage = $"Hello {user?.FirstName},\n\n";
+
+            if (oldSubscription != null && newSubscription != null && oldSubscription.SubscriptionType != null && newSubscription.SubscriptionType != null)
+            {
+                upgradeMessage += $"Your subscription has been upgraded from {oldSubscription.SubscriptionType.TypeName} to {newSubscription.SubscriptionType.TypeName}.\n";
             }
             else
             {
-                TempData["ErrorMessage"] = "User does not have an active subscription.";
+                upgradeMessage += "Your subscription has been upgraded.\n";
             }
 
-            return RedirectToAction("MyPage");
+            upgradeMessage += "Thank you for choosing our services!";
+
+            upgradeEmail.Content = upgradeMessage;
+
+           
+            upgradeEmail.ToAddresses.Add(new EmailAddress
+            {
+                Address = user.Email,
+                Name = $"{user.FirstName} {user.LastName}"
+            });
+
+            
+            _emailHelper.SendEmail(upgradeEmail);
         }
+
 
 
         [Authorize]
