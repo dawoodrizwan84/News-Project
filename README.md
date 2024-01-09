@@ -7,7 +7,7 @@ Welcome to the ASP.NET Core News Website project!
 - **User Authentication:** Register, log in, and manage your user profile.
 - **Admin Panel:** Manage news articles, categories, and user roles.
 
-- ## Demo
+## Demo
 
 https://231news20231115124158.azurewebsites.net/
 
