@@ -15,6 +15,6 @@ https://231news20231115124158.azurewebsites.net/
 
 - ASP.NET Core
 - Entity Framework Core
-- Bootstrap (or any other front-end framework you used)
-- SQL Server (or the database system you used)
+- Bootstrap 
+- SQL Server 
 - Azure (for deployment and hosting)
